@@ -2,5 +2,43 @@
     <string name="app_name">AirA01c</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">Information</string>
+
+
+    <string name="faq_title_00">Names of Parts</string>
+    <string name="faq_question_00"> </string>
+    <string name="faq_answer_00"> </string>
+
+    <string name="faq_title_01">Charge Problem</string>
+    <string name="faq_question_01">Battery does not get charged.</string>
+    <string name="faq_answer_01">Please turn off the power of the Olympus Air before charging.</string>
+
+    <string name="faq_title_02">Blinking LED</string>
+    <string name="faq_question_02">LED is blinking (blue or green) when video is not being recorded.</string>
+    <string name="faq_answer_02">Battery is missing. Please charge.</string>
+
+    <string name="faq_title_03">LED flashing slowly</string>
+    <string name="faq_question_03">LED is flashing slowly in green.</string>
+    <string name="faq_answer_03">It is in the sleep mode. It will return to the sleep mode when any operation is performed. If left unattended, the power will automatically turn off.</string>
+
+    <string name="faq_title_04">System time setting</string>
+    <string name="faq_question_04">How do I set the clock on the Olympus Air?</string>
+    <string name="faq_answer_04">Please use this app.</string>
+
+    <string name="faq_title_05">Take pictures/videos problem</string>
+    <string name="faq_question_05">I cannot shoot sequentially or shoot videos.</string>
+    <string name="faq_answer_05">You can use sequential shooting or video shooting only when you have set the save destination set to the microSD card in the Olympus Air. Please set save destination to microSD card of the Olympus Air in the settings screen of a dedicated app.</string>
+
+    <string name="faq_title_06">Reset the network settings</string>
+    <string name="faq_question_06">I want to return the network settings to the state at the time of purchase (I forgot the network connection settings).</string>
+    <string name="faq_answer_06">Please operate the following with the power off and microSD card removed.\n\n 1. Push the power button briefly with the shutter button pressed all the way down and the lens release lever pulled all the way.\n\n 2. Once the power goed on, it will automatically turn off.\n\n 3. Again, turn the power on and you can use the network settings in the state at the time of purchase.</string>
+
+    <string name="faq_title_07">Reboot operation</string>
+    <string name="faq_question_07">Although the Olympus Air is on, the controls do not work.</string>
+    <string name="faq_answer_07">Please press down on the power button for about 8 seconds and the Olympus Air will reboot.</string>
+
+    <string name="faq_title_08">....</string>
+    <string name="faq_question_08">....</string>
+    <string name="faq_answer_08">....</string>
+
 </resources>
