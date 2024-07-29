@@ -1,0 +1,57 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:title="@string/pref_cat_application_control">
+        <PreferenceScreen
+            android:key="exit_application"
+            android:icon="@drawable/baseline_power_settings_new_24"
+            android:title="@string/pref_exit_power_off"
+            android:summary="@string/pref_summary_exit_power_off"
+            />
+        <PreferenceScreen
+            android:key="wifi_settings"
+            android:icon="@drawable/baseline_wifi_24"
+            android:title="@string/pref_wifi_settings"
+            android:summary="@string/pref_summary_wifi_settings" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/pref_cat_application_settings"
+        app:isPreferenceVisible="false"
+        >
+<!--
+        <PreferenceScreen
+            android:key="connection_method"
+            android:title="@string/pref_connection_method"
+            app:isPreferenceVisible="false"
+            android:summary="@string/pref_summary_connection_method" />
+-->
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/pref_cat_gokigen">
+        <Preference
+            android:key="instruction_link"
+            android:title="@string/pref_instruction_manual"
+            android:summary="https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/A01e/Readme.md"
+            android:selectable="true">
+            <intent android:action="android.intent.action.VIEW"
+                android:data="https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/A01e/Readme.md" />
+        </Preference>
+        <Preference
+            android:key="privacy_policy"
+            android:title="@string/pref_privacy_policy"
+            android:summary="https://github.com/MRSa/GokigenOSDN_documents/blob/main/PrivacyPolicy.md"
+            android:selectable="true">
+            <intent android:action="android.intent.action.VIEW"
+                android:data="https://github.com/MRSa/GokigenOSDN_documents/blob/main/PrivacyPolicy.md" />
+        </Preference>
+        <PreferenceScreen
+            android:key="debug_info"
+            android:title="@string/pref_degug_info"
+            android:summary="@string/pref_summary_debug_info" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

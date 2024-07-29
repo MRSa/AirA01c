@@ -5,6 +5,20 @@
     <string name="title_notifications">Information</string>
 
 
+    <string name="pref_cat_gokigen">GOKIGEN Project</string>
+    <string name="pref_instruction_manual">操作説明</string>
+    <string name="pref_privacy_policy">プライバシーポリシー</string>
+    <string name="pref_degug_info">デバッグ情報</string>
+    <string name="pref_summary_debug_info">LogCat情報を表示します。</string>
+
+    <string name="pref_cat_application_control">アプリ制御</string>
+    <string name="pref_exit_power_off">アプリ終了</string>
+    <string name="pref_summary_exit_power_off"> </string>
+    <string name="pref_wifi_settings">WiFi設定</string>
+    <string name="pref_summary_wifi_settings"> </string>
+
+    <string name="pref_cat_application_settings">アプリ設定</string>
+
 
     <!--- FAQ で記載されていた内容(の抽出) -->
     <string name="faq_title_00">各部の説明</string>

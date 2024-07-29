@@ -4,6 +4,19 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Information</string>
 
+    <string name="pref_cat_gokigen">GOKIGEN</string>
+    <string name="pref_instruction_manual">Instructions</string>
+    <string name="pref_privacy_policy">Privacy Policy</string>
+    <string name="pref_degug_info">Debug Information</string>
+    <string name="pref_summary_debug_info">LogCat Information</string>
+
+    <string name="pref_cat_application_control">App. Control</string>
+    <string name="pref_exit_power_off">Exit Application</string>
+    <string name="pref_summary_exit_power_off"> </string>
+    <string name="pref_wifi_settings">WIFI Settings</string>
+    <string name="pref_summary_wifi_settings"> </string>
+
+    <string name="pref_cat_application_settings">App. Settings</string>
 
     <string name="faq_title_00">Names of Parts</string>
     <string name="faq_question_00"> </string>
