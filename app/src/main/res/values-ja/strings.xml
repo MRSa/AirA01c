@@ -4,6 +4,16 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Information</string>
 
+    <string name="app_location">AirA01a</string>
+    <string name="action_refresh">更新</string>
+    <string name="finish_refresh">更新終了</string>
+    <string name="dialog_positive_execute">OK</string>
+    <string name="dialog_negative_cancel">Cancel</string>
+    <string name="take_photo">撮影</string>
+    <string name="permission_not_granted">許可が得られませんでしたので終了します</string>
+    <string name="capture_success">撮影しました : </string>
+    <string name="dialog_confirm_title_output_log">ログの共有</string>
+    <string name="dialog_confirm_message_output_log">ログを共有します。</string>
 
     <string name="pref_cat_gokigen">GOKIGEN Project</string>
     <string name="pref_instruction_manual">操作説明</string>
@@ -18,6 +28,38 @@
     <string name="pref_summary_wifi_settings"> </string>
 
     <string name="pref_cat_application_settings">アプリ設定</string>
+
+    <string name="connect_start">開始</string>
+    <string name="connect_check_wifi">WIFI確認中</string>
+    <string name="connect_connect">接続</string>
+    <string name="connect_connecting">接続中&#8230;</string>
+    <string name="connect_connected">接続完了</string>
+    <string name="connect_connect_finished">接続完了.</string>
+    <string name="connect_change_run_mode">モード変更</string>
+    <string name="connect_restore_camera_settings">カメラ設定調整</string>
+    <string name="connect_camera_detected">カメラ発見</string>
+    <string name="connect_camera_search_request">カメラ検索</string>
+    <string name="connect_camera_found">カメラ発見</string>
+    <string name="connect_camera_wait_reply">カメラ応答待ち</string>
+    <string name="connect_camera_received_reply">カメラ応答受信</string>
+    <string name="connect_camera_rejected">カメラ接続拒否</string>
+    <string name="connect_receive_unknown_message">未定義メッセージを受信</string>
+
+    <string name="dialog_title_exit_application">アプリケーション終了</string>
+    <string name="dialog_message_exit_application">アプリケーションを終了します。</string>
+
+    <string name="camera_not_found">カメラが見つかりませんでした&#8230;</string>
+    <string name="camera_connect_response_ng">カメラに接続できませんでした。</string>
+
+    <string name="dialog_title_connect_failed">接続失敗</string>
+    <string name="dialog_button_retry">再試行</string>
+    <string name="dialog_button_network_settings">WiFi設定</string>
+
+    <string name="dialog_title_confirmation">確認</string>
+    <string name="dialog_message_power_off">カメラの電源を切り、アプリケーションを終了します。</string>
+    <string name="dialog_message_exit">アプリケーションを終了します。</string>
+
+    <string name="command_line_disconnected">カメラ制御用の回線が切断されました。</string>
 
 
     <!--- FAQ で記載されていた内容(の抽出) -->

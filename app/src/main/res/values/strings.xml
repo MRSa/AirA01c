@@ -4,6 +4,17 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Information</string>
 
+    <string name="app_location">AirA01a</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="finish_refresh">Finish refresh.</string>
+    <string name="dialog_positive_execute">OK</string>
+    <string name="dialog_negative_cancel">Cancel</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="permission_not_granted">Permissions not granted by the user.</string>
+    <string name="capture_success">Photo capture succeeded: </string>
+    <string name="dialog_confirm_title_output_log">Share debug log</string>
+    <string name="dialog_confirm_message_output_log">Share the debug log, OK?</string>
+
     <string name="pref_cat_gokigen">GOKIGEN</string>
     <string name="pref_instruction_manual">Instructions</string>
     <string name="pref_privacy_policy">Privacy Policy</string>
@@ -17,6 +28,39 @@
     <string name="pref_summary_wifi_settings"> </string>
 
     <string name="pref_cat_application_settings">App. Settings</string>
+
+    <string name="camera_not_found">Not Found&#8230;</string>
+    <string name="camera_connect_response_ng">Camera replies NG.</string>
+    <string name="connect_camera_rejected">Camera rejected.</string>
+
+    <string name="connect_start">start</string>
+    <string name="connect_check_wifi">check WIFI</string>
+    <string name="connect_connect">connecting</string>
+    <string name="connect_connecting">connecting&#8230;</string>
+    <string name="connect_connected">connected</string>
+    <string name="connect_connect_finished">connect finished.</string>
+    <string name="connect_change_run_mode">changeRunMode</string>
+    <string name="connect_restore_camera_settings">restoreCameraSettings</string>
+    <string name="connect_camera_detected">Detected a camera</string>
+    <string name="connect_camera_search_request">Camera Search</string>
+    <string name="connect_camera_found">Found a camera</string>
+    <string name="connect_camera_wait_reply">Wait reply from a camera</string>
+    <string name="connect_camera_received_reply">Received reply from a camera</string>
+    <string name="connect_receive_unknown_message">Received a unknown message.</string>
+
+    <string name="dialog_title_exit_application">Exit Application</string>
+    <string name="dialog_message_exit_application">Exit Application</string>
+
+    <string name="dialog_title_connect_failed">Connect failed.</string>
+    <string name="dialog_button_retry">Retry</string>
+    <string name="dialog_button_network_settings">WiFi Settings</string>
+
+    <string name="dialog_title_confirmation">Confirmation</string>
+    <string name="dialog_message_power_off">Power Off</string>
+    <string name="dialog_message_exit">Exit Application</string>
+
+
+    <string name="command_line_disconnected">Camera control line is disconnected.</string>
 
     <string name="faq_title_00">Names of Parts</string>
     <string name="faq_question_00"> </string>
