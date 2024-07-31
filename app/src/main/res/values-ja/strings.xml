@@ -2,7 +2,7 @@
     <string name="app_name">AirA01c</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Information</string>
+    <string name="title_tips">こんな時は？</string>
 
     <string name="app_location">AirA01a</string>
     <string name="action_refresh">更新</string>
@@ -65,7 +65,7 @@
     <!--- FAQ で記載されていた内容(の抽出) -->
     <string name="faq_title_00">各部の説明</string>
     <string name="faq_question_00"> </string>
-    <string name="faq_answer_00"> </string>
+    <string name="faq_answer_00">以下に各部の名称を示します。</string>
 
     <string name="faq_title_01">充電ができない</string>
     <string name="faq_question_01">充電ができない。</string>
@@ -87,16 +87,20 @@
     <string name="faq_question_05">連写や動画が撮影できない。</string>
     <string name="faq_answer_05">記録場所がmicroSDでない場合には連写や動画が撮影できませんので、アプリの設定画面で記録場所を確認してください。</string>
 
-    <string name="faq_title_06">ネットワーク設定の初期化</string>
-    <string name="faq_question_06">ネットワーク設定を購入時の状態に戻したい（ネットワーク接続設定を忘れてしまった）。</string>
-    <string name="faq_answer_06">microSDカードを取り外し、電源オフ状態で以下を行います。\n\n 1. レンズ取り外しレバーを最後まで引きながらシャッターボタンを最後まで押しながら、電源ボタンを短く押します。\n\n 2. 電源オンしたあと、自動で電源が切れます。\n\n 3. 再度電源をオンにすると、ネットワーク設定が購入時の状態に戻ります。 </string>
+    <string name="faq_title_06">WiFiの設定</string>
+    <string name="faq_question_06">WiFiの設定はどこにありますか？</string>
+    <string name="faq_answer_06">OLYMPUS AIRの裏蓋を開けたところに、無線発信のON/OFFができる物理スイッチとともに記載があります。</string>
 
-    <string name="faq_title_07">再起動</string>
-    <string name="faq_question_07">OLYMPUS AIRの電源がオン状態なのに操作を受け付けない。</string>
-    <string name="faq_answer_07">電源ボタンを長押し（約8秒）してください。OLYMPUS AIRが再起動します。</string>
+    <string name="faq_title_07">ネットワーク設定の初期化</string>
+    <string name="faq_question_07">ネットワーク設定を購入時の状態に戻したい（ネットワーク接続設定を忘れてしまった）。</string>
+    <string name="faq_answer_07">microSDカードを取り外し、電源オフ状態で以下を行います。\n\n 1. レンズ取り外しレバーを最後まで引きながらシャッターボタンを最後まで押しながら、電源ボタンを短く押します。\n\n 2. 電源オンしたあと、自動で電源が切れます。\n\n 3. 再度電源をオンにすると、ネットワーク設定が購入時の状態に戻ります。 </string>
 
-    <string name="faq_title_08">....</string>
-    <string name="faq_question_08">....</string>
-    <string name="faq_answer_08">....</string>
+    <string name="faq_title_08">再起動</string>
+    <string name="faq_question_08">OLYMPUS AIRの電源がオン状態なのに操作を受け付けない。</string>
+    <string name="faq_answer_08">電源ボタンを長押し（約8秒）してください。OLYMPUS AIRが再起動します。</string>
+
+    <string name="faq_title_09">....</string>
+    <string name="faq_question_09">....</string>
+    <string name="faq_answer_09">....</string>
 
 </resources>

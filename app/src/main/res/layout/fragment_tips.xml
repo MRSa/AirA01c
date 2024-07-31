@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="top"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true">
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/tips_title_selection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="4dp"
+        android:layout_weight="1"
+        android:textSize="20sp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tips_question"
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="12dp"
+        android:textSize="14sp"
+        android:text="@string/faq_question_00"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tips_answer"
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="2dp"
+        android:textSize="14sp"
+        android:text="@string/faq_answer_00"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/tips_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="4"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/title_tips"
+        android:src="@drawable/air03"
+        />
+</androidx.appcompat.widget.LinearLayoutCompat>

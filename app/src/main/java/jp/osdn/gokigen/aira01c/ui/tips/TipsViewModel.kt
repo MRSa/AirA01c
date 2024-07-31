@@ -1,13 +1,13 @@
-package jp.osdn.gokigen.aira01c.ui.notifications
+package jp.osdn.gokigen.aira01c.ui.tips
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class NotificationsViewModel : ViewModel() {
+class TipsViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+        value = "This is Tips Fragment"
     }
     val text: LiveData<String> = _text
 }
