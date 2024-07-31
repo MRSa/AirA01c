@@ -13,7 +13,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import jp.osdn.gokigen.aira01c.R
 
-
 class TipsFragment : Fragment()
 {
 
@@ -91,7 +90,7 @@ class TipsFragment : Fragment()
                                 5 -> {
                                     question.setText(R.string.faq_question_05)
                                     answer.setText(R.string.faq_answer_05)
-                                    image.setImageResource(R.drawable.air01)
+                                    image.setImageResource(R.drawable.air08)
                                 }
                                 6 -> {
                                     question.setText(R.string.faq_question_06)
