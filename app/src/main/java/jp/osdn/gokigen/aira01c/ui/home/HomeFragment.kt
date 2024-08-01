@@ -19,7 +19,6 @@ class HomeFragment : Fragment()
     // onDestroyView.
     private val binding get() = _binding!!
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,11 +33,23 @@ class HomeFragment : Fragment()
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
+        textView.text = getString(R.string.initial_message)
+
         return root
+    }
 
 
+    override fun onResume()
+    {
+        super.onResume()
 
-       // val root: View = inflater.inflate(R.layout.fragment_home, container, false)
-       // return root
+        val textView: TextView = binding.textHome
+        textView.text = getString(R.string.initial_message)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
