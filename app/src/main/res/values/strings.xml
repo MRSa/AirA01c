@@ -102,4 +102,14 @@
     <string name="faq_question_09">....</string>
     <string name="faq_answer_09">....</string>
 
+    <string name="initial_message">Please connect to the Olympus Air via Wi-Fi.</string>
+    <string name="lbl_connect">Connect</string>
+    <string name="lbl_disconnect">Disconnect</string>
+    <string name="lbl_wifi_set">Wi-Fi Setting</string>
+    <string name="lbl_ip_address">IP Address :</string>
+
+    <string name="lbl_sync_time">Time Sync</string>
+    <string name="lbl_format">Format Card</string>
+    <string name="lbl_reset_mode">Mode Reset</string>
+
 </resources>
