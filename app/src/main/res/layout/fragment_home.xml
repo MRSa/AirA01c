@@ -180,7 +180,7 @@
             android:layout_marginLeft="4dp"
             android:layout_gravity="center_horizontal"
             android:enabled="false"
-            android:text="@string/lbl_refresh" />
+            android:text="@string/lbl_update_status" />
 
 
 

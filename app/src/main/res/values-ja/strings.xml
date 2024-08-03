@@ -104,6 +104,7 @@
     <string name="faq_answer_09">....</string>
 
     <string name="initial_message">WiFiでOLYMPUS AIRに接続してください。</string>
+    <string name="connecting_message">OLYMPUS AIRに接続中です。</string>
     <string name="connection_error_message">OLYMPUS AIRへの接続に失敗しました。再試行してください。</string>
     <string name="connected_message">OLYMPUS AIRに接続しました。コマンドが送信可能です。</string>
     <string name="lbl_connect">接続</string>
@@ -115,5 +116,5 @@
     <string name="lbl_format">フォーマット</string>
     <string name="lbl_reset_mode">モード初期化</string>
     <string name="lbl_refresh">更新</string>
-
+    <string name="lbl_update_status">ステータス更新</string>
 </resources>

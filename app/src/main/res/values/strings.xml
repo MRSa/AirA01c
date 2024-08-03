@@ -103,6 +103,7 @@
     <string name="faq_answer_09">....</string>
 
     <string name="initial_message">Please connect to the Olympus Air via Wi-Fi.</string>
+    <string name="connecting_message">Connecting to the Olympus Air…</string>
     <string name="connection_error_message">Connection failed. Please try again.</string>
     <string name="connected_message">Connected, commands can be sent now.</string>
 
@@ -115,5 +116,6 @@
     <string name="lbl_format">Format Card</string>
     <string name="lbl_reset_mode">Mode Reset</string>
     <string name="lbl_refresh">Refresh</string>
+    <string name="lbl_update_status">Update Status</string>
 
 </resources>

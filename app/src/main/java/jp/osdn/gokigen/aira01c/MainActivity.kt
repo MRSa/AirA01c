@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+/*
         try
         {
             val navView: BottomNavigationView = binding.navView
@@ -46,10 +47,8 @@ class MainActivity : AppCompatActivity()
         {
             e.printStackTrace()
         }
-
-        //setupNavigation()
-
-/*
+*/
+/**/
         try
         {
             setupNavigation()
@@ -76,9 +75,7 @@ class MainActivity : AppCompatActivity()
         {
             e.printStackTrace()
         }
-
-        setupNavigation()
-*/
+/**/
     }
 
     private fun setupNavigation()
