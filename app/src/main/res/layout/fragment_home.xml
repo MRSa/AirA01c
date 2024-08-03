@@ -159,7 +159,7 @@
             android:text="@string/lbl_reset_mode" />
 
         <Button
-            android:id="@+id/buttonSyncTime"
+            android:id="@+id/btnTimeSync"
             style="?android:attr/buttonStyleInset"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -171,7 +171,7 @@
             android:text="@string/lbl_sync_time" />
 
         <Button
-            android:id="@+id/btnFormat"
+            android:id="@+id/btnRefresh"
             style="?android:attr/buttonStyleInset"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -180,7 +180,7 @@
             android:layout_marginLeft="4dp"
             android:layout_gravity="center_horizontal"
             android:enabled="false"
-            android:text="@string/lbl_format" />
+            android:text="@string/lbl_refresh" />
 
 
 
@@ -196,7 +196,7 @@
         app:layout_constraintTop_toBottomOf="@id/layout_commands"
         android:background="@android:color/darker_gray"/>
 
-
+<!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -240,6 +240,7 @@
             android:text="ZZZ"
             android:checked="true" />
     </LinearLayout>
+-->
 
     <View
         android:id="@+id/separator10"
@@ -248,11 +249,12 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_checkbox1"
+        app:layout_constraintTop_toBottomOf="@id/separator2"
+        android:visibility="invisible"
         android:background="@android:color/darker_gray"/>
 
     <TextView
-        android:id="@+id/text_status"
+        android:id="@+id/myTextStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
