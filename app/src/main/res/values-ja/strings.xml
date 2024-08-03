@@ -117,4 +117,17 @@
     <string name="lbl_reset_mode">モード初期化</string>
     <string name="lbl_refresh">更新</string>
     <string name="lbl_update_status">ステータス更新</string>
+
+    <string name="label_card_status">メディア状態</string>
+    <string name="label_card_remain_number">カード残枚数(静止画)</string>
+    <string name="label_card_remain_seconds">カード残秒数(動画)</string>
+    <string name="label_card_remain_bytes">カード残容量</string>
+    <string name="label_lens_mount_status">レンズマウント状態</string>
+    <string name="label_imaging_state">撮像温度状態</string>
+    <string name="label_focal_length">焦点距離</string>
+    <string name="label_wide_focal_length">ワイド端焦点距離</string>
+    <string name="label_tele_focal_length">テレ端焦点距離</string>
+    <string name="label_electric_zoom">電動ズーム駆動可否</string>
+    <string name="label_macro_setting">マクロモード状態（マクロ対応レンズ）</string>
+    <string name="label_battery_level">バッテリ残量</string>
 </resources>

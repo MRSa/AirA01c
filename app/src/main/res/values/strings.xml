@@ -118,4 +118,17 @@
     <string name="lbl_refresh">Refresh</string>
     <string name="lbl_update_status">Update Status</string>
 
+    <string name="label_card_status">Card Status</string>
+    <string name="label_card_remain_number">Card Remain Number</string>
+    <string name="label_card_remain_seconds">Card Remain Seconds</string>
+    <string name="label_card_remain_bytes">Card Remain Bytes</string>
+    <string name="label_lens_mount_status">Lens mount status</string>
+    <string name="label_imaging_state">Imaging State</string>
+    <string name="label_focal_length">Focal Length</string>
+    <string name="label_wide_focal_length">Focal Length(Wide)</string>
+    <string name="label_tele_focal_length">Focal Length(Tele)</string>
+    <string name="label_electric_zoom">Electric Zoom</string>
+    <string name="label_macro_setting">Macro Setting</string>
+    <string name="label_battery_level">Battery Level</string>
+
 </resources>

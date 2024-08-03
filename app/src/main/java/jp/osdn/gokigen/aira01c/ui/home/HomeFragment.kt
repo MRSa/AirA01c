@@ -209,8 +209,7 @@ class HomeFragment : Fragment(), IMessageDrawer
         Log.v(TAG, "pushedRefresh()")
         try
         {
-
-            isCameraConnected()
+            cameraControl.getCameraStatus()
         }
         catch (e: Exception)
         {
@@ -327,22 +326,24 @@ class HomeFragment : Fragment(), IMessageDrawer
     private fun isCameraConnected() : Boolean
     {
         val status = cameraControl.getConnectionStatus()
-        when (status) {
-            ICameraConnectionStatus.CameraConnectionStatus.CONNECTED -> {
-                binding.textHome.text = getString(R.string.connected_message)
-                changeButtonStatus(true)
-            }
-            ICameraConnectionStatus.CameraConnectionStatus.DISCONNECTED -> {
-                binding.textHome.text = getString(R.string.initial_message)
-                changeButtonStatus(false)
-            }
-            ICameraConnectionStatus.CameraConnectionStatus.CONNECTING -> {
-                binding.textHome.text = getString(R.string.connecting_message)
-                changeButtonStatus(false)
-            }
-            else -> {
-                binding.textHome.text = getString(R.string.initial_message)
-                changeButtonStatus(false)
+        requireActivity().runOnUiThread {
+            when (status) {
+                ICameraConnectionStatus.CameraConnectionStatus.CONNECTED -> {
+                    binding.textHome.text = getString(R.string.connected_message)
+                    changeButtonStatus(true)
+                }
+                ICameraConnectionStatus.CameraConnectionStatus.DISCONNECTED -> {
+                    binding.textHome.text = getString(R.string.initial_message)
+                    changeButtonStatus(false)
+                }
+                ICameraConnectionStatus.CameraConnectionStatus.CONNECTING -> {
+                    binding.textHome.text = getString(R.string.connecting_message)
+                    changeButtonStatus(false)
+                }
+                else -> {
+                    binding.textHome.text = getString(R.string.initial_message)
+                    changeButtonStatus(false)
+                }
             }
         }
         return (status  == ICameraConnectionStatus.CameraConnectionStatus.CONNECTED)
@@ -353,8 +354,11 @@ class HomeFragment : Fragment(), IMessageDrawer
     {
         try
         {
-            binding.myTextStatus.text = message
-            isCameraConnected()
+            requireActivity().runOnUiThread {
+                binding.myTextStatus.text = message
+                isCameraConnected()
+
+            }
         }
         catch (e: Exception)
         {
@@ -363,11 +367,14 @@ class HomeFragment : Fragment(), IMessageDrawer
     }
 
     @SuppressLint("SetTextI18n")
-    override fun appendMessageToShow(message: String) {
+    override fun appendMessageToShow(message: String)
+    {
         try
         {
-            binding.myTextStatus.text = "${binding.myTextStatus.text}\n$message"
-            isCameraConnected()
+            requireActivity().runOnUiThread {
+                binding.myTextStatus.text = "${binding.myTextStatus.text}\n$message"
+                isCameraConnected()
+            }
         }
         catch (e: Exception)
         {
@@ -376,11 +383,14 @@ class HomeFragment : Fragment(), IMessageDrawer
     }
 
     @SuppressLint("SetTextI18n")
-    override fun clear() {
+    override fun clear()
+    {
         try
         {
-            binding.myTextStatus.text = ""
-            isCameraConnected()
+            requireActivity().runOnUiThread {
+                binding.myTextStatus.text = ""
+                isCameraConnected()
+            }
         }
         catch (e: Exception)
         {
