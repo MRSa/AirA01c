@@ -63,7 +63,7 @@
     <string name="command_line_disconnected">Camera control line is disconnected.</string>
 
     <string name="faq_title_00">Names of Parts</string>
-    <string name="faq_question_00"> </string>
+    <string name="faq_question_00">What are the names of each part?</string>
     <string name="faq_answer_00">Names of each part are shown below.</string>
 
     <string name="faq_title_01">Charge Problem</string>
@@ -80,7 +80,7 @@
 
     <string name="faq_title_04">System time setting</string>
     <string name="faq_question_04">How do I set the clock on the Olympus Air?</string>
-    <string name="faq_answer_04">Please use this app.</string>
+    <string name="faq_answer_04">Please use this application of the TIME SYNC button.</string>
 
     <string name="faq_title_05">Take pictures/videos problem</string>
     <string name="faq_question_05">I cannot shoot sequentially or shoot videos.</string>

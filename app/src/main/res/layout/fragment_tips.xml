@@ -1,50 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="top"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
     tools:context=".ui.tips.TipsFragment">
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/tips_title_selection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:layout_marginTop="1dp"
+        android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
-        android:layout_weight="1"
-        android:textSize="20sp"
+        android:minHeight="48dp"
+        android:textSize="24sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/separator21"
         />
+
+    <View
+        android:id="@+id/separator21"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tips_title_selection"
+        app:layout_constraintBottom_toTopOf="@id/tips_question"
+        android:visibility="visible"
+        android:background="@android:color/darker_gray"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tips_question"
         android:layout_weight="2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
         android:textSize="14sp"
         android:text="@string/faq_question_00"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/separator21"
+        app:layout_constraintBottom_toTopOf="@id/separator22"
         />
+
+    <View
+        android:id="@+id/separator22"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tips_question"
+        android:visibility="visible"
+        android:background="@android:color/darker_gray"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tips_answer"
         android:layout_weight="2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp"
         android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/separator22"
+        app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/faq_answer_00"
         />
 
@@ -59,11 +93,12 @@
         android:layout_marginTop="2dp"
         android:layout_marginBottom="8dp"
         android:layout_weight="4"
-        android:clickable="true"
-        android:focusable="true"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
         android:contentDescription="@string/title_tips"
         android:src="@drawable/air03"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@id/tips_answer"
         />
-</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>
