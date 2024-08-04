@@ -17,4 +17,12 @@ class ConfigurationFragment : Fragment()
         val root: View = inflater.inflate(R.layout.fragment_configuration, container, false)
         return root
     }
+
+
+
+    companion object
+    {
+        private val TAG = ConfigurationFragment::class.java.simpleName
+    }
+
 }
