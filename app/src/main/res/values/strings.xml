@@ -31,6 +31,7 @@
 
     <string name="pref_cat_application_settings">App. Settings</string>
 
+    <string name="camera_not_connected">Camera does not be connected.</string>
     <string name="camera_not_found">Not Found&#8230;</string>
     <string name="camera_connect_response_ng">Camera replies NG.</string>
     <string name="connect_camera_rejected">Camera rejected.</string>

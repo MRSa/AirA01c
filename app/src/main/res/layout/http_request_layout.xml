@@ -208,6 +208,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/omds_command_response_value"
             android:text="@string/http_response_area_hint"
+            android:textSize="16sp"
             android:textColor="@color/teal_700"
             />
 

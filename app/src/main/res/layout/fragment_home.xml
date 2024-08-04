@@ -103,6 +103,7 @@
         android:layout_marginTop="28dp"
         android:textSize="16sp"
         android:text="@string/lbl_ip_address"
+        android:visibility="invisible"
         app:layout_constraintBaseline_toBaselineOf="@id/ip_address"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/separator" />
@@ -118,6 +119,7 @@
         android:inputType="text"
         android:enabled="false"
         android:text=""
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/lbl_ip_address"
         app:layout_constraintTop_toBottomOf="@id/separator"
