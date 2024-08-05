@@ -31,7 +31,7 @@ class OmdsRunModeControl(private val activity: FragmentActivity, private val mes
                 }
                 if (callback == null)
                 {
-                    messageDrawer.setMessageToShow("CHANGE RUN MODE : $runMode")
+                    messageDrawer.setMessageToShow("${activity.getString(R.string.change_mode_to)} : $runMode")
                 }
                 val response: String = http.httpGetWithHeader(changeModeUrl, headerMap, null, TIMEOUT_MS) ?: ""
                 Log.v(TAG, " $changeModeUrl $response")
@@ -46,17 +46,20 @@ class OmdsRunModeControl(private val activity: FragmentActivity, private val mes
                     else
                     {
                         message = activity.getString(R.string.change_mode_error)
-
                     }
                 }
                 catch (e: Exception)
                 {
                     e.printStackTrace()
                 }
-                callback?.operationResult(response)
+                callback?.operationResult(message)
                 if (callback == null)
                 {
                     messageDrawer.appendMessageToShow(message)
+                }
+                else
+                {
+                    Log.v(TAG, message)
                 }
             }
             thread.start()

@@ -205,6 +205,5 @@
 
     <string name="dialog_title_factory_reset">設定の初期化</string>
     <string name="dialog_message_factory_reset">日時やネットワークなど一部の設定を除き、すべての機能を初期設定に戻します。</string>
-
     <string name="get_camerastatus_title">カメラステータス</string>
 </resources>

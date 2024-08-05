@@ -35,11 +35,7 @@ class OmdsCameraStatus(private val activity: FragmentActivity, private val messa
                 callback?.operationResult(response)
                 if (callback == null) {
                     messageDrawer.appendMessageToShow(
-                        "----- RESPONSE (${
-                            dateFormat.format(
-                                currentTime
-                            )
-                        })-----"
+                        "(${dateFormat.format(currentTime)})"
                     )
                     parseReceivedStatus(response)
                     // messageDrawer.appendMessageToShow("- - - - - - - - - - - - - - - - - - - - -")

@@ -71,17 +71,19 @@ class SendCommandDialog : DialogFragment(), View.OnClickListener
                         activity?.runOnUiThread {
                             try
                             {
-                                myView.findViewById<TextView>(R.id.omds_command_response_value).text =
-                                    if (responseText[0] == '2')
+                                val textView = myView.findViewById<TextView>(R.id.omds_command_response_value)
+                                    textView.text =
+                                    if ((responseText[0] == '2')&&(responseText.contains("OK")))
                                     {
                                         Log.v(TAG, "SUCCESS>RunMode($mode)")
-                                        "Run Mode: $mode"
+                                        "${myContext.getString(R.string.change_mode_done)} $mode"
                                     }
                                     else
                                     {
                                         Log.v(TAG, "ERR>RunMode($mode) : $responseText")
-                                        responseText
+                                        "${myContext.getString(R.string.change_mode_error)}\n$responseText"
                                     }
+                                textView.invalidate()
                             }
                             catch (e: Exception)
                             {
@@ -94,7 +96,6 @@ class SendCommandDialog : DialogFragment(), View.OnClickListener
                         e.printStackTrace()
                     }
                 }
-
             })
 
         }
