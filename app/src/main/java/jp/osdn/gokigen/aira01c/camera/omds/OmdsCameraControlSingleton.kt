@@ -6,6 +6,7 @@ import jp.osdn.gokigen.aira01c.R
 import jp.osdn.gokigen.aira01c.camera.interfaces.ICameraConnectionStatus
 import jp.osdn.gokigen.aira01c.camera.interfaces.ICameraStatusReceiver
 import jp.osdn.gokigen.aira01c.camera.interfaces.IMessageDrawer
+import jp.osdn.gokigen.aira01c.camera.interfaces.IOmdsOperationCallback
 import jp.osdn.gokigen.aira01c.camera.omds.connection.OmdsCameraConnection
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsCameraGetProperty
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsCameraStatus
@@ -35,10 +36,10 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
             this.activity = activity
             this.messageDrawer = messageDrawer
             this.cameraConnection = OmdsCameraConnection(activity, statusChecker, this, this)
-            this.runModeControl = OmdsRunModeControl(messageDrawer)
-            this.timeSync = OmdsTimeSync(messageDrawer)
+            this.runModeControl = OmdsRunModeControl(activity, messageDrawer)
+            this.timeSync = OmdsTimeSync(activity, messageDrawer)
             this.cameraStatus = OmdsCameraStatus(activity, messageDrawer)
-            this.getCameraProperty = OmdsCameraGetProperty(messageDrawer)
+            this.getCameraProperty = OmdsCameraGetProperty(activity, messageDrawer)
 
             isInitialized = true
         }
@@ -97,7 +98,7 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
         }
     }
 
-    fun changeRunMode(runMode: String) { runModeControl.changeRunMode(runMode, null) }
+    fun changeRunMode(runMode: String, callback: IOmdsOperationCallback? = null) { runModeControl.changeRunMode(runMode, callback) }
     fun synchronizeTime() { timeSync.setTimeSync(null) }
     fun getCameraStatus()
     {

@@ -178,4 +178,28 @@
     <string name="http_dialog_body_hint">(Message body to send, option)</string>
     <string name="http_response_area_hint">(Received Data)</string>
 
+    <string name="time_synchronized">Time has been set for the Olympus Air.</string>
+    <string name="change_mode_to">CHANGE RUN MODE :</string>
+    <string name="change_mode_done">change success :</string>
+    <string name="change_mode_error">Run mode change failure.</string>
+
+    <string name="dialog_title_format_sd">Format SD</string>
+    <string name="dialog_message_format_sd">Caution: Entire data in the card will be deleted (card will return to its original state).</string>
+
+    <string name="dialog_title_delete_all">Delete all content</string>
+    <string name="dialog_message_delete_all">Caution: All images will be deleted.</string>
+
+    <string name="dialog_title_level_adjust_adjust">Level Adjust (Adjust)</string>
+    <string name="dialog_message_level_adjust_adjust">Adjusts the 0 level to the current position.</string>
+
+    <string name="dialog_title_level_adjust_reset">Level Adjust (Reset)</string>
+    <string name="dialog_message_level_adjust_reset">Resets to default.</string>
+
+    <string name="dialog_title_pixel_mapping">Start Pixel Mapping</string>
+    <string name="dialog_message_pixel_mapping">Remove the lens and attach the body cap.</string>
+
+    <string name="dialog_title_factory_reset">Reset</string>
+    <string name="dialog_message_factory_reset">Executing reset. All items excluding date, network and some other settings will be reset.</string>
+
+    <string name="get_camerastatus_title">Camera Status</string>
 </resources>

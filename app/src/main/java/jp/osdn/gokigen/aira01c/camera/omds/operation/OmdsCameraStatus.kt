@@ -23,7 +23,9 @@ class OmdsCameraStatus(private val activity: FragmentActivity, private val messa
         {
             val currentTime = Date(System.currentTimeMillis())
             val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.US)
-            messageDrawer.setMessageToShow("GET CAMERA STATUS")
+            if (callback == null) {
+                messageDrawer.setMessageToShow(activity.getString(R.string.get_camerastatus_title))
+            }
 
             val thread = Thread {
                 //  ステータスを取得する
@@ -31,9 +33,17 @@ class OmdsCameraStatus(private val activity: FragmentActivity, private val messa
                 val response: String = http.httpGetWithHeader(getStatusUrl, headerMap, null, TIMEOUT_MS) ?: ""
                 Log.v(TAG, "RESP: (${response.length}) $response")
                 callback?.operationResult(response)
-                messageDrawer.appendMessageToShow("----- RESPONSE (${dateFormat.format(currentTime)})-----")
-                parseReceivedStatus(response)
-                // messageDrawer.appendMessageToShow("- - - - - - - - - - - - - - - - - - - - -")
+                if (callback == null) {
+                    messageDrawer.appendMessageToShow(
+                        "----- RESPONSE (${
+                            dateFormat.format(
+                                currentTime
+                            )
+                        })-----"
+                    )
+                    parseReceivedStatus(response)
+                    // messageDrawer.appendMessageToShow("- - - - - - - - - - - - - - - - - - - - -")
+                }
             }
             thread.start()
         }
@@ -95,8 +105,6 @@ class OmdsCameraStatus(private val activity: FragmentActivity, private val messa
         }
         return (value)
     }
-
-
 
     init
     {

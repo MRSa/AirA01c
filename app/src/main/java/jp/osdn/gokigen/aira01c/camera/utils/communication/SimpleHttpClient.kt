@@ -281,10 +281,7 @@ class SimpleHttpClient
      */
     private fun httpCommandBitmap(url: String, requestMethod: String, postData: String?, setProperty: Map<String, String>?, contentType: String?, timeoutMs: Int): Bitmap?
     {
-        //var httpConn: HttpURLConnection? = null
         var inputStream: InputStream? = null
-        //var outputStream: OutputStream? = null
-        //var writer: OutputStreamWriter? = null
         var bmp: Bitmap? = null
         var timeout = timeoutMs
         if (timeoutMs < 0)
@@ -426,6 +423,7 @@ class SimpleHttpClient
         }
 
         //  HTTP メソッドで要求を送出
+        val responseCode : Int
         try
         {
             val httpConn = URL(url).openConnection() as HttpURLConnection
@@ -459,7 +457,7 @@ class SimpleHttpClient
                 writer.close()
                 outputStream.close()
             }
-            val responseCode = httpConn.responseCode
+            responseCode = httpConn.responseCode
             if (responseCode == HttpURLConnection.HTTP_OK)
             {
                 inputStream = httpConn.inputStream
@@ -467,7 +465,7 @@ class SimpleHttpClient
             if (inputStream == null)
             {
                 Log.w(TAG, "http $requestMethod : Response Code Error: $responseCode: $url")
-                return ""
+                return "$responseCode "
             }
         }
         catch (e: Exception)
@@ -478,7 +476,7 @@ class SimpleHttpClient
         }
 
         // 応答の読み出し
-        return readFromInputStream(inputStream)
+        return "$responseCode ${readFromInputStream(inputStream)}"
     }
 
     private fun readFromInputStream(inputStream: InputStream?): String

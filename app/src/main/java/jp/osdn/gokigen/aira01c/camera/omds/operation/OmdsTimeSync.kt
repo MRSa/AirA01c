@@ -3,17 +3,19 @@ package jp.osdn.gokigen.aira01c.camera.omds.operation
 
 import android.os.Build
 import android.util.Log
+import androidx.fragment.app.FragmentActivity
+import jp.osdn.gokigen.aira01c.R
 import jp.osdn.gokigen.aira01c.camera.interfaces.IOmdsOperationCallback
 import jp.osdn.gokigen.aira01c.camera.interfaces.IMessageDrawer
 import jp.osdn.gokigen.aira01c.camera.utils.communication.SimpleHttpClient
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.HashMap
 import java.util.Locale
 import java.util.TimeZone
+import kotlin.Exception
 
-class OmdsTimeSync(private val messageDrawer: IMessageDrawer, userAgent: String = "OlympusCameraKit", private val executeUrl : String = "http://192.168.0.10")
+class OmdsTimeSync(private val activity: FragmentActivity, private val messageDrawer: IMessageDrawer, userAgent: String = "OlympusCameraKit", private val executeUrl : String = "http://192.168.0.10")
 {
     private val headerMap: MutableMap<String, String> = HashMap()
     private val http = SimpleHttpClient()
@@ -44,15 +46,28 @@ class OmdsTimeSync(private val messageDrawer: IMessageDrawer, userAgent: String 
             val utcTime = "${dateFormat1.format(currentDateTime)}T${dateFormat2.format(currentDateTime)}"
             val setTimeString = "utctime=${utcTime}&utcdiff=${timezone}"
             Log.v(TAG, " setTimeSync : $setTimeString ($timezone)")
-            messageDrawer.setMessageToShow("SET TIME : $utcTime $timezone")
+            if (callback == null)
+            {
+                messageDrawer.setMessageToShow("SET TIME : $utcTime $timezone")
+            }
 
             val thread = Thread {
                 //  カメラの時刻を設定する
-                val syncTimeUrl = "$executeUrl/set_utctimediff.cgi?$setTimeString"
-                val response: String = http.httpGetWithHeader(syncTimeUrl, headerMap, null, TIMEOUT_MS) ?: ""
-                Log.v(TAG, "RESP: (${response.length}) $response")
-                callback?.operationResult(response)
-                messageDrawer.appendMessageToShow("----- TIME SYNC DONE -----")
+                try
+                {
+                    val syncTimeUrl = "$executeUrl/set_utctimediff.cgi?$setTimeString"
+                    val response: String = http.httpGetWithHeader(syncTimeUrl, headerMap, null, TIMEOUT_MS) ?: ""
+                    Log.v(TAG, "RESP: (${response.length}) $response")
+                    callback?.operationResult(response)
+                    if (callback == null)
+                    {
+                        messageDrawer.appendMessageToShow(activity.getString(R.string.time_synchronized))
+                    }
+                }
+                catch (e: Exception)
+                {
+                    e.printStackTrace()
+                }
             }
             thread.start()
         }

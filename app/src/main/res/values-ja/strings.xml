@@ -183,4 +183,28 @@
     <string name="http_dialog_body_hint">(Message body to send, 任意)</string>
     <string name="http_response_area_hint">(Received Data)</string>
 
+    <string name="time_synchronized">OLYMPUS AIRの時刻を設定しました。</string>
+    <string name="change_mode_to">動作モード変更 :</string>
+    <string name="change_mode_done">動作モードを変更しました :</string>
+    <string name="change_mode_error">動作モードの変更に失敗しました。</string>
+
+    <string name="dialog_title_format_sd">フォーマット</string>
+    <string name="dialog_message_format_sd">カード内のすべてのデータが消去されます。</string>
+
+    <string name="dialog_title_delete_all">画像の全消去</string>
+    <string name="dialog_message_delete_all">画像がすべて消去されます。</string>
+
+    <string name="dialog_title_level_adjust_adjust">水準器調整 (キャリブレーション)</string>
+    <string name="dialog_message_level_adjust_adjust">現在の姿勢を原点とします。OLYMPUS AIRを水平にセットしてください。</string>
+
+    <string name="dialog_title_level_adjust_reset">水準器調整 (リセット)</string>
+    <string name="dialog_message_level_adjust_reset">原点復帰します。</string>
+
+    <string name="dialog_title_pixel_mapping">ピクセルマッピングの開始</string>
+    <string name="dialog_message_pixel_mapping">ピクセルマッピングを開始します。\nレンズを取り外して、ボディキャップを装着してください。</string>
+
+    <string name="dialog_title_factory_reset">設定の初期化</string>
+    <string name="dialog_message_factory_reset">日時やネットワークなど一部の設定を除き、すべての機能を初期設定に戻します。</string>
+
+    <string name="get_camerastatus_title">カメラステータス</string>
 </resources>

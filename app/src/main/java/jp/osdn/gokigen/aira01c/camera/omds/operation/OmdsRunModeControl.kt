@@ -1,13 +1,15 @@
 package jp.osdn.gokigen.aira01c.camera.omds.operation
 
 import android.util.Log
+import androidx.fragment.app.FragmentActivity
+import jp.osdn.gokigen.aira01c.R
 import jp.osdn.gokigen.aira01c.camera.interfaces.IOmdsOperationCallback
 import jp.osdn.gokigen.aira01c.camera.interfaces.IMessageDrawer
 import jp.osdn.gokigen.aira01c.camera.utils.communication.SimpleHttpClient
 import java.lang.Exception
 import java.util.HashMap
 
-class OmdsRunModeControl(private val messageDrawer: IMessageDrawer, private val liveViewQuality : String = "0640x0480", userAgent: String = "OlympusCameraKit", private val executeUrl : String = "http://192.168.0.10")
+class OmdsRunModeControl(private val activity: FragmentActivity, private val messageDrawer: IMessageDrawer, private val liveViewQuality : String = "0640x0480", userAgent: String = "OlympusCameraKit", private val executeUrl : String = "http://192.168.0.10")
 {
     private val headerMap: MutableMap<String, String> = HashMap()
     private val http = SimpleHttpClient()
@@ -27,22 +29,35 @@ class OmdsRunModeControl(private val messageDrawer: IMessageDrawer, private val 
                         "$executeUrl/switch_cameramode.cgi?mode=$runMode"                        // OI.Shareの場合は cammode
                     }
                 }
-                messageDrawer.setMessageToShow("CHANGE RUN MODE : $runMode")
+                if (callback == null)
+                {
+                    messageDrawer.setMessageToShow("CHANGE RUN MODE : $runMode")
+                }
                 val response: String = http.httpGetWithHeader(changeModeUrl, headerMap, null, TIMEOUT_MS) ?: ""
                 Log.v(TAG, " $changeModeUrl $response")
+                var message = ""
                 try
                 {
                     if ((response.contains("OK"))||(response.contains("ok")))
                     {
                         currentRunMode = runMode
-                     }
+                        message = "${activity.getString(R.string.change_mode_done)} $currentRunMode"
+                    }
+                    else
+                    {
+                        message = activity.getString(R.string.change_mode_error)
+
+                    }
                 }
                 catch (e: Exception)
                 {
                     e.printStackTrace()
                 }
                 callback?.operationResult(response)
-                messageDrawer.appendMessageToShow("RUN MODE : $currentRunMode")
+                if (callback == null)
+                {
+                    messageDrawer.appendMessageToShow(message)
+                }
             }
             thread.start()
         }

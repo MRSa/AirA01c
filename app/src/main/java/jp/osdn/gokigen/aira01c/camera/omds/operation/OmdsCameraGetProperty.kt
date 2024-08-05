@@ -1,13 +1,14 @@
 package jp.osdn.gokigen.aira01c.camera.omds.operation
 
 import android.util.Log
+import androidx.fragment.app.FragmentActivity
 import jp.osdn.gokigen.aira01c.camera.interfaces.IOmdsOperationCallback
 import jp.osdn.gokigen.aira01c.camera.interfaces.IMessageDrawer
 import jp.osdn.gokigen.aira01c.camera.utils.communication.SimpleHttpClient
 import java.util.HashMap
 import kotlin.Exception
 
-class OmdsCameraGetProperty(private val messageDrawer: IMessageDrawer, userAgent: String = "OlympusCameraKit", private val executeUrl : String = "http://192.168.0.10")
+class OmdsCameraGetProperty(private val activity: FragmentActivity, private val messageDrawer: IMessageDrawer, userAgent: String = "OlympusCameraKit", private val executeUrl : String = "http://192.168.0.10")
 {
     private val headerMap: MutableMap<String, String> = HashMap()
     private val http = SimpleHttpClient()
@@ -23,11 +24,10 @@ class OmdsCameraGetProperty(private val messageDrawer: IMessageDrawer, userAgent
                 Log.v(TAG, "RESP: (${response.length}) $response")
                 callback?.operationResult(response)
                 val value = pickupValue("value", response)
-                messageDrawer.appendMessageToShow("$propertyLabel : $value")
-
-                //val currentTime = Date(System.currentTimeMillis())
-                //val dateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.US)
-                //messageDrawer.appendMessageToShow("$propertyLabel : $value (${dateFormat.format(currentTime)})")
+                if (callback == null)
+                {
+                    messageDrawer.appendMessageToShow("$propertyLabel : $value")
+                }
             }
             thread.start()
         }
