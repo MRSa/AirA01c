@@ -99,13 +99,17 @@
     <string name="faq_question_07">ネットワーク設定を購入時の状態に戻したい（ネットワーク接続設定を忘れてしまった）。</string>
     <string name="faq_answer_07">microSDカードを取り外し、電源オフ状態で以下を行います。\n\n 1. レンズ取り外しレバー(①)を最後まで引きながらシャッターボタン(②)を最後まで押しながら、電源ボタン(③)を短く押します。\n\n 2. 電源オンしたあと、自動で電源が切れます。\n\n 3. 再度電源をオンにすると、ネットワーク設定が購入時の状態に戻ります。 </string>
 
-    <string name="faq_title_08">操作を受け付けない</string>
-    <string name="faq_question_08">OLYMPUS AIRの電源がオン状態なのに操作を受け付けない。</string>
-    <string name="faq_answer_08">電源ボタンを長押し（約8秒）してください。OLYMPUS AIRが再起動します。</string>
+    <string name="faq_title_08">第三者ソフトがOLYMPUS AIRにつながらない</string>
+    <string name="faq_question_08">非純正ソフトがOLYMPUS　AIRと接続しようとすると、エラーになる。</string>
+    <string name="faq_answer_08">SDKの内部状態とカメラの内部状態が不整合となっている可能性があります。本アプリでカメラのモードを初期化してから再度接続を試すか、電源ボタンを8秒以上長押しして、OLYMPUS AIRを再起動してください。</string>
 
-    <string name="faq_title_09">....</string>
-    <string name="faq_question_09">....</string>
-    <string name="faq_answer_09">....</string>
+    <string name="faq_title_09">操作を受け付けない</string>
+    <string name="faq_question_09">OLYMPUS AIRの電源がオン状態なのに操作を受け付けない。</string>
+    <string name="faq_answer_09">電源ボタンを長押し（約8秒）してください。OLYMPUS AIRが再起動します。</string>
+
+    <string name="faq_title_10">....</string>
+    <string name="faq_question_10">....</string>
+    <string name="faq_answer_10">....</string>
 
     <string name="initial_message">WiFiでOLYMPUS AIRに接続してください。</string>
     <string name="connecting_message">OLYMPUS AIRに接続中です。</string>

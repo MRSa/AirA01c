@@ -44,6 +44,7 @@ class TipsFragment : Fragment()
             adapter.add(getString(R.string.faq_title_06))
             adapter.add(getString(R.string.faq_title_07))
             adapter.add(getString(R.string.faq_title_08))
+            adapter.add(getString(R.string.faq_title_09))
 
             val spinner: AppCompatSpinner = rootView.findViewById(R.id.tips_title_selection)
             spinner.adapter = adapter
@@ -105,6 +106,11 @@ class TipsFragment : Fragment()
                                 8 -> {
                                     question.setText(R.string.faq_question_08)
                                     answer.setText(R.string.faq_answer_08)
+                                    image.setImageResource(R.drawable.air10)
+                                }
+                                9 -> {
+                                    question.setText(R.string.faq_question_09)
+                                    answer.setText(R.string.faq_answer_09)
                                     image.setImageResource(R.drawable.air07)
                                 }
                                 else -> {

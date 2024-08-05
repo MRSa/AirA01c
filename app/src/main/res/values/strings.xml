@@ -97,13 +97,17 @@
     <string name="faq_question_07">I want to return the network settings to the state at the time of purchase (I forgot the network connection settings).</string>
     <string name="faq_answer_07">Please operate the following with the power off and microSD card removed.\n\n 1. Push the power button briefly with the shutter button pressed all the way down and the lens release lever pulled all the way.\n\n 2. Once the power goed on, it will automatically turn off.\n\n 3. Again, turn the power on and you can use the network settings in the state at the time of purchase.</string>
 
-    <string name="faq_title_08">Reboot operation</string>
-    <string name="faq_question_08">Although the Olympus Air is on, the controls do not work.</string>
-    <string name="faq_answer_08">Please press down on the power button for about 8 seconds and the Olympus Air will reboot.</string>
+    <string name="faq_title_08">Third party software is not connected to the Olympus Air.</string>
+    <string name="faq_question_08">Error occurs when a third party software tries to connect to the Olympus Air.</string>
+    <string name="faq_answer_08">The internal state of the SDK may be inconsistent with the internal state of the camera.\nPlease initialize the camera mode with this application and try connecting again, or restart the Olympus Air by pressing and holding the power button for more than 8 seconds.</string>
 
-    <string name="faq_title_09">....</string>
-    <string name="faq_question_09">....</string>
-    <string name="faq_answer_09">....</string>
+    <string name="faq_title_09">Reboot operation</string>
+    <string name="faq_question_09">Although the Olympus Air is on, the controls do not work.</string>
+    <string name="faq_answer_09">Please press down on the power button for about 8 seconds and the Olympus Air will reboot.</string>
+
+    <string name="faq_title_10">....</string>
+    <string name="faq_question_10">....</string>
+    <string name="faq_answer_10">....</string>
 
     <string name="initial_message">Please connect to the Olympus Air via Wi-Fi.</string>
     <string name="connecting_message">Connecting to the Olympus Air…</string>
