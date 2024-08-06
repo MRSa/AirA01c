@@ -1097,7 +1097,7 @@ class OmdsCameraStatusWatcher(userAgent: String = "OlympusCameraKit", private va
 
         // TIMEOUT VALUES
         private const val SLEEP_TIME_MS = 300
-        private const val SLEEP_EVENT_TIME_MS = 500
+        private const val SLEEP_EVENT_TIME_MS = 5000 // イベント受信は5秒おきに伸ばしてみる...
         private const val TIMEOUT_MS = 2500
 
         private const val RECEIVE_BUFFER_SIZE = 16384

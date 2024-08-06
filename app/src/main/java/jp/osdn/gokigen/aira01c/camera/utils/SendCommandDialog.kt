@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
@@ -11,15 +12,24 @@ import androidx.fragment.app.FragmentActivity
 import jp.osdn.gokigen.aira01c.AppSingleton
 import jp.osdn.gokigen.aira01c.R
 import jp.osdn.gokigen.aira01c.camera.interfaces.IOmdsOperationCallback
+import jp.osdn.gokigen.aira01c.camera.interfaces.IVibrator
+import jp.osdn.gokigen.aira01c.camera.utils.communication.SimpleHttpClient
+import java.util.HashMap
 
 class SendCommandDialog : DialogFragment(), View.OnClickListener
 {
+    private val headerMap: MutableMap<String, String> = HashMap()
+
     private lateinit var myContext : FragmentActivity
     private lateinit var myView: View
+    private var vibrator: IVibrator? = null
 
-    private fun prepare(context: FragmentActivity)
+    private fun prepare(context: FragmentActivity, vibrator: IVibrator?, userAgent: String = "OlympusCameraKit")
     {
         this.myContext = context
+        this.vibrator = vibrator
+        headerMap["User-Agent"] = userAgent // "OlympusCameraKit" // "OI.Share"
+        headerMap["X-Protocol"] = userAgent // "OlympusCameraKit" // "OI.Share"
     }
 
     @SuppressLint("SetTextI18n")
@@ -39,7 +49,7 @@ class SendCommandDialog : DialogFragment(), View.OnClickListener
 
         alertDialog.setView(myView)
         alertDialog.setCancelable(true)
-        alertDialog.setPositiveButton(myContext.getString(R.string.dialog_positive_execute)) { dialog, _ -> dialog.dismiss() }
+        //alertDialog.setPositiveButton(myContext.getString(R.string.dialog_positive_execute)) { dialog, _ -> dialog.dismiss() }
         alertDialog.show()
     }
 
@@ -68,22 +78,12 @@ class SendCommandDialog : DialogFragment(), View.OnClickListener
                 {
                     try
                     {
-                        activity?.runOnUiThread {
+                        myContext.runOnUiThread {
                             try
                             {
                                 val textView = myView.findViewById<TextView>(R.id.omds_command_response_value)
-                                    textView.text =
-                                    if ((responseText[0] == '2')&&(responseText.contains("OK")))
-                                    {
-                                        Log.v(TAG, "SUCCESS>RunMode($mode)")
-                                        "${myContext.getString(R.string.change_mode_done)} $mode"
-                                    }
-                                    else
-                                    {
-                                        Log.v(TAG, "ERR>RunMode($mode) : $responseText")
-                                        "${myContext.getString(R.string.change_mode_error)}\n$responseText"
-                                    }
-                                textView.invalidate()
+                                textView.text = responseText
+                                vibrator?.vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
                             }
                             catch (e: Exception)
                             {
@@ -110,7 +110,60 @@ class SendCommandDialog : DialogFragment(), View.OnClickListener
         Log.v(TAG, "sendMessage()")
         try
         {
+            val target = myView.findViewById<EditText>(R.id.edit_http_header).text.toString()
+            val method = myView.findViewById<EditText>(R.id.edit_method).text.toString()
+            val command = myView.findViewById<EditText>(R.id.edit_command).text.toString()
+            val option = myView.findViewById<EditText>(R.id.edit_option).text.toString()
+            val parameter = myView.findViewById<EditText>(R.id.edit_parameter).text.toString()
+            val body = myView.findViewById<EditText>(R.id.edit_body).text.toString()
 
+            val thread = Thread {
+                try
+                {
+                    val http = SimpleHttpClient()
+                    var targetUrl = "$target$command"
+                    if (option.isNotEmpty())
+                    {
+                        targetUrl = "$targetUrl?$option"
+                    }
+                    if (parameter.isNotEmpty())
+                    {
+                        targetUrl = "$targetUrl&$parameter"
+                    }
+                    Log.v(TAG, "SEND COMMAND: $targetUrl  BODY: $body")
+                    val responseText: String = when (method) {
+                        "GET" -> {
+                            http.httpGetWithHeader(targetUrl, headerMap, null, DEFAULT_TIMEOUT) ?: ""
+                        }
+                        "POST" -> {
+                            http.httpPostWithHeader(targetUrl, body, headerMap, null, DEFAULT_TIMEOUT) ?: ""
+                        }
+                        "PUT" -> {
+                            http.httpPutWithHeader(targetUrl, body, headerMap, null, DEFAULT_TIMEOUT) ?: ""
+                        }
+                        else -> {
+                            http.httpGetWithHeader(targetUrl, headerMap, null, DEFAULT_TIMEOUT) ?: ""
+                        }
+                    }
+                    myContext.runOnUiThread {
+                        try
+                        {
+                            val textView = myView.findViewById<TextView>(R.id.omds_command_response_value)
+                            textView.text = responseText
+                            vibrator?.vibrate(IVibrator.VibratePattern.SIMPLE_MIDDLE)
+                        }
+                        catch (e: Exception)
+                        {
+                            e.printStackTrace()
+                        }
+                    }
+                }
+                catch (e: Exception)
+                {
+                    e.printStackTrace()
+                }
+            }
+            thread.start()
         }
         catch (e: Exception)
         {
@@ -121,14 +174,13 @@ class SendCommandDialog : DialogFragment(), View.OnClickListener
     companion object
     {
         private val TAG = SendCommandDialog::class.java.simpleName
+        private const val DEFAULT_TIMEOUT = 10 * 1000 // [ms]
 
-        fun newInstance(context: FragmentActivity): SendCommandDialog
+        fun newInstance(context: FragmentActivity, vibrator: IVibrator?): SendCommandDialog
         {
             val instance = SendCommandDialog()
-            instance.prepare(context)
+            instance.prepare(context, vibrator)
             return (instance)
         }
     }
-
-
 }

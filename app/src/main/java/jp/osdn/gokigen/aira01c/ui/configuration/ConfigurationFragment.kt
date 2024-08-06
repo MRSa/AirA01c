@@ -1,10 +1,12 @@
 package jp.osdn.gokigen.aira01c.ui.configuration
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import jp.osdn.gokigen.aira01c.R
 
@@ -22,6 +24,7 @@ class ConfigurationFragment : Fragment()
         return root
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setupOnClickListener(view: View)
     {
         try
@@ -47,6 +50,7 @@ class ConfigurationFragment : Fragment()
             view.findViewById<Button>(R.id.btnStandalone12)?.setOnClickListener(onClickListener)
             view.findViewById<Button>(R.id.btnStandalone13)?.setOnClickListener(onClickListener)
 
+            view.findViewById<TextView>(R.id.command_response_area)?.text = ""
         }
         catch (e: Exception)
         {

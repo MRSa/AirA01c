@@ -87,7 +87,7 @@ class OmdsCameraConnection(private val context: FragmentActivity,
         Log.v(TAG, "startWatchWifiStatus()")
         try
         {
-            cameraStatusReceiver.onStatusNotify("prepare")
+            cameraStatusReceiver.onStatusNotify(context.getString(R.string.connect_start))
             val filter = IntentFilter()
             filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION)
             @Suppress("DEPRECATION")
