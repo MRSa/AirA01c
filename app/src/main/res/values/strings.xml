@@ -11,6 +11,9 @@
     <string name="finish_refresh">Finish refresh.</string>
     <string name="dialog_positive_execute">OK</string>
     <string name="dialog_negative_cancel">Cancel</string>
+    <string name="dialog_button_close">Close</string>
+    <string name="dialog_button_previous">Previous</string>
+    <string name="dialog_button_proceed">Next</string>
     <string name="take_photo">Take Photo</string>
     <string name="permission_not_granted">Permissions not granted by the user.</string>
     <string name="capture_success">Photo capture succeeded: </string>

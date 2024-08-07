@@ -234,7 +234,8 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
                             try
                             {
                                 Log.v(TAG, "executeFactoryReset() : START")
-
+                                val dialog = BusyProgressDialog.newInstance(activity, CameraMaintenanceDummy(), null )
+                                dialog.show()
                             }
                             catch (e: Exception)
                             {

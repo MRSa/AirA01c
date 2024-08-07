@@ -11,6 +11,9 @@
     <string name="finish_refresh">更新終了</string>
     <string name="dialog_positive_execute">OK</string>
     <string name="dialog_negative_cancel">Cancel</string>
+    <string name="dialog_button_close">Close</string>
+    <string name="dialog_button_previous">前へ</string>
+    <string name="dialog_button_proceed">次へ</string>
     <string name="take_photo">撮影</string>
     <string name="permission_not_granted">許可が得られませんでしたので終了します</string>
     <string name="capture_success">撮影しました : </string>
