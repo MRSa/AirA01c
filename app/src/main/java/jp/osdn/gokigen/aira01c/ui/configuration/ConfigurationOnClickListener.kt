@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentActivity
 import jp.osdn.gokigen.aira01c.AppSingleton.Companion.cameraControl
 import jp.osdn.gokigen.aira01c.R
 import jp.osdn.gokigen.aira01c.camera.interfaces.ICameraConnectionStatus
+import jp.osdn.gokigen.aira01c.camera.interfaces.ICameraMaintenanceCommandSequence
 import jp.osdn.gokigen.aira01c.camera.interfaces.IVibrator
 import jp.osdn.gokigen.aira01c.camera.utils.ConfirmationDialog
 import jp.osdn.gokigen.aira01c.camera.utils.ConfirmationDialog.ConfirmationCallback
@@ -25,11 +26,13 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
         try
         {
             vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
+/*
             if (!checkCameraConnection())
             {
                 // --- カメラと接続中ではないときは処理を行わない
                 return
             }
+*/
             when (p0?.id) {
                 R.id.btnFormatSd -> { executeFormatSd() }
                 R.id.btnDeleteAllContent -> { executeDeleteAllContent() }
@@ -225,24 +228,52 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
 
     private fun executeFactoryReset()
     {
+        executeMaintenanceCommand(
+            activity.getString(R.string.dialog_title_factory_reset),
+            activity.getString(R.string.dialog_message_factory_reset),
+            CameraMaintenanceDummy(activity),
+            "",
+            this)
+    }
+
+    private fun executeMaintenanceCommand(title: String, message: String, commandSequence: ICameraMaintenanceCommandSequence, parameter: String?, vibrator: IVibrator)
+    {
         try
         {
-            ConfirmationDialog.newInstance(activity).show(activity.getString(R.string.dialog_title_factory_reset), activity.getString(R.string.dialog_message_factory_reset),
+            // ----- 確認のメッセージを表示して、実行を指示されたら実行する
+            ConfirmationDialog.newInstance(activity).show(title, message,
                 object : ConfirmationCallback {
                     override fun confirm() {
-                        val thread = Thread {
+                        activity.runOnUiThread {
                             try
                             {
-                                Log.v(TAG, "executeFactoryReset() : START")
-                                val dialog = BusyProgressDialog.newInstance(activity, CameraMaintenanceDummy(), null )
-                                dialog.show()
+                                val busyDialog = BusyProgressDialog.newInstance(activity, commandSequence, vibrator)
+                                busyDialog.isCancelable = false
+                                busyDialog.show(activity.supportFragmentManager, BusyProgressDialog.TAG)
                             }
                             catch (e: Exception)
                             {
                                 e.printStackTrace()
                             }
                         }
-                        thread.start()
+                        val thread = Thread {
+                            try
+                            {
+                                commandSequence.executeMaintenanceCommand(parameter)
+                            }
+                            catch (e: Exception)
+                            {
+                                e.printStackTrace()
+                            }
+                        }
+                        try
+                        {
+                            thread.start()
+                        }
+                        catch (e: Exception)
+                        {
+                            e.printStackTrace()
+                        }
                     }
                 })
         }
@@ -256,7 +287,7 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
     {
         try
         {
-            // コマンド送信ダイアログの表示
+            // ----- コマンド送信ダイアログの表示
             SendCommandDialog.newInstance(activity, this).show()
         }
         catch (e: Exception)

@@ -38,8 +38,10 @@ class SendCommandDialog : DialogFragment(), View.OnClickListener
         // 表示イアログの生成
         val alertDialog = AlertDialog.Builder(myContext)
         val inflater = myContext.layoutInflater
-        myView = inflater.inflate(R.layout.http_request_layout, null, false)
-
+        if (!::myView.isInitialized)
+        {
+            myView = inflater.inflate(R.layout.http_request_layout, null, false)
+        }
         myView.findViewById<Button>(R.id.change_to_standalone).setOnClickListener(this)
         myView.findViewById<Button>(R.id.change_to_rec).setOnClickListener(this)
         myView.findViewById<Button>(R.id.change_to_playback).setOnClickListener(this)

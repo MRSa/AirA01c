@@ -122,8 +122,6 @@
     <string name="initial_configuration_message">OLYMPUS AIRの設定</string>
 
 
-
-
     <string name="lbl_connect">接続</string>
     <string name="lbl_disconnect">切断</string>
     <string name="lbl_wifi_set">Wi-Fi設定</string>
@@ -155,7 +153,6 @@
     <string name="layout_label_level_adjust">水準器調整</string>
     <string name="lbl_reset_level">リセット</string>
     <string name="lbl_adjust_level">キャリブレーション</string>
-
 
     <string name="lbl_hardware">OLYMPUS AIR設定</string>
     <string name="lbl_pixel_mapping">ピクセルマッピング</string>
@@ -208,5 +205,9 @@
 
     <string name="dialog_title_factory_reset">設定の初期化</string>
     <string name="dialog_message_factory_reset">日時やネットワークなど一部の設定を除き、すべての機能を初期設定に戻します。</string>
+
+    <string name="busy_dialog_timeout_message">コマンドの実行に時間がかかりすぎているため、ダイアログをクローズできるようにしました。</string>
+
     <string name="get_camerastatus_title">カメラステータス</string>
+
 </resources>

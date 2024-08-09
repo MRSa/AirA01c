@@ -203,6 +203,7 @@
 
     <string name="dialog_title_factory_reset">Reset</string>
     <string name="dialog_message_factory_reset">Executing reset. All items excluding date, network and some other settings will be reset.</string>
+    <string name="busy_dialog_timeout_message">The operation takes too long time, so now this dialog can be closed.</string>
 
     <string name="get_camerastatus_title">Camera Status</string>
 </resources>

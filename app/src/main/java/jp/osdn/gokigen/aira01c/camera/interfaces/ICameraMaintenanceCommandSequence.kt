@@ -1,5 +1,7 @@
 package jp.osdn.gokigen.aira01c.camera.interfaces
 
+import jp.osdn.gokigen.aira01c.ui.configuration.IBusyProgressDrawer
+
 interface ICameraMaintenanceCommandSequence
 {
     fun getCommandTitle(): String
@@ -18,4 +20,6 @@ interface ICameraMaintenanceCommandSequence
     fun pressedNext()
 
     fun reset()
+
+    fun setCallback(callback: IBusyProgressDrawer)
 }
