@@ -129,6 +129,7 @@
     <string name="lbl_reset_mode">Mode Reset</string>
     <string name="lbl_refresh">Refresh</string>
     <string name="lbl_update_status">Update Status</string>
+    <string name="lbl_change_run_mode">Change Mode  </string>
 
     <string name="label_card_status">Card Status</string>
     <string name="label_card_remain_number">Card Remain Number</string>
@@ -186,6 +187,9 @@
     <string name="change_mode_done">change success :</string>
     <string name="change_mode_error">Run mode change failure.</string>
 
+    <string name="command_accepted">Command accepted </string>
+    <string name="command_rejected">Command rejected</string>
+
     <string name="dialog_title_format_sd">Format SD</string>
     <string name="dialog_message_format_sd">Caution: Entire data in the card will be deleted (card will return to its original state).</string>
 
@@ -203,6 +207,9 @@
 
     <string name="dialog_title_factory_reset">Reset</string>
     <string name="dialog_message_factory_reset">Executing reset. All items excluding date, network and some other settings will be reset.</string>
+    <string name="dialog_done_factory_reset">Done Reset.</string>
+    <string name="dialog_abort_factory_reset">Reset operation is failed.</string>
+
     <string name="busy_dialog_timeout_message">The operation takes too long time, so now this dialog can be closed.</string>
 
     <string name="get_camerastatus_title">Camera Status</string>

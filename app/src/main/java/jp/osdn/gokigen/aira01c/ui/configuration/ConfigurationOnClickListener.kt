@@ -200,30 +200,12 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
 
     private fun executePixelMapping()
     {
-        try
-        {
-            ConfirmationDialog.newInstance(activity).show(activity.getString(R.string.dialog_title_pixel_mapping), activity.getString(R.string.dialog_message_pixel_mapping),
-                object : ConfirmationCallback {
-                    override fun confirm() {
-                        val thread = Thread {
-                            try
-                            {
-                                Log.v(TAG, "executePixelMapping() : START")
-
-                            }
-                            catch (e: Exception)
-                            {
-                                e.printStackTrace()
-                            }
-                        }
-                        thread.start()
-                    }
-                })
-        }
-        catch (e: Exception)
-        {
-            e.printStackTrace()
-        }
+        executeMaintenanceCommand(
+            activity.getString(R.string.dialog_title_pixel_mapping),
+            activity.getString(R.string.dialog_message_pixel_mapping),
+            CameraMaintenanceDummy(activity),
+            "",
+            this)
     }
 
     private fun executeFactoryReset()
@@ -231,7 +213,13 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
         executeMaintenanceCommand(
             activity.getString(R.string.dialog_title_factory_reset),
             activity.getString(R.string.dialog_message_factory_reset),
-            CameraMaintenanceDummy(activity),
+            CameraMaintenanceCommand(
+                activity,
+                "exec_reset.cgi",
+                "",
+                activity.getString(R.string.lbl_reset_hardware),
+                activity.getString(R.string.dialog_done_factory_reset),
+                activity.getString(R.string.dialog_abort_factory_reset)),
             "",
             this)
     }

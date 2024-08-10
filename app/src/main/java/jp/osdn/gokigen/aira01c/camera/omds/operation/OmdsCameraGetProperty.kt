@@ -22,7 +22,7 @@ class OmdsCameraGetProperty(private val activity: FragmentActivity, private val 
                 val getStatusUrl = "$executeUrl/get_camprop.cgi?com=get&propname=$propertyName"
                 val response: String = http.httpGetWithHeader(getStatusUrl, headerMap, null, TIMEOUT_MS) ?: ""
                 Log.v(TAG, "RESP: (${response.length}) $response")
-                callback?.operationResult(response)
+                callback?.operationResult(true, response)
                 val value = pickupValue("value", response)
                 if (callback == null)
                 {

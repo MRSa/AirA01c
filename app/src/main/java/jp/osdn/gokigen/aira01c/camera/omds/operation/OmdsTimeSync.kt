@@ -58,7 +58,7 @@ class OmdsTimeSync(private val activity: FragmentActivity, private val messageDr
                     val syncTimeUrl = "$executeUrl/set_utctimediff.cgi?$setTimeString"
                     val response: String = http.httpGetWithHeader(syncTimeUrl, headerMap, null, TIMEOUT_MS) ?: ""
                     Log.v(TAG, "RESP: (${response.length}) $response")
-                    callback?.operationResult(response)
+                    callback?.operationResult(true, response)
                     if (callback == null)
                     {
                         messageDrawer.appendMessageToShow(activity.getString(R.string.time_synchronized))

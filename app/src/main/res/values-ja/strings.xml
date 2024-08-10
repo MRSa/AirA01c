@@ -131,7 +131,9 @@
     <string name="lbl_format">フォーマット</string>
     <string name="lbl_reset_mode">モード初期化</string>
     <string name="lbl_refresh">更新</string>
-    <string name="lbl_update_status">ステータス更新</string>
+    <string name="lbl_update_status">ステータス取得</string>
+    <string name="lbl_change_run_mode">モード変更 </string>
+
 
     <string name="label_card_status">メディア状態</string>
     <string name="label_card_remain_number">カード残枚数(静止画)</string>
@@ -188,6 +190,9 @@
     <string name="change_mode_done">動作モードを変更しました :</string>
     <string name="change_mode_error">動作モードの変更に失敗しました。</string>
 
+    <string name="command_accepted">コマンド受付</string>
+    <string name="command_rejected">コマンド拒否</string>
+
     <string name="dialog_title_format_sd">フォーマット</string>
     <string name="dialog_message_format_sd">カード内のすべてのデータが消去されます。</string>
 
@@ -205,6 +210,8 @@
 
     <string name="dialog_title_factory_reset">設定の初期化</string>
     <string name="dialog_message_factory_reset">日時やネットワークなど一部の設定を除き、すべての機能を初期設定に戻します。</string>
+    <string name="dialog_done_factory_reset">設定の初期化が完了しました。</string>
+    <string name="dialog_abort_factory_reset">設定の初期化ができませんでした。</string>
 
     <string name="busy_dialog_timeout_message">コマンドの実行に時間がかかりすぎているため、ダイアログをクローズできるようにしました。</string>
 

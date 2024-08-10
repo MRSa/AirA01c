@@ -32,7 +32,7 @@ class OmdsCameraStatus(private val activity: FragmentActivity, private val messa
                 val getStatusUrl = "$executeUrl/get_state.cgi"
                 val response: String = http.httpGetWithHeader(getStatusUrl, headerMap, null, TIMEOUT_MS) ?: ""
                 Log.v(TAG, "RESP: (${response.length}) $response")
-                callback?.operationResult(response)
+                callback?.operationResult(true, response)
                 if (callback == null) {
                     messageDrawer.appendMessageToShow(
                         "(${dateFormat.format(currentTime)})"

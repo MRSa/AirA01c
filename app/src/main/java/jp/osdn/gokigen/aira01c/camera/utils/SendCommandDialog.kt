@@ -76,7 +76,7 @@ class SendCommandDialog : DialogFragment(), View.OnClickListener
             AppSingleton.cameraControl.changeRunMode(mode, object: IOmdsOperationCallback
             {
                 @SuppressLint("SetTextI18n")
-                override fun operationResult(responseText: String)
+                override fun operationResult(isChange: Boolean, responseText: String)
                 {
                     try
                     {
