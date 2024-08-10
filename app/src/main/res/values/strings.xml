@@ -192,18 +192,29 @@
 
     <string name="dialog_title_format_sd">Format SD</string>
     <string name="dialog_message_format_sd">Caution: Entire data in the card will be deleted (card will return to its original state).</string>
+    <string name="dialog_done_format_sd">Format SD is finished.</string>
+    <string name="dialog_abort_format_sd">Format SD operation is failed.</string>
 
     <string name="dialog_title_delete_all">Delete all content</string>
     <string name="dialog_message_delete_all">Caution: All images will be deleted.</string>
+    <string name="dialog_done_delete_all">Delete all content is finished.</string>
+    <string name="dialog_abort_delete_all">Delete all content operation is failed.</string>
 
     <string name="dialog_title_level_adjust_adjust">Level Adjust (Adjust)</string>
     <string name="dialog_message_level_adjust_adjust">Adjusts the 0 level to the current position.</string>
+    <string name="dialog_done_level_adjust_adjust">Done Level Adjust (Adjust).</string>
+    <string name="dialog_abort_level_adjust_adjust">Level Adjust (Adjust) is failed.</string>
 
     <string name="dialog_title_level_adjust_reset">Level Adjust (Reset)</string>
     <string name="dialog_message_level_adjust_reset">Resets to default.</string>
+    <string name="dialog_done_level_adjust_reset">Done Level Adjust (Reset).</string>
+    <string name="dialog_abort_level_adjust_reset">Level Adjust (Reset) is failed.</string>
 
     <string name="dialog_title_pixel_mapping">Start Pixel Mapping</string>
     <string name="dialog_message_pixel_mapping">Remove the lens and attach the body cap.</string>
+    <string name="dialog_title_title_pixel_mapping">Pixel Mapping</string>
+    <string name="dialog_done_pixel_mapping">Done Pixel Mapping.</string>
+    <string name="dialog_abort_pixel_mapping">Pixel Mapping is failed.</string>
 
     <string name="dialog_title_factory_reset">Reset</string>
     <string name="dialog_message_factory_reset">Executing reset. All items excluding date, network and some other settings will be reset.</string>
@@ -213,4 +224,7 @@
     <string name="busy_dialog_timeout_message">The operation takes too long time, so now this dialog can be closed.</string>
 
     <string name="get_camerastatus_title">Camera Status</string>
+
+    <string name="camera_firmware_version">Body Firmware Version : </string>
+    <string name="lens_firmware_version">Lens Firmware Version : </string>
 </resources>

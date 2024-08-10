@@ -195,18 +195,29 @@
 
     <string name="dialog_title_format_sd">フォーマット</string>
     <string name="dialog_message_format_sd">カード内のすべてのデータが消去されます。</string>
+    <string name="dialog_done_format_sd">フォーマットが終わりました。</string>
+    <string name="dialog_abort_format_sd">フォーマットに失敗しました。</string>
 
     <string name="dialog_title_delete_all">画像の全消去</string>
     <string name="dialog_message_delete_all">画像がすべて消去されます。</string>
+    <string name="dialog_done_delete_all">画像の全消去が終わりました。</string>
+    <string name="dialog_abort_delete_all">画像の全消去に失敗しました。</string>
 
     <string name="dialog_title_level_adjust_adjust">水準器調整 (キャリブレーション)</string>
     <string name="dialog_message_level_adjust_adjust">現在の姿勢を原点とします。OLYMPUS AIRを水平にセットしてください。</string>
+    <string name="dialog_done_level_adjust_adjust">水準器調整 (キャリブレーション)に成功しました。</string>
+    <string name="dialog_abort_level_adjust_adjust">水準器調整 (キャリブレーション)に失敗しました。</string>
 
     <string name="dialog_title_level_adjust_reset">水準器調整 (リセット)</string>
     <string name="dialog_message_level_adjust_reset">原点復帰します。</string>
+    <string name="dialog_done_level_adjust_reset">水準器調整 (リセット)に成功しました。</string>
+    <string name="dialog_abort_level_adjust_reset">水準器調整 (リセット)に失敗しました。</string>
 
     <string name="dialog_title_pixel_mapping">ピクセルマッピングの開始</string>
     <string name="dialog_message_pixel_mapping">ピクセルマッピングを開始します。\nレンズを取り外して、ボディキャップを装着してください。</string>
+    <string name="dialog_title_title_pixel_mapping">ピクセルマッピング</string>
+    <string name="dialog_done_pixel_mapping">ピクセルマッピングが終了しました。</string>
+    <string name="dialog_abort_pixel_mapping">ピクセルマッピングに失敗しました。</string>
 
     <string name="dialog_title_factory_reset">設定の初期化</string>
     <string name="dialog_message_factory_reset">日時やネットワークなど一部の設定を除き、すべての機能を初期設定に戻します。</string>
@@ -216,5 +227,6 @@
     <string name="busy_dialog_timeout_message">コマンドの実行に時間がかかりすぎているため、ダイアログをクローズできるようにしました。</string>
 
     <string name="get_camerastatus_title">カメラステータス</string>
-
+    <string name="camera_firmware_version">ボディ ファームウェアバージョン : </string>
+    <string name="lens_firmware_version">レンズ ファームウェアバージョン : </string>
 </resources>

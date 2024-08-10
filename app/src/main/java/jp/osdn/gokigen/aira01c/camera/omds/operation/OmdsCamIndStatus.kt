@@ -2,31 +2,36 @@ package jp.osdn.gokigen.aira01c.camera.omds.operation
 
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
+import jp.osdn.gokigen.aira01c.R
 import jp.osdn.gokigen.aira01c.camera.interfaces.IOmdsOperationCallback
 import jp.osdn.gokigen.aira01c.camera.interfaces.IMessageDrawer
 import jp.osdn.gokigen.aira01c.camera.utils.communication.SimpleHttpClient
+import java.lang.Exception
 import java.util.HashMap
-import kotlin.Exception
 
-class OmdsCameraGetProperty(private val activity: FragmentActivity, private val messageDrawer: IMessageDrawer, userAgent: String = "OlympusCameraKit", private val executeUrl : String = "http://192.168.0.10")
+class OmdsCamIndStatus(private val activity: FragmentActivity, private val messageDrawer: IMessageDrawer, userAgent: String = "OlympusCameraKit", private val executeUrl : String = "http://192.168.0.10")
 {
     private val headerMap: MutableMap<String, String> = HashMap()
     private val http = SimpleHttpClient()
 
-    fun getCameraProperty(propertyName: String, propertyLabel: String?, callback: IOmdsOperationCallback?)
+    fun getCamInState(callback: IOmdsOperationCallback?)
     {
         try
         {
+            Log.v(TAG, " getCamInState")
             val thread = Thread {
-                //  ステータスを取得する
-                val getStatusUrl = "$executeUrl/get_camprop.cgi?com=get&propname=$propertyName"
-                val response: String = http.httpGetWithHeader(getStatusUrl, headerMap, null, TIMEOUT_MS) ?: ""
-                Log.v(TAG, "RESP: (${response.length}) $response")
-                callback?.operationResult(true, response)
-                val value = pickupValue("value", response)
+                val camInStateUrl = "$executeUrl/get_camindstate.cgi"
+                val response: String = http.httpGetWithHeader(camInStateUrl, headerMap, null, TIMEOUT_MS) ?: ""
+                Log.v(TAG, " $camInStateUrl $response")
+                val message = "${activity.getString(R.string.camera_firmware_version)} ${pickupValue("fwversion", response)}\n${activity.getString(R.string.lens_firmware_version)} ${pickupValue("lensfwversion", response)}\n"
+                callback?.operationResult(true, message)
                 if (callback == null)
                 {
-                    messageDrawer.appendMessageToShow("$propertyLabel : $value")
+                    messageDrawer.appendMessageToShow(message)
+                }
+                else
+                {
+                    Log.v(TAG, message)
                 }
             }
             thread.start()
@@ -37,7 +42,7 @@ class OmdsCameraGetProperty(private val activity: FragmentActivity, private val 
         }
     }
 
-    private fun pickupValue(@Suppress("SameParameterValue") tagName: String, data: String): String
+    private fun pickupValue(tagName: String, data: String): String
     {
         var value = ""
         try
@@ -67,7 +72,7 @@ class OmdsCameraGetProperty(private val activity: FragmentActivity, private val 
 
     companion object
     {
-        private val TAG = OmdsCameraGetProperty::class.java.simpleName
+        private val TAG = OmdsCamIndStatus::class.java.simpleName
         private const val TIMEOUT_MS = 5000
     }
 }

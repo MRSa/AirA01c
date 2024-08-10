@@ -8,6 +8,7 @@ import jp.osdn.gokigen.aira01c.camera.interfaces.ICameraStatusReceiver
 import jp.osdn.gokigen.aira01c.camera.interfaces.IMessageDrawer
 import jp.osdn.gokigen.aira01c.camera.interfaces.IOmdsOperationCallback
 import jp.osdn.gokigen.aira01c.camera.omds.connection.OmdsCameraConnection
+import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsCamIndStatus
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsCameraGetProperty
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsCameraStatus
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsGetCommand
@@ -28,6 +29,7 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
     private lateinit var cameraStatus: OmdsCameraStatus
     private lateinit var getCameraProperty: OmdsCameraGetProperty
     private lateinit var getCommand: OmdsGetCommand
+    private lateinit var camInState: OmdsCamIndStatus
 
     private var isInitialized  = false
 
@@ -43,6 +45,7 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
             this.cameraStatus = OmdsCameraStatus(activity, messageDrawer)
             this.getCameraProperty = OmdsCameraGetProperty(activity, messageDrawer)
             this.getCommand = OmdsGetCommand(activity, messageDrawer)
+            this.camInState = OmdsCamIndStatus(activity, messageDrawer)
 
             isInitialized = true
         }
@@ -108,6 +111,7 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
     {
         cameraStatus.getCameraStatus(null)
         getCameraProperty.getCameraProperty("BATTERY_LEVEL", activity.getString(R.string.label_battery_level),null)
+        camInState.getCamInState(null)
     }
 
     override fun detectedOpcProtocol(opcProtocol: Boolean)

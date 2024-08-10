@@ -110,7 +110,7 @@ class OmdsCameraStatus(private val activity: FragmentActivity, private val messa
 
     companion object
     {
-        private val TAG = OmdsTimeSync::class.java.simpleName
+        private val TAG = OmdsCameraStatus::class.java.simpleName
         private const val TIMEOUT_MS = 5000
     }
 }

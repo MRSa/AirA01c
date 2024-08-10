@@ -26,13 +26,13 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
         try
         {
             vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
-/*
+/**/
             if (!checkCameraConnection())
             {
                 // --- カメラと接続中ではないときは処理を行わない
                 return
             }
-*/
+/**/
             when (p0?.id) {
                 R.id.btnFormatSd -> { executeFormatSd() }
                 R.id.btnDeleteAllContent -> { executeDeleteAllContent() }
@@ -86,116 +86,66 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
 
     private fun executeFormatSd()
     {
-        try
-        {
-            ConfirmationDialog.newInstance(activity).show(activity.getString(R.string.dialog_title_format_sd), activity.getString(R.string.dialog_message_format_sd),
-                object : ConfirmationCallback {
-                    override fun confirm() {
-                        val thread = Thread {
-                            try
-                            {
-                                Log.v(TAG, "executeFormatSd() : START")
-
-
-                            }
-                            catch (e: Exception)
-                            {
-                                e.printStackTrace()
-                            }
-                        }
-                        thread.start()
-                    }
-                })
-        }
-        catch (e: Exception)
-        {
-            e.printStackTrace()
-        }
+        executeMaintenanceCommand(
+            activity.getString(R.string.dialog_title_format_sd),
+            activity.getString(R.string.dialog_message_format_sd),
+            CameraCardSetupCommand(
+                activity,
+                "exec_format.cgi",
+                "",
+                activity.getString(R.string.dialog_title_format_sd),
+                activity.getString(R.string.dialog_done_format_sd),
+                activity.getString(R.string.dialog_abort_format_sd)),
+            "",
+            this)
     }
 
     private fun executeDeleteAllContent()
     {
-        try
-        {
-            ConfirmationDialog.newInstance(activity).show(activity.getString(R.string.dialog_title_delete_all), activity.getString(R.string.dialog_message_delete_all),
-                object : ConfirmationCallback {
-                    override fun confirm() {
-                        val thread = Thread {
-                            try
-                            {
-                                Log.v(TAG, "executeDeleteAllContent() : START")
-
-
-                            }
-                            catch (e: Exception)
-                            {
-                                e.printStackTrace()
-                            }
-                        }
-                        thread.start()
-                    }
-                })
-        }
-        catch (e: Exception)
-        {
-            e.printStackTrace()
-        }
+        executeMaintenanceCommand(
+            activity.getString(R.string.dialog_title_delete_all),
+            activity.getString(R.string.dialog_message_delete_all),
+            CameraCardSetupCommand(
+                activity,
+                "exec_allerase.cgi",
+                "",
+                activity.getString(R.string.dialog_title_delete_all),
+                activity.getString(R.string.dialog_done_delete_all),
+                activity.getString(R.string.dialog_abort_delete_all)),
+            "",
+            this)
     }
 
     private fun executeLevelAdjustReset()
     {
-        try
-        {
-            ConfirmationDialog.newInstance(activity).show(activity.getString(R.string.dialog_title_level_adjust_reset), activity.getString(R.string.dialog_message_level_adjust_reset),
-                object : ConfirmationCallback {
-                    override fun confirm() {
-                        val thread = Thread {
-                            try
-                            {
-                                Log.v(TAG, "executeLevelAdjustReset() : START")
-
-                            }
-                            catch (e: Exception)
-                            {
-                                e.printStackTrace()
-                            }
-                        }
-                        thread.start()
-                    }
-                })
-        }
-        catch (e: Exception)
-        {
-            e.printStackTrace()
-        }
+        executeMaintenanceCommand(
+            activity.getString(R.string.dialog_title_level_adjust_reset),
+            activity.getString(R.string.dialog_message_level_adjust_reset),
+            CameraMaintenanceCommand(
+                activity,
+                "req_calibration.cgi",
+                "com=reset",
+                activity.getString(R.string.dialog_title_level_adjust_reset),
+                activity.getString(R.string.dialog_done_level_adjust_reset),
+                activity.getString(R.string.dialog_abort_level_adjust_reset)),
+            "",
+            this)
     }
 
     private fun executeLevelAdjustAdjust()
     {
-        try
-        {
-            ConfirmationDialog.newInstance(activity).show(activity.getString(R.string.dialog_title_level_adjust_adjust), activity.getString(R.string.dialog_message_level_adjust_adjust),
-                object : ConfirmationCallback {
-                    override fun confirm() {
-                        val thread = Thread {
-                            try
-                            {
-                                Log.v(TAG, "executeLevelAdjustAdjust() : START")
-
-                            }
-                            catch (e: Exception)
-                            {
-                                e.printStackTrace()
-                            }
-                        }
-                        thread.start()
-                    }
-                })
-        }
-        catch (e: Exception)
-        {
-            e.printStackTrace()
-        }
+        executeMaintenanceCommand(
+            activity.getString(R.string.dialog_title_level_adjust_adjust),
+            activity.getString(R.string.dialog_message_level_adjust_adjust),
+            CameraMaintenanceCommand(
+                activity,
+                "req_calibration.cgi",
+                "com=calib",
+                activity.getString(R.string.dialog_title_level_adjust_adjust),
+                activity.getString(R.string.dialog_done_level_adjust_adjust),
+                activity.getString(R.string.dialog_abort_level_adjust_adjust)),
+            "",
+            this)
     }
 
     private fun executePixelMapping()
@@ -203,7 +153,14 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
         executeMaintenanceCommand(
             activity.getString(R.string.dialog_title_pixel_mapping),
             activity.getString(R.string.dialog_message_pixel_mapping),
-            CameraMaintenanceDummy(activity),
+            CameraPixelMappingCommand(
+                activity,
+                "exec_pixelmapping.cgi",
+                "",
+                activity.getString(R.string.dialog_title_title_pixel_mapping),
+                activity.getString(R.string.dialog_done_pixel_mapping),
+                activity.getString(R.string.dialog_abort_pixel_mapping),
+                ),
             "",
             this)
     }

@@ -19,7 +19,7 @@ class OmdsCameraStatusWatcher(userAgent: String = "OlympusCameraKit", private va
     private val headerMap: MutableMap<String, String> = HashMap()
     private val http = SimpleHttpClient()
 
-    private var useOpcProtocol = false
+    private var useOpcProtocol = true
 
     private var buffer: ByteArray? = null
     private var isWatching = false
@@ -240,7 +240,10 @@ class OmdsCameraStatusWatcher(userAgent: String = "OlympusCameraKit", private va
         try
         {
             startRtpStatusWatch()
-            startEventStatusWatch()
+            if (!useOpcProtocol)
+            {
+                startEventStatusWatch()
+            }
         }
         catch (e: Exception)
         {
@@ -284,13 +287,14 @@ class OmdsCameraStatusWatcher(userAgent: String = "OlympusCameraKit", private va
                 while (isWatchingEvent)
                 {
                     // ----- EVENT POLLING
-                    if (useOpcProtocol)
+                    if (!useOpcProtocol)
                     {
-                        watchOpcStatus()
+                        watchOmdsStatus()
+
                     }
                     else
                     {
-                        watchOmdsStatus()
+                        // watchOpcStatus()
                     }
                     sleep(SLEEP_EVENT_TIME_MS)
                 }
@@ -472,11 +476,13 @@ class OmdsCameraStatusWatcher(userAgent: String = "OlympusCameraKit", private va
     {
         try
         {
+            Log.v(TAG, "parseOpcProperties : $eventResponse")
+/*
             val takeMode = getPropertyValue(eventResponse, "<prop name=\"TAKEMODE\">")
             currentWhiteBalance = getPropertyValue(eventResponse, "<prop name=\"WB\">")
             currentPictureEffect = getPropertyValue(eventResponse, "<prop name=\"COLORTONE\">")
             currentCaptureMode = getPropertyValue(eventResponse, "<prop name=\"TAKE_DRIVE\">")
-
+*/
 /*
             //val aeLockState = getPropertyValue(eventResponse, "<prop name=\"AE_LOCK_STATE\">")
             //val afLockState = getPropertyValue(eventResponse, "<prop name=\"AF_LOCK_STATE\">")
@@ -495,7 +501,8 @@ class OmdsCameraStatusWatcher(userAgent: String = "OlympusCameraKit", private va
                 //notifier?.updateFocusedStatus(focus, isError)
             }
 */
-
+/*
+            // -----
             if (takeMode != currentTakeMode)
             {
                 currentTakeMode = takeMode
@@ -508,7 +515,7 @@ class OmdsCameraStatusWatcher(userAgent: String = "OlympusCameraKit", private va
                 // 撮影モードが変わらないときには、選択肢がない場合のみ補完する
                 updateOpcSelectionList(false)
             }
-
+*/
         }
         catch (e: Exception)
         {

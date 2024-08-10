@@ -1,6 +1,5 @@
 package jp.osdn.gokigen.aira01c.camera.omds.operation
 
-
 import android.os.Build
 import android.util.Log
 import androidx.fragment.app.FragmentActivity

@@ -13,7 +13,7 @@ android {
         targetSdk = 35
         versionCode = 100000
         versionName = "1.0.0"
-        //multiDexEnabled = true
+        multiDexEnabled = true
     }
 
     buildTypes {
