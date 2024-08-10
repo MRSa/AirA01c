@@ -14,7 +14,7 @@ import java.net.Socket
 import java.util.*
 import kotlin.collections.ArrayList
 
-class OmdsCameraStatusWatcher(userAgent: String = "OlympusCameraKit", private val executeUrl : String = "http://192.168.0.10") : ICameraStatusWatcher, ICameraStatus, IOmdsCommunicationInfo, IOmdsProtocolNotify
+class OmdsCameraStatusWatcher(private val opcEventReceiver: IOpcEventReceive? = null, userAgent: String = "OlympusCameraKit", private val executeUrl : String = "http://192.168.0.10") : ICameraStatusWatcher, ICameraStatus, IOmdsCommunicationInfo, IOmdsProtocolNotify
 {
     private val headerMap: MutableMap<String, String> = HashMap()
     private val http = SimpleHttpClient()
@@ -165,30 +165,8 @@ class OmdsCameraStatusWatcher(userAgent: String = "OlympusCameraKit", private va
                             byteStream.write(byteArray, 0, readBytes)
                         }
                         val dataString = byteStream.toString()
-                        if (dataString.indexOf("<root><result>") >= 0)
-                        {
-                            if ((dataString.indexOf("ok") >= 0)&&(dataString.indexOf("<location>") >= 0))
-                            {
-                                // Focus Locked
-                                Log.v(TAG, " FOCUS OK! ")
-                            }
-                            else if ((dataString.indexOf("ng") >= 0)||(dataString.indexOf("none") >= 0))
-                            {
-                                Log.v(TAG, " FOCUS NG... ")
-                            }
-                            else
-                            {
-                                Log.v(TAG, " --- RECEIVE OPC EVENT $dataString ---")
-                            }
-                        }
-                        else
-                        {
-                            Log.v(TAG, " RECEIVE OPC EVENT $dataString")
-                        }
-                        //if (isDumpLog)
-                        //{
-                        //    SimpleLogDumper.dumpBytes("[RX EVT(OPC):$dataBytes]", byteStream.toByteArray())
-                        //}
+                        Log.v(TAG, "::: RECEIVE OPC EVENT ::: $dataString")
+                        opcEventReceiver?.receivedOpcEvent(dataString)
                     }
                     else
                     {
@@ -206,7 +184,6 @@ class OmdsCameraStatusWatcher(userAgent: String = "OlympusCameraKit", private va
                     finishEventReceiverThread()
                 }
             }
-            //finishEventReceiverThread()
             System.gc()
         }
         catch (e: Exception)
@@ -1096,6 +1073,11 @@ class OmdsCameraStatusWatcher(userAgent: String = "OlympusCameraKit", private va
     interface IPropertyListCallback
     {
         fun receivedReply(replyValue: String)
+    }
+
+    interface IOpcEventReceive
+    {
+        fun receivedOpcEvent(value: String)
     }
 
     companion object

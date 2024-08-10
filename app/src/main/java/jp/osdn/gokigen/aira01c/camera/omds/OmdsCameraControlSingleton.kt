@@ -15,11 +15,13 @@ import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsGetCommand
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsRunModeControl
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsTimeSync
 import jp.osdn.gokigen.aira01c.camera.omds.status.OmdsCameraStatusWatcher
+import java.util.concurrent.Flow.Subscriber
 
-class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, ICameraConnectionStatus
+class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, ICameraConnectionStatus, OmdsCameraStatusWatcher.IOpcEventReceive
 {
-    private val statusChecker = OmdsCameraStatusWatcher()
+    private val statusChecker = OmdsCameraStatusWatcher(this)
     private var connectionStatus: ICameraConnectionStatus.CameraConnectionStatus = ICameraConnectionStatus.CameraConnectionStatus.UNKNOWN
+    private val subscriberList = ArrayList<IOpcEventNotify>()
 
     private lateinit var activity: FragmentActivity
     private lateinit var cameraConnection: OmdsCameraConnection
@@ -46,6 +48,7 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
             this.getCameraProperty = OmdsCameraGetProperty(activity, messageDrawer)
             this.getCommand = OmdsGetCommand(activity, messageDrawer)
             this.camInState = OmdsCamIndStatus(activity, messageDrawer)
+            this.subscriberList.clear()
 
             isInitialized = true
         }
@@ -171,6 +174,54 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
         {
             connectionStatus = ICameraConnectionStatus.CameraConnectionStatus.UNKNOWN
             messageDrawer.invalidate()
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+    }
+
+    fun subscribeOpcEvent(subscriber: IOpcEventNotify)
+    {
+        try
+        {
+            Log.v(TAG, "subscribeOpcEvent() : ${subscriber.getSubscribeId()}")
+            subscriberList.add(subscriber)
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+    }
+
+    fun unsubscribeOpcEvent(subscriber: IOpcEventNotify)
+    {
+        try
+        {
+            Log.v(TAG, "unsubscribeOpcEvent() : ${subscriber.getSubscribeId()}")
+            subscriberList.remove(subscriber)
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+    }
+
+    override fun receivedOpcEvent(value: String)
+    {
+        try
+        {
+            Log.v(TAG, "receivedOpcEvent() [subscriber: ${subscriberList.size}]")
+            subscriberList.forEach { subscriber ->
+                try
+                {
+                    subscriber.receivedOpcEvent(value)
+                }
+                catch (e: Exception)
+                {
+                    e.printStackTrace()
+                }
+            }
         }
         catch (e: Exception)
         {
