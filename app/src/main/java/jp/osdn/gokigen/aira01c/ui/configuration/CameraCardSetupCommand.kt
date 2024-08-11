@@ -7,6 +7,7 @@ import jp.osdn.gokigen.aira01c.AppSingleton
 import jp.osdn.gokigen.aira01c.R
 import jp.osdn.gokigen.aira01c.camera.interfaces.ICameraMaintenanceCommandSequence
 import jp.osdn.gokigen.aira01c.camera.interfaces.IOmdsOperationCallback
+import jp.osdn.gokigen.aira01c.camera.omds.IOpcEventNotify
 import java.util.HashMap
 
 class CameraCardSetupCommand(
@@ -16,7 +17,7 @@ class CameraCardSetupCommand(
     private val commandTitle: String,
     private val okResponseText: String,
     private val ngResponseText: String,
-    userAgent: String = "OlympusCameraKit"): ICameraMaintenanceCommandSequence
+    userAgent: String = "OlympusCameraKit"): ICameraMaintenanceCommandSequence, IOpcEventNotify
 {
     private val headerMap: MutableMap<String, String> = HashMap()
     private var callback: IBusyProgressDrawer? = null
@@ -40,7 +41,6 @@ class CameraCardSetupCommand(
         activity.runOnUiThread {
             callback?.setMessageText(activity.getString(R.string.action_refresh))
         }
-
         val thread = Thread {
             try
             {
@@ -53,6 +53,7 @@ class CameraCardSetupCommand(
         }
         try
         {
+            AppSingleton.cameraControl.subscribeOpcEvent(this)
             thread.start()
         }
         catch (e: Exception)
@@ -87,6 +88,7 @@ class CameraCardSetupCommand(
                         callback?.setCommandFinished(true)
                         callback?.setResponseText(okResponseText, false)
                         callback?.controlCloseButton(true)
+                        AppSingleton.cameraControl.unsubscribeOpcEvent(this)
                     }
                 }
                 else -> {
@@ -96,6 +98,7 @@ class CameraCardSetupCommand(
                         callback?.setCommandFinished(true)
                         callback?.setResponseText(ngResponseText, false)
                         callback?.controlCloseButton(true)
+                        AppSingleton.cameraControl.unsubscribeOpcEvent(this)
                     }
                 }
             }
@@ -177,6 +180,7 @@ class CameraCardSetupCommand(
                         e.printStackTrace()
                     }
                 }
+
             })
         }
         catch (e: Exception)
@@ -253,6 +257,65 @@ class CameraCardSetupCommand(
 
     override fun setCallback(callback: IBusyProgressDrawer) {
         this.callback = callback
+    }
+
+    override fun getSubscribeId(): String {
+        return (TAG)
+    }
+
+    override fun receivedOpcEvent(eventMessage: String)
+    {
+        Log.v(TAG, "receivedOpcEvent() : $eventMessage")
+        try
+        {
+            val processing = pickupValue("processing", eventMessage)
+            if (processing.isNotEmpty())
+            {
+                callback?.setResponseText(processing, false)
+            }
+            val result = pickupValue("result", eventMessage)
+            if (result.isNotEmpty())
+            {
+                // ---- 終了したか？
+                callback?.setResponseText(result, true)
+                if ((result.contains("ok"))||result.contains("OK"))
+                {
+                    // 正常終了 ... 後処理（standaloneモードに切り替え）を実行する
+                    sendCommandSequence(4)
+                }
+                else
+                {
+                    // 異常終了
+                    sendCommandSequence(1000)
+                }
+            }
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+    }
+
+    private fun pickupValue(@Suppress("SameParameterValue") tagName: String, data: String): String
+    {
+        var value = ""
+        try
+        {
+            val startTag = "<$tagName>"
+            val endTag = "</$tagName>"
+
+            val startPosition = data.indexOf(startTag) + startTag.length
+            val endPosition = data.indexOf(endTag)
+            if ((startPosition >= 0)&&(endPosition > 0))
+            {
+                value = data.substring(startPosition, endPosition)
+            }
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+        return (value)
     }
 
     companion object

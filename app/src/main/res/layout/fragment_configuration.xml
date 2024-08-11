@@ -430,7 +430,7 @@
                 android:layout_marginRight="2dp"
                 android:layout_gravity="center_horizontal"
                 android:enabled="false"
-                android:visibility="visible"
+                android:visibility="invisible"
                 android:maxWidth="300dp"
                 android:text="@string/lbl_network_settings" />
 
@@ -445,7 +445,7 @@
                 android:layout_marginEnd="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_gravity="center_horizontal"
-                android:enabled="false"
+                android:enabled="true"
                 android:visibility="visible"
                 android:maxWidth="300dp"
                 android:text="@string/lbl_other_settings" />
