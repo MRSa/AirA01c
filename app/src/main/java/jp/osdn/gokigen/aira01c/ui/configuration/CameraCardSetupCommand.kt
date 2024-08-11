@@ -136,7 +136,7 @@ class CameraCardSetupCommand(
                         else
                         {
                             Log.v(TAG, "RunMode: $runMode NG.\n$responseText")
-                            sendCommandSequence(1000)
+                            sendCommandSequence(SEQ_ENTER_ERROR_SEQUENCE)
                         }
                         activity.runOnUiThread {
                             callback?.setResponseText(responseText, true)
@@ -175,7 +175,7 @@ class CameraCardSetupCommand(
                         else
                         {
                             Log.v(TAG, "$command NG.\n$responseText")
-                            sendCommandSequence(1000)
+                            sendCommandSequence(SEQ_ENTER_ERROR_SEQUENCE)
                         }
                         activity.runOnUiThread {
                             callback?.setResponseText(responseText, true)
@@ -186,7 +186,6 @@ class CameraCardSetupCommand(
                         e.printStackTrace()
                     }
                 }
-
             })
         }
         catch (e: Exception)

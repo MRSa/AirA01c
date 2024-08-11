@@ -19,9 +19,9 @@ class OmdsGetCommand(private val activity: FragmentActivity, private val message
         try
         {
             Log.v(TAG, " OmdsCommands [$commandCgi] [$commandParameter]")
-            val thread = Thread { // カメラとの接続確立を通知する
+            val thread = Thread {
                 val commandUrl = if (commandParameter.length > 1) {
-                    "$executeUrl/$commandCgi?commandParameter"
+                    "$executeUrl/$commandCgi?$commandParameter"
                 } else {
                     "$executeUrl/$commandCgi"
                 }
@@ -52,8 +52,8 @@ class OmdsGetCommand(private val activity: FragmentActivity, private val message
 
     init
     {
-        headerMap["User-Agent"] = userAgent // "OlympusCameraKit" // "OI.Share"
-        headerMap["X-Protocol"] = userAgent // "OlympusCameraKit" // "OI.Share"
+        headerMap["User-Agent"] = userAgent // "OlympusCameraKit" or "OI.Share"
+        headerMap["X-Protocol"] = userAgent // "OlympusCameraKit" or "OI.Share"
     }
 
     companion object

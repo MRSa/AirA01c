@@ -77,9 +77,9 @@ class CameraPixelMappingCommand(
                     sendGetCommand(command, parameter, sequenceNumber)
                 }
                 3 -> {
-                    waitForExecutionFinished(sequenceNumber)
+                    waitForExecutionFinished()
                 }
-                4 -> {
+                SEQ_ENTER_FINISH_SEQUENCE -> {
                     changeRunMode("standalone", sequenceNumber)
                 }
                 5 -> {
@@ -91,9 +91,12 @@ class CameraPixelMappingCommand(
                         AppSingleton.cameraControl.unsubscribeOpcEvent(this)
                     }
                 }
-                else -> {
+                SEQ_ENTER_ERROR_SEQUENCE -> {
                     // コマンド アボート (エラーが発生した場合、standaloneモードに切り替えて終了する）
                     changeRunMode("standalone", sequenceNumber)
+                }
+                else -> {
+                    //  -----
                     activity.runOnUiThread {
                         callback?.setCommandFinished(true)
                         callback?.setResponseText(ngResponseText, false)
@@ -130,7 +133,7 @@ class CameraPixelMappingCommand(
                         else
                         {
                             Log.v(TAG, "RunMode: $runMode NG.\n$responseText")
-                            sendCommandSequence(1000)
+                            sendCommandSequence(SEQ_ENTER_ERROR_SEQUENCE)
                         }
                         activity.runOnUiThread {
                             callback?.setResponseText(responseText, true)
@@ -169,7 +172,7 @@ class CameraPixelMappingCommand(
                         else
                         {
                             Log.v(TAG, "$command NG.\n$responseText")
-                            sendCommandSequence(1000)
+                            sendCommandSequence(SEQ_ENTER_ERROR_SEQUENCE)
                         }
                         activity.runOnUiThread {
                             callback?.setResponseText(responseText, true)
@@ -189,7 +192,7 @@ class CameraPixelMappingCommand(
         }
     }
 
-    private fun waitForExecutionFinished(index: Int)
+    private fun waitForExecutionFinished()
     {
         try
         {
@@ -198,15 +201,6 @@ class CameraPixelMappingCommand(
             while (waitingForExecutionFinished)
             {
                 Thread.sleep(LOOP_WAIT_MS)  // ちょっと待つ
-                try
-                {
-
-                }
-                catch (e: Exception)
-                {
-                    e.printStackTrace()
-                    waitingForExecutionFinished = false
-                }
             }
         }
         catch (e: Exception)
@@ -214,13 +208,12 @@ class CameraPixelMappingCommand(
             e.printStackTrace()
         }
         // "待ち"終了、次のシーケンスに移る
-        sendCommandSequence(index + 1)
     }
 
     override fun abortMaintenanceCommand(parameter: String?)
     {
         Log.v(TAG, "COMMAND ABORT: $parameter")
-        sendCommandSequence(1000)
+        sendCommandSequence(SEQ_ENTER_ERROR_SEQUENCE)
     }
 
     override fun isVisiblePrevious(): Boolean {
@@ -281,13 +274,14 @@ class CameraPixelMappingCommand(
                 if ((result.contains("ok"))||result.contains("OK"))
                 {
                     // 正常終了 ... 後処理（standaloneモードに切り替え）を実行する
-                    sendCommandSequence(4)
+                    sendCommandSequence(SEQ_ENTER_FINISH_SEQUENCE)
                 }
                 else
                 {
                     // 異常終了
-                    sendCommandSequence(1000)
+                    sendCommandSequence(SEQ_ENTER_ERROR_SEQUENCE)
                 }
+                waitingForExecutionFinished = false
             }
         }
         catch (e: Exception)
@@ -322,5 +316,7 @@ class CameraPixelMappingCommand(
     {
         private val TAG = ICameraMaintenanceCommandSequence::class.java.simpleName
         private const val LOOP_WAIT_MS = 250L
+        private const val SEQ_ENTER_FINISH_SEQUENCE = 4
+        private const val SEQ_ENTER_ERROR_SEQUENCE = 1000
     }
 }

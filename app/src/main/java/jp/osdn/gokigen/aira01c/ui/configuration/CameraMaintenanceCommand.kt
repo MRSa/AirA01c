@@ -85,9 +85,11 @@ class CameraMaintenanceCommand(
                         callback?.controlCloseButton(true)
                     }
                 }
-                else -> {
+                SEQ_ENTER_ERROR_SEQUENCE -> {
                     // === コマンド アボート (standaloneモードに切り替えて終了する）
                     changeRunMode("standalone", sequenceNumber)
+                }
+                else -> {
                     activity.runOnUiThread {
                         callback?.setCommandFinished(true)
                         callback?.setResponseText(ngResponseText, false)
@@ -123,7 +125,7 @@ class CameraMaintenanceCommand(
                         else
                         {
                             Log.v(TAG, "RunMode: $runMode NG.\n$responseText")
-                            sendCommandSequence(1000)
+                            sendCommandSequence(SEQ_ENTER_ERROR_SEQUENCE)
                         }
                         activity.runOnUiThread {
                             callback?.setResponseText(responseText, true)
@@ -162,7 +164,7 @@ class CameraMaintenanceCommand(
                         else
                         {
                             Log.v(TAG, "$command NG.\n$responseText")
-                            sendCommandSequence(1000)
+                            sendCommandSequence(SEQ_ENTER_ERROR_SEQUENCE)
                         }
                         activity.runOnUiThread {
                             callback?.setResponseText(responseText, true)
@@ -184,7 +186,7 @@ class CameraMaintenanceCommand(
     override fun abortMaintenanceCommand(parameter: String?)
     {
         Log.v(TAG, "COMMAND ABORT: $parameter")
-        sendCommandSequence(1000)
+        sendCommandSequence(SEQ_ENTER_ERROR_SEQUENCE)
     }
 
     override fun isVisiblePrevious(): Boolean {
@@ -226,5 +228,6 @@ class CameraMaintenanceCommand(
     companion object
     {
         private val TAG = ICameraMaintenanceCommandSequence::class.java.simpleName
+        private const val SEQ_ENTER_ERROR_SEQUENCE = 1000
     }
 }
