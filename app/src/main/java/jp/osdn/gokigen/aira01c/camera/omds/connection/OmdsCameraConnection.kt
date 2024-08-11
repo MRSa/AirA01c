@@ -101,18 +101,20 @@ class OmdsCameraConnection(private val context: FragmentActivity,
         }
     }
 
+/*
     fun stopWatchWifiStatus(context: Context)
     {
         Log.v(TAG, "stopWatchWifiStatus()")
         context.unregisterReceiver(connectionReceiver)
         disconnect(false)
     }
+*/
 
     fun disconnect(powerOff: Boolean)
     {
         Log.v(TAG, "disconnect()")
         disconnectFromCamera(powerOff)
-        stopWatchWifiStatus(context)
+        //stopWatchWifiStatus(context)
         cameraStatusReceiver.onCameraDisconnected()
     }
 

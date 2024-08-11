@@ -169,7 +169,7 @@ class HomeFragment : Fragment(), IMessageDrawer
         Log.v(TAG, "pushedConnect()")
         try
         {
-            cameraControl.startCamera()
+            cameraControl.connectToCamera()
         }
         catch (e: Exception)
         {
@@ -256,6 +256,7 @@ class HomeFragment : Fragment(), IMessageDrawer
         return
     }
 
+/*
     private fun getIpAddress(isConnected: Boolean)
     {
         if (isConnected)
@@ -274,6 +275,7 @@ class HomeFragment : Fragment(), IMessageDrawer
             updateIpAddress("")
         }
     }
+ */
 
     private fun updateIpAddress(address: String)
     {
@@ -301,18 +303,35 @@ class HomeFragment : Fragment(), IMessageDrawer
         try
         {
             requireActivity().runOnUiThread {
-                try
-                {
-                    requireActivity().findViewById<Button>(R.id.btnConnect)?.isEnabled = !isConnected
-                    requireActivity().findViewById<Button>(R.id.btnDisconnect)?.isEnabled = isConnected
-                    requireActivity().findViewById<Button>(R.id.btnModeReset)?.isEnabled = isConnected
-                    requireActivity().findViewById<Button>(R.id.btnTimeSync)?.isEnabled = isConnected
-                    requireActivity().findViewById<Button>(R.id.btnRefresh)?.isEnabled = isConnected
+                try {
+                    val btnConnect = requireActivity().findViewById<Button>(R.id.btnConnect)
+                    if (btnConnect.isEnabled == isConnected)
+                    {
+                        btnConnect.isEnabled = !isConnected
+                    }
 
-                    getIpAddress(isConnected)
-                }
-                catch (e: Exception)
-                {
+                    val btnDisconnect = requireActivity().findViewById<Button>(R.id.btnDisconnect)
+                    if (btnDisconnect.isEnabled != isConnected)
+                    {
+                        btnDisconnect.isEnabled = isConnected
+                    }
+
+                    val btnModeReset = requireActivity().findViewById<Button>(R.id.btnModeReset)
+                    if (btnModeReset.isEnabled != isConnected) {
+                        btnModeReset.isEnabled = isConnected
+                    }
+
+                    val btnTimeSync = requireActivity().findViewById<Button>(R.id.btnTimeSync)
+                    if (btnTimeSync.isEnabled != isConnected) {
+                        btnTimeSync.isEnabled = isConnected
+                    }
+
+                    val btnRefresh = requireActivity().findViewById<Button>(R.id.btnRefresh)
+                    if (btnRefresh.isEnabled != isConnected) {
+                        btnRefresh.isEnabled = isConnected
+                    }
+                    // getIpAddress(isConnected)
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }

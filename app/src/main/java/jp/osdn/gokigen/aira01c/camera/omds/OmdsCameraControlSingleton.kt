@@ -15,7 +15,6 @@ import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsGetCommand
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsRunModeControl
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsTimeSync
 import jp.osdn.gokigen.aira01c.camera.omds.status.OmdsCameraStatusWatcher
-import java.util.concurrent.Flow.Subscriber
 
 class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, ICameraConnectionStatus, OmdsCameraStatusWatcher.IOpcEventReceive
 {
@@ -59,7 +58,6 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
         }
     }
 
-/*
     fun connectToCamera()
     {
         Log.v(TAG, " connectToCamera() : OMDS ")
@@ -72,12 +70,14 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
             e.printStackTrace()
         }
     }
- */
+
+/*
     fun startCamera()
     {
         try
         {
             Log.v(TAG, " startCamera() : OMDS ")
+
             if (connectionStatus != ICameraConnectionStatus.CameraConnectionStatus.CONNECTED)
             {
                 cameraConnection.startWatchWifiStatus(activity)
@@ -92,14 +92,25 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
             e.printStackTrace()
         }
     }
+*/
 
     fun finishCamera(isPowerOff: Boolean)
     {
         try
         {
             Log.v(TAG, " finishCamera() : $isPowerOff ")
-            statusChecker.stopStatusWatch()
-            cameraConnection.disconnect(isPowerOff)
+            val thread = Thread {
+                try
+                {
+                    statusChecker.stopStatusWatch()
+                    cameraConnection.disconnect(isPowerOff)
+                }
+                catch (e: Exception)
+                {
+                    e.printStackTrace()
+                }
+            }
+            thread.start()
         }
         catch (e: Exception)
         {
@@ -113,9 +124,24 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
     fun getCameraStatus()
     {
         cameraStatus.getCameraStatus(null)
+        sendWait100ms()
         getCameraProperty.getCameraProperty("BATTERY_LEVEL", activity.getString(R.string.label_battery_level),null)
+        sendWait100ms()
         camInState.getCamInState(null)
     }
+
+    private fun sendWait100ms()
+    {
+        try
+        {
+            Thread.sleep(100)
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+    }
+
 
     override fun detectedOpcProtocol(opcProtocol: Boolean)
     {

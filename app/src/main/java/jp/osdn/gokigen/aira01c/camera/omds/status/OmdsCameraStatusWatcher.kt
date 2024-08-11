@@ -9,9 +9,9 @@ import jp.osdn.gokigen.aira01c.camera.interfaces.IMessageDrawer
 import jp.osdn.gokigen.aira01c.camera.omds.IOmdsProtocolNotify
 import jp.osdn.gokigen.aira01c.camera.utils.communication.SimpleHttpClient
 import java.io.ByteArrayOutputStream
-import java.lang.Exception
 import java.net.Socket
 import java.util.*
+import kotlin.Exception
 import kotlin.collections.ArrayList
 
 class OmdsCameraStatusWatcher(private val opcEventReceiver: IOpcEventReceive? = null, userAgent: String = "OlympusCameraKit", private val executeUrl : String = "http://192.168.0.10") : ICameraStatusWatcher, ICameraStatus, IOmdsCommunicationInfo, IOmdsProtocolNotify
@@ -198,7 +198,7 @@ class OmdsCameraStatusWatcher(private val opcEventReceiver: IOpcEventReceive? = 
         {
             Log.v(TAG, "finishEventReceiverThread()")
 
-            // OPC機のイベント通知開始
+            // OPC機のイベント通知を止める処理
             val eventWatchUrl = "$executeUrl/stop_pushevent.cgi"
             val response = http.httpGetWithHeader(eventWatchUrl, headerMap, null, TIMEOUT_MS) ?: ""
             if (response.isNotEmpty())

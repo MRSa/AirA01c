@@ -470,7 +470,7 @@ class SimpleHttpClient
         }
         catch (e: Exception)
         {
-            Log.w(TAG, "http " + requestMethod + " : IOException: " + e.message)
+            Log.w(TAG, "::http $requestMethod  $url ")
             e.printStackTrace()
             return ("")
         }
