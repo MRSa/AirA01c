@@ -80,7 +80,7 @@ class CameraCardSetupCommand(
                     sendGetCommand(command, parameter, sequenceNumber)
                 }
                 4 -> {
-                    waitForExecutionFinished(sequenceNumber)
+                    waitForExecutionFinished()
                 }
                 SEQ_ENTER_FINISH_SEQUENCE -> {
                     changeRunMode("standalone", sequenceNumber)
@@ -195,7 +195,7 @@ class CameraCardSetupCommand(
         }
     }
 
-    private fun waitForExecutionFinished(index: Int)
+    private fun waitForExecutionFinished()
     {
         try
         {
@@ -219,8 +219,7 @@ class CameraCardSetupCommand(
         {
             e.printStackTrace()
         }
-        //// "待ち"終了、次のシーケンスに移る
-        ////sendCommandSequence(index + 1)
+        Log.v(TAG, "EXIT: waitForExecutionFinished()")
     }
 
     override fun abortMaintenanceCommand(parameter: String?)
