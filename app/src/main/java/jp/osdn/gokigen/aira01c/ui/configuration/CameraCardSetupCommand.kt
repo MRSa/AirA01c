@@ -71,18 +71,21 @@ class CameraCardSetupCommand(
                     changeRunMode("standalone", sequenceNumber)
                 }
                 1 -> {
-                    changeRunMode("playmaintenance", sequenceNumber)
+                    changeRunMode("play", sequenceNumber)
                 }
                 2 -> {
-                    sendGetCommand(command, parameter, sequenceNumber)
+                    changeRunMode("playmaintenance", sequenceNumber)
                 }
                 3 -> {
-                    waitForExecutionFinished(sequenceNumber)
+                    sendGetCommand(command, parameter, sequenceNumber)
                 }
                 4 -> {
+                    waitForExecutionFinished(sequenceNumber)
+                }
+                SEQ_ENTER_FINISH_SEQUENCE -> {
                     changeRunMode("standalone", sequenceNumber)
                 }
-                5 -> {
+                6 -> {
                     // ---- コマンド終了
                     activity.runOnUiThread {
                         callback?.setCommandFinished(true)
@@ -91,9 +94,12 @@ class CameraCardSetupCommand(
                         AppSingleton.cameraControl.unsubscribeOpcEvent(this)
                     }
                 }
-                else -> {
-                    // コマンド アボート (エラーが発生した場合、standaloneモードに切り替えて終了する）
+                SEQ_ENTER_ERROR_SEQUENCE -> {
+                    // コマンド アボート (エラー終了のシーケンスに入る）
                     changeRunMode("standalone", sequenceNumber)
+                }
+                else -> {
+
                     activity.runOnUiThread {
                         callback?.setCommandFinished(true)
                         callback?.setResponseText(ngResponseText, false)
@@ -213,14 +219,14 @@ class CameraCardSetupCommand(
         {
             e.printStackTrace()
         }
-        // "待ち"終了、次のシーケンスに移る
-        sendCommandSequence(index + 1)
+        //// "待ち"終了、次のシーケンスに移る
+        ////sendCommandSequence(index + 1)
     }
 
     override fun abortMaintenanceCommand(parameter: String?)
     {
         Log.v(TAG, "COMMAND ABORT: $parameter")
-        sendCommandSequence(1000)
+        sendCommandSequence(SEQ_ENTER_ERROR_SEQUENCE)
     }
 
     override fun isVisiblePrevious(): Boolean {
@@ -281,13 +287,14 @@ class CameraCardSetupCommand(
                 if ((result.contains("ok"))||result.contains("OK"))
                 {
                     // 正常終了 ... 後処理（standaloneモードに切り替え）を実行する
-                    sendCommandSequence(4)
+                    sendCommandSequence(SEQ_ENTER_FINISH_SEQUENCE)
                 }
                 else
                 {
                     // 異常終了
-                    sendCommandSequence(1000)
+                    sendCommandSequence(SEQ_ENTER_ERROR_SEQUENCE)
                 }
+                waitingForExecutionFinished = false
             }
         }
         catch (e: Exception)
@@ -322,5 +329,7 @@ class CameraCardSetupCommand(
     {
         private val TAG = ICameraMaintenanceCommandSequence::class.java.simpleName
         private const val LOOP_WAIT_MS = 250L
+        private const val SEQ_ENTER_FINISH_SEQUENCE = 5
+        private const val SEQ_ENTER_ERROR_SEQUENCE = 1000
     }
 }
