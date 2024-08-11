@@ -18,7 +18,6 @@ import jp.osdn.gokigen.aira01c.camera.utils.ConfirmationDialog
 import jp.osdn.gokigen.aira01c.camera.utils.ConfirmationDialog.ConfirmationCallback
 import jp.osdn.gokigen.aira01c.camera.utils.CreditDialog
 import jp.osdn.gokigen.aira01c.camera.utils.SendCommandDialog
-import kotlinx.coroutines.newSingleThreadContext
 
 class ConfigurationOnClickListener(private val activity: FragmentActivity) : View.OnClickListener, IVibrator
 {
@@ -213,7 +212,12 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
             this)
     }
 
-    private fun executeMaintenanceCommand(title: String, message: String, commandSequence: ICameraMaintenanceCommandSequence, parameter: String?, vibrator: IVibrator)
+    private fun executeMaintenanceCommand(
+        title: String,
+        message: String,
+        commandSequence: ICameraMaintenanceCommandSequence,
+        @Suppress("SameParameterValue") parameter: String?,
+        vibrator: IVibrator)
     {
         try
         {
