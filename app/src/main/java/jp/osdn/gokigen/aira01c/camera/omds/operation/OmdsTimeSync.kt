@@ -42,6 +42,8 @@ class OmdsTimeSync(private val activity: FragmentActivity, private val messageDr
                 val mn = String.format(Locale.US, "%02d", minute.toInt())
                 "${plus}${hr}${mn}"
             }
+            dateFormat1.timeZone = TimeZone.getTimeZone("UTC")
+            dateFormat2.timeZone = TimeZone.getTimeZone("UTC")
             val utcTime = "${dateFormat1.format(currentDateTime)}T${dateFormat2.format(currentDateTime)}"
             val setTimeString = "utctime=${utcTime}&utcdiff=${timezone}"
             Log.v(TAG, " setTimeSync : $setTimeString ($timezone)")
