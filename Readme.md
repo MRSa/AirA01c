@@ -22,8 +22,8 @@ AirA01C は、デジタルカメラ OLYMPUS AIR A01 にWi-Fi経由で接続し�
 - 個別コマンドの発行
 - AIR A01の操作説明
 
-詳細は、[操作説明のページ](https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01b/Readme.md)を参照してください。
-- [https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01b/Readme.md](https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01b/Readme.md)
+詳細は、[操作説明のページ](https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01c/Readme.md)を参照してください。
+- [https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01c/Readme.md](https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01c/Readme.md)
 
 -----------
 
