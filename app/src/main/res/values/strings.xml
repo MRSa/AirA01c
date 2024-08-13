@@ -5,6 +5,7 @@
     <string name="title_tips">Tips</string>
     <string name="dummy">(Dummy)</string>
     <string name="blank"> </string>
+    <string name="about_gokigen">About</string>
 
     <string name="app_credit">OLYMPUS AIR A01 Maintenance App.\n   https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01c/Readme.md</string>
 
