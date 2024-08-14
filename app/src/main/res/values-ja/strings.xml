@@ -5,6 +5,7 @@
     <string name="title_tips">こんな時は？</string>
     <string name="dummy">(Dummy)</string>
     <string name="blank"> </string>
+    <string name="about_gokigen">情報</string>
 
     <string name="app_credit">OLYMPUS AIR A01 Maintenance App.\n   https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01c/Readme.md</string>
 
@@ -112,9 +113,17 @@
     <string name="faq_question_09">OLYMPUS AIRの電源がオン状態なのに操作を受け付けない。</string>
     <string name="faq_answer_09">電源ボタンを長押し（約8秒）してください。OLYMPUS AIRが再起動します。</string>
 
-    <string name="faq_title_10">....</string>
-    <string name="faq_question_10">....</string>
-    <string name="faq_answer_10">....</string>
+    <string name="faq_title_10">LEDランプ表示の意味を知りたい</string>
+    <string name="faq_question_10">電源ボタン横にあるLEDの色や点滅にはどのような意味がありますか。</string>
+    <string name="faq_answer_10">電源ボタン横の LED ランプは、色と点灯または点滅により、本体の状態やスマートフォンとの接続状態を示します。\n\n・青 点灯：通常の状態 (Wi-Fi 未接続)\n・青 点滅 ： カードへ記録中 または ムービー撮影中\n・青 間欠点灯 ： 電池残量警告\n\n・緑 点灯 ： 通常の状態 (Wi-Fi 接続中)\n・緑 点滅： カード記録中 または ムービー撮影中\n・緑 間欠点灯 ： 電池残量警告\n・緑 ゆっくり点滅 ： スリープモード (省電力状態)\n\n・オレンジ 点灯 ： 電池残量なし または 充電中 (充電完了すると消灯)\n・オレンジ 点滅 ： カード読み取り中 (パソコン接続時)\n・オレンジ 点滅 ＋ 警告音 ： エラー\n</string>
+
+    <string name="faq_title_11">LEDランプがオレンジで点滅し、警告音が鳴って撮影ができない。</string>
+    <string name="faq_question_11">LEDランプがオレンジで点滅し、警告音が鳴って撮影ができません。どのようなことが考えられますか？</string>
+    <string name="faq_answer_11">電源ボタン横の LED ランプがオレンジで点滅し、警告音が鳴って撮影できない場合は、以下を確認してください。\n\n・microSD カードが入っていない\n    カードを入れるか、正しくカードがセットされているか確認してください。\n\n・microSD カードに問題がある\n    別のカードで撮影できるか確認をしてください。\n\n・カードの残り撮影可能枚数が 0 になっている (カードフル)\n    カードを交換するか、不要な画像を消去してください。\n\n・レンズに異常がある\n    A01 本体の電源をオフにして、レンズを装着しなおしてください。また、お持ちであれば他のレンズで撮影できるか確認してください。\n\n・カメラの内部温度が上昇している\n    警告後、自動的に電源が切れます。カメラの内部温度が下がって撮影可能になるまでしばらくお待ちください。\n</string>
+
+    <string name="faq_title_12">....</string>
+    <string name="faq_question_12">....</string>
+    <string name="faq_answer_12">....</string>
 
     <string name="initial_message">WiFiでOLYMPUS AIRに接続してください。</string>
     <string name="connecting_message">OLYMPUS AIRに接続中です。</string>

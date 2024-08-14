@@ -3,6 +3,9 @@ package jp.osdn.gokigen.aira01c.ui.tips
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -10,8 +13,12 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import jp.osdn.gokigen.aira01c.R
+import jp.osdn.gokigen.aira01c.camera.utils.CreditDialog
 
 class TipsFragment : Fragment()
 {
@@ -26,6 +33,33 @@ class TipsFragment : Fragment()
         setupTipsSelection(root)
 
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?)
+    {
+        super.onViewCreated(view, savedInstanceState)
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.app_bar_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.action_about_gokigen -> {
+                        try
+                        {
+                            CreditDialog.newInstance(requireContext()).show()
+                        }
+                        catch (e: Exception)
+                        {
+                            e.printStackTrace()
+                        }
+                    }
+                }
+                return true
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun setupTipsSelection(rootView: View)
@@ -45,6 +79,8 @@ class TipsFragment : Fragment()
             adapter.add(getString(R.string.faq_title_07))
             adapter.add(getString(R.string.faq_title_08))
             adapter.add(getString(R.string.faq_title_09))
+            adapter.add(getString(R.string.faq_title_10))
+            adapter.add(getString(R.string.faq_title_11))
 
             val spinner: AppCompatSpinner = rootView.findViewById(R.id.tips_title_selection)
             spinner.adapter = adapter
@@ -112,6 +148,16 @@ class TipsFragment : Fragment()
                                     question.setText(R.string.faq_question_09)
                                     answer.setText(R.string.faq_answer_09)
                                     image.setImageResource(R.drawable.air07)
+                                }
+                                10 -> {
+                                    question.setText(R.string.faq_question_10)
+                                    answer.setText(R.string.faq_answer_10)
+                                    image.setImageResource(R.drawable.led_data)
+                                }
+                                11 -> {
+                                    question.setText(R.string.faq_question_11)
+                                    answer.setText(R.string.faq_answer_11)
+                                    image.setImageResource(R.drawable.air01)
                                 }
                                 else -> {
                                     question.setText(R.string.faq_question_00)

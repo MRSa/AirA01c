@@ -5,6 +5,7 @@
     <string name="title_tips">Tips</string>
     <string name="dummy">(Dummy)</string>
     <string name="blank"> </string>
+    <string name="about_gokigen">About</string>
 
     <string name="app_credit">OLYMPUS AIR A01 Maintenance App.\n   https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01c/Readme.md</string>
 
@@ -110,9 +111,17 @@
     <string name="faq_question_09">Although the Olympus Air is on, the controls do not work.</string>
     <string name="faq_answer_09">Please press down on the power button for about 8 seconds and the Olympus Air will reboot.</string>
 
-    <string name="faq_title_10">....</string>
-    <string name="faq_question_10">....</string>
-    <string name="faq_answer_10">....</string>
+    <string name="faq_title_10">What does the LED lamp indications mean?</string>
+    <string name="faq_question_10">What does the color and blinking of the LED next to the power button mean?</string>
+    <string name="faq_answer_10">The LED lamp next to the power button indicates the status of the unit and the connection with the smartphone by color and by lighting or blinking.\n\n- Blue: Normal (no Wi-Fi connection)\n- Blinking blue: Recording to a card or taking a movie\n- Blue intermittent blinking: Low battery warning\n\n- Green: Normal status (Wi-Fi connected)\n- Blinking green: Recording to a card or recording a movie\n- Green intermittent blinking: Low battery warning\n- Blinking green slowly: Sleep mode (power-saving state)\n\n- Orange: No battery remaining or charging (lights off when charging is complete)\n- Blinking orange: Card is being read (when connected to a PC)\n- Blinking orange + beeping sound: Error occur\n</string>
+
+    <string name="faq_title_11">The LED lamp blinks orange, a warning beep sounds, and I cannot take pictures.</string>
+    <string name="faq_question_11">The LED lamp blinks in orange, a warning beep sounds, and I cannot take pictures. What could be the cause?</string>
+    <string name="faq_answer_11">If the LED lamp next to the power button is blinking orange and the camera is not shooting with a warning beep sound, please check the following:\n\n- No microSD card is inserted.\n    Insert the card or check if the card is loaded correctly.\n\n- There is a problem with the microSD card.\n    Check if you can shoot with a different card.\n\n- The number of remaining shots on the card is 0 (card full)\n    Replace the card or delete unnecessary images.\n\n- There is something wrong with the lens.\n    A01 Turn off the power to the main unit and reattach the lens. Also, check if you can shoot with another lens if you have one.\n\n- The camera internal temperature is rising.\n    After the warning, the camera will automatically turn off. Please wait for a while until the internal temperature of the camera cools down and the camera is ready to shoot.\n</string>
+
+    <string name="faq_title_12">....</string>
+    <string name="faq_question_12">....</string>
+    <string name="faq_answer_12">....</string>
 
     <string name="initial_message">Please connect to the Olympus Air via Wi-Fi.</string>
     <string name="connecting_message">Connecting to the Olympus Air…</string>
