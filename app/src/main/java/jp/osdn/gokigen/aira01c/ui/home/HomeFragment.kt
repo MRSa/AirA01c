@@ -14,12 +14,18 @@ import android.provider.Settings
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import jp.osdn.gokigen.aira01c.AppSingleton.Companion.cameraControl
 import jp.osdn.gokigen.aira01c.R
@@ -27,6 +33,7 @@ import jp.osdn.gokigen.aira01c.camera.interfaces.ICameraConnectionStatus
 import jp.osdn.gokigen.aira01c.camera.interfaces.IMessageDrawer
 import jp.osdn.gokigen.aira01c.camera.utils.ConfirmationDialog
 import jp.osdn.gokigen.aira01c.camera.utils.ConfirmationDialog.ConfirmationCallback
+import jp.osdn.gokigen.aira01c.camera.utils.CreditDialog
 import jp.osdn.gokigen.aira01c.databinding.FragmentHomeBinding
 import java.net.Inet4Address
 
@@ -59,6 +66,33 @@ class HomeFragment : Fragment(), IMessageDrawer
         setupScreen(root)
 
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?)
+    {
+        super.onViewCreated(view, savedInstanceState)
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.app_bar_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.action_about_gokigen -> {
+                        try
+                        {
+                            CreditDialog.newInstance(requireContext()).show()
+                        }
+                        catch (e: Exception)
+                        {
+                            e.printStackTrace()
+                        }
+                    }
+                }
+                return true
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun setupScreen(view: View)
