@@ -248,4 +248,6 @@
     <string name="parameter_lens_reset">レンズリセット : </string>
     <string name="parameter_sound_volume">操作音 : </string>
     <string name="parameter_sleep">スリープ時間 : </string>
+
+    <string name="button_apply_change">登録</string>
 </resources>

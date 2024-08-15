@@ -246,4 +246,5 @@
     <string name="parameter_lens_reset">Lens Reset : </string>
     <string name="parameter_sound_volume">Beep Sound : </string>
     <string name="parameter_sleep">Sleep time : </string>
+    <string name="button_apply_change">Apply</string>
 </resources>
