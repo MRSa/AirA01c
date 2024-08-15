@@ -238,4 +238,12 @@
 
     <string name="camera_firmware_version">Body Firmware Version : </string>
     <string name="lens_firmware_version">Lens Firmware Version : </string>
+
+    <string name="parameter_wifi_ch">Wi-Fi Channel : </string>
+    <string name="parameter_record_raw">JPEG + RAW : </string>
+    <string name="parameter_compression_ratio">Compression : </string>
+    <string name="parameter_image_quality">Image Quality : </string>
+    <string name="parameter_lens_reset">Lens Reset : </string>
+    <string name="parameter_sound_volume">Beep Sound : </string>
+    <string name="parameter_sleep">Sleep time : </string>
 </resources>

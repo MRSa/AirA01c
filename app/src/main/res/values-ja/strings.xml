@@ -240,4 +240,12 @@
     <string name="get_camerastatus_title">カメラステータス</string>
     <string name="camera_firmware_version">ボディ ファームウェアバージョン : </string>
     <string name="lens_firmware_version">レンズ ファームウェアバージョン : </string>
+
+    <string name="parameter_wifi_ch">Wi-Fiチャンネル : </string>
+    <string name="parameter_record_raw">RAW撮影 : </string>
+    <string name="parameter_compression_ratio">圧縮率 : </string>
+    <string name="parameter_image_quality">撮影画質 : </string>
+    <string name="parameter_lens_reset">レンズリセット : </string>
+    <string name="parameter_sound_volume">操作音 : </string>
+    <string name="parameter_sleep">スリープ時間 : </string>
 </resources>

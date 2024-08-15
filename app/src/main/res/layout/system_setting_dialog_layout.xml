@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_information"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/label_sleep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="28dp"
+            android:textSize="16sp"
+            android:visibility="visible"
+            android:text="@string/parameter_sleep"
+            app:layout_constraintBaseline_toBaselineOf="@id/select_sleep"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_information" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/select_sleep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:minHeight="48dp"
+            android:textSize="16sp"
+            android:visibility="visible"
+            app:layout_constraintHorizontal_bias="0.577"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/label_sleep"
+            app:layout_constraintTop_toBottomOf="@id/text_information" />
+
+        <TextView
+            android:id="@+id/label_sound_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:textSize="16sp"
+            android:visibility="visible"
+            android:text="@string/parameter_sound_volume"
+            app:layout_constraintBaseline_toBaselineOf="@id/select_sound_volume"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_sleep" />
+
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/select_sound_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:minHeight="48dp"
+            android:textSize="16sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.577"
+            app:layout_constraintStart_toEndOf="@id/label_sound_volume"
+            app:layout_constraintTop_toBottomOf="@id/select_sleep" />
+
+        <TextView
+            android:id="@+id/label_lens_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:textSize="16sp"
+            android:visibility="visible"
+            android:text="@string/parameter_lens_reset"
+            app:layout_constraintBaseline_toBaselineOf="@id/select_lens_reset"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_sound_volume" />
+
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/select_lens_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:minHeight="48dp"
+            android:textSize="16sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.577"
+            app:layout_constraintStart_toEndOf="@id/label_lens_reset"
+            app:layout_constraintTop_toBottomOf="@id/select_sound_volume" />
+
+        <TextView
+            android:id="@+id/label_image_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:textSize="16sp"
+            android:visibility="visible"
+            android:text="@string/parameter_image_quality"
+            app:layout_constraintBaseline_toBaselineOf="@id/select_image_quality"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_lens_reset" />
+
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/select_image_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:minHeight="48dp"
+            android:textSize="16sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.577"
+            app:layout_constraintStart_toEndOf="@id/label_image_quality"
+            app:layout_constraintTop_toBottomOf="@id/select_lens_reset" />
+
+        <TextView
+            android:id="@+id/title_compression_ratio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:textSize="16sp"
+            android:visibility="visible"
+            android:text="@string/parameter_compression_ratio"
+            app:layout_constraintBaseline_toBaselineOf="@id/select_compression_ratio"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_image_quality" />
+
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/select_compression_ratio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:minHeight="48dp"
+            android:textSize="16sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.577"
+            app:layout_constraintStart_toEndOf="@id/title_compression_ratio"
+            app:layout_constraintTop_toBottomOf="@id/select_image_quality" />
+
+
+        <TextView
+            android:id="@+id/title_record_raw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:textSize="16sp"
+            android:visibility="visible"
+            android:text="@string/parameter_record_raw"
+            app:layout_constraintBaseline_toBaselineOf="@id/select_record_raw"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_compression_ratio" />
+
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/select_record_raw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:minHeight="48dp"
+            android:textSize="16sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.577"
+            app:layout_constraintStart_toEndOf="@id/title_record_raw"
+            app:layout_constraintTop_toBottomOf="@id/select_compression_ratio" />
+
+        <TextView
+            android:id="@+id/title_wifi_ch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:textSize="16sp"
+            android:visibility="visible"
+            android:text="@string/parameter_wifi_ch"
+            app:layout_constraintBaseline_toBaselineOf="@id/select_wifi_ch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_record_raw" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/select_wifi_ch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:minHeight="48dp"
+            android:textSize="16sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.577"
+            app:layout_constraintStart_toEndOf="@id/title_wifi_ch"
+            app:layout_constraintTop_toBottomOf="@id/select_record_raw" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
