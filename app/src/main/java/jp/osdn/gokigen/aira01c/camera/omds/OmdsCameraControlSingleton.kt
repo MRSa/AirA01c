@@ -12,6 +12,7 @@ import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsCamIndStatus
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsCameraGetProperty
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsCameraStatus
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsGetCommand
+import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsPostCommand
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsRunModeControl
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsTimeSync
 import jp.osdn.gokigen.aira01c.camera.omds.status.OmdsCameraStatusWatcher
@@ -30,6 +31,7 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
     private lateinit var cameraStatus: OmdsCameraStatus
     private lateinit var getCameraProperty: OmdsCameraGetProperty
     private lateinit var getCommand: OmdsGetCommand
+    private lateinit var postCommand: OmdsPostCommand
     private lateinit var camInState: OmdsCamIndStatus
 
     private var isInitialized  = false
@@ -46,6 +48,7 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
             this.cameraStatus = OmdsCameraStatus(activity, messageDrawer)
             this.getCameraProperty = OmdsCameraGetProperty(activity, messageDrawer)
             this.getCommand = OmdsGetCommand(activity, messageDrawer)
+            this.postCommand = OmdsPostCommand(activity, messageDrawer)
             this.camInState = OmdsCamIndStatus(activity, messageDrawer)
             this.subscriberList.clear()
 
@@ -119,6 +122,7 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
     }
 
     fun sendGetCommand(command: String, parameter: String, callback: IOmdsOperationCallback? = null) { getCommand.sendCommand(command, parameter, callback) }
+    fun sendPostCommand(command: String, parameter: String, body: String, callback: IOmdsOperationCallback? = null) { postCommand.sendCommand(command, parameter, body, callback) }
     fun changeRunMode(runMode: String, callback: IOmdsOperationCallback? = null) { runModeControl.changeRunMode(runMode, callback) }
     fun synchronizeTime() { timeSync.setTimeSync(null) }
     fun getCameraStatus()

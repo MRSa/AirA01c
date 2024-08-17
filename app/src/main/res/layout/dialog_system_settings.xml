@@ -1,40 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_data_reload"
+            android:layout_weight="1"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:minHeight="48dp"
+            android:contentDescription="@string/refresh"
+            android:textSize="16sp"
+            android:text="@string/refresh"
+            android:src="@xml/refresh_button_style"
+            android:visibility="visible"
+            android:enabled="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/text_information"
+            app:layout_constraintBottom_toTopOf="@id/separator00"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
         <TextView
             android:id="@+id/text_information"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             android:textAlignment="center"
             android:gravity="center"
             android:textSize="20sp"
             android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/blank"
+            app:layout_constraintEnd_toStartOf="@id/button_data_reload"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/separator00"
+            />
 
-        <TextView
-            android:id="@+id/label_sleep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="28dp"
-            android:textSize="16sp"
-            android:visibility="visible"
-            android:text="@string/parameter_sleep"
-            app:layout_constraintBaseline_toBaselineOf="@id/select_sleep"
+        <View
+            android:id="@+id/separator00"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toTopOf="@id/select_sleep"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_information" />
 
@@ -42,186 +68,250 @@
             android:id="@+id/select_sleep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             android:minHeight="48dp"
+            android:minWidth="80dp"
             android:textSize="16sp"
             android:visibility="visible"
             app:layout_constraintHorizontal_bias="0.577"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/label_sleep"
-            app:layout_constraintTop_toBottomOf="@id/text_information" />
+            app:layout_constraintTop_toBottomOf="@id/separator00"
+            app:layout_constraintBottom_toTopOf="@id/select_sound_volume"
+            />
 
         <TextView
-            android:id="@+id/label_sound_volume"
+            android:id="@+id/label_sleep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             android:textSize="16sp"
             android:visibility="visible"
-            android:text="@string/parameter_sound_volume"
-            app:layout_constraintBaseline_toBaselineOf="@id/select_sound_volume"
+            android:text="@string/parameter_sleep"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/label_sleep" />
+            app:layout_constraintTop_toBottomOf="@id/separator00"
+            app:layout_constraintBottom_toTopOf="@id/label_sound_volume"
+            />
 
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/select_sound_volume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             android:minHeight="48dp"
+            android:minWidth="80dp"
             android:textSize="16sp"
             android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.577"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/label_sound_volume"
-            app:layout_constraintTop_toBottomOf="@id/select_sleep" />
+            app:layout_constraintTop_toBottomOf="@id/select_sleep"
+            app:layout_constraintBottom_toTopOf="@id/select_lens_reset"
+            />
 
         <TextView
-            android:id="@+id/label_lens_reset"
+            android:id="@+id/label_sound_volume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:text="@string/parameter_sound_volume"
             android:textSize="16sp"
             android:visibility="visible"
-            android:text="@string/parameter_lens_reset"
-            app:layout_constraintBaseline_toBaselineOf="@id/select_lens_reset"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/label_sound_volume" />
-
+            app:layout_constraintTop_toBottomOf="@id/select_sleep"
+            app:layout_constraintBottom_toTopOf="@id/select_lens_reset"
+            />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/select_lens_reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             android:minHeight="48dp"
+            android:minWidth="80dp"
             android:textSize="16sp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.577"
             app:layout_constraintStart_toEndOf="@id/label_lens_reset"
-            app:layout_constraintTop_toBottomOf="@id/select_sound_volume" />
+            app:layout_constraintTop_toBottomOf="@id/select_sound_volume"
+            app:layout_constraintBottom_toTopOf="@id/separator"
+            />
 
         <TextView
-            android:id="@+id/label_image_quality"
+            android:id="@+id/label_lens_reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             android:textSize="16sp"
             android:visibility="visible"
-            android:text="@string/parameter_image_quality"
-            app:layout_constraintBaseline_toBaselineOf="@id/select_image_quality"
+            android:text="@string/parameter_lens_reset"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/label_lens_reset" />
+            app:layout_constraintTop_toBottomOf="@id/select_sound_volume"
+            app:layout_constraintBottom_toTopOf="@id/separator"
+            />
 
+        <View
+            android:id="@+id/separator"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toTopOf="@id/label_image_quality"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/select_lens_reset" />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/select_image_quality"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             android:minHeight="48dp"
+            android:minWidth="80dp"
             android:textSize="16sp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.577"
             app:layout_constraintStart_toEndOf="@id/label_image_quality"
-            app:layout_constraintTop_toBottomOf="@id/select_lens_reset" />
+            app:layout_constraintTop_toBottomOf="@id/separator"
+            app:layout_constraintBottom_toTopOf="@id/select_compression_ratio"
+            />
 
         <TextView
-            android:id="@+id/title_compression_ratio"
+            android:id="@+id/label_image_quality"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:textSize="16sp"
             android:visibility="visible"
-            android:text="@string/parameter_compression_ratio"
-            app:layout_constraintBaseline_toBaselineOf="@id/select_compression_ratio"
+            android:text="@string/parameter_image_quality"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/label_image_quality" />
-
+            app:layout_constraintTop_toBottomOf="@id/separator"
+            app:layout_constraintBottom_toTopOf="@id/select_compression_ratio"
+            />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/select_compression_ratio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             android:minHeight="48dp"
+            android:minWidth="80dp"
             android:textSize="16sp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.577"
             app:layout_constraintStart_toEndOf="@id/title_compression_ratio"
-            app:layout_constraintTop_toBottomOf="@id/select_image_quality" />
-
+            app:layout_constraintTop_toBottomOf="@id/select_image_quality"
+            app:layout_constraintBottom_toTopOf="@id/select_record_raw"
+            />
 
         <TextView
-            android:id="@+id/title_record_raw"
+            android:id="@+id/title_compression_ratio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:textSize="16sp"
             android:visibility="visible"
-            android:text="@string/parameter_record_raw"
-            app:layout_constraintBaseline_toBaselineOf="@id/select_record_raw"
+            android:text="@string/parameter_compression_ratio"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title_compression_ratio" />
-
+            app:layout_constraintTop_toBottomOf="@id/select_image_quality"
+            app:layout_constraintBottom_toTopOf="@id/select_record_raw"
+            />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/select_record_raw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             android:minHeight="48dp"
+            android:minWidth="80dp"
             android:textSize="16sp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.577"
             app:layout_constraintStart_toEndOf="@id/title_record_raw"
-            app:layout_constraintTop_toBottomOf="@id/select_compression_ratio" />
+            app:layout_constraintTop_toBottomOf="@id/select_compression_ratio"
+            app:layout_constraintBottom_toTopOf="@id/select_wifi_ch"
+            />
 
         <TextView
-            android:id="@+id/title_wifi_ch"
+            android:id="@+id/title_record_raw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:textSize="16sp"
             android:visibility="visible"
-            android:text="@string/parameter_wifi_ch"
-            app:layout_constraintBaseline_toBaselineOf="@id/select_wifi_ch"
+            android:text="@string/parameter_record_raw"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title_record_raw" />
+            app:layout_constraintTop_toBottomOf="@id/select_compression_ratio"
+            app:layout_constraintBottom_toTopOf="@id/select_wifi_ch"
+            />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/select_wifi_ch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             android:minHeight="48dp"
+            android:minWidth="80dp"
             android:textSize="16sp"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.577"
             app:layout_constraintStart_toEndOf="@id/title_wifi_ch"
-            app:layout_constraintTop_toBottomOf="@id/select_record_raw" />
+            app:layout_constraintTop_toBottomOf="@id/select_record_raw"
+            app:layout_constraintBottom_toTopOf="@id/separator0"
+            />
+
+        <TextView
+            android:id="@+id/title_wifi_ch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:textSize="16sp"
+            android:visibility="invisible"
+            android:text="@string/parameter_wifi_ch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/select_record_raw"
+            app:layout_constraintBottom_toTopOf="@id/separator0"
+            />
 
         <View
             android:id="@+id/separator0"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_marginTop="5dp"
+            android:background="@android:color/darker_gray"
             android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/layout_command_buttons"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/select_wifi_ch"
-            android:background="@android:color/darker_gray"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/select_wifi_ch" />
 
         <LinearLayout
             style="?android:attr/buttonBarStyle"
@@ -229,6 +319,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/layout_command_buttons"
             app:layout_constraintStart_toStartOf="parent"
+            android:maxWidth="900dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="30dp"
             android:visibility="visible"
@@ -243,6 +334,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
+                android:maxWidth="300dp"
                 android:textSize="16sp"
                 android:text="@string/dummy"
                 android:visibility="invisible"
@@ -255,9 +347,11 @@
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
+                android:maxWidth="300dp"
                 android:textSize="16sp"
                 android:text="@string/button_apply_change"
                 android:visibility="visible"
+                android:enabled="false"
                 tools:ignore="ButtonStyle" />
 
             <Button
@@ -268,19 +362,22 @@
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
+                android:maxWidth="300dp"
                 android:textSize="16sp"
                 android:text="@string/dummy"
                 android:visibility="invisible" />
         </LinearLayout>
 
         <View
-            android:id="@+id/separator"
+            android:id="@+id/separator1"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_marginTop="5dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toTopOf="@id/text_status"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_command_buttons"
-            android:background="@android:color/darker_gray"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_command_buttons" />
 
         <TextView
             android:id="@+id/text_status"
@@ -291,10 +388,11 @@
             android:layout_marginEnd="8dp"
             android:textSize="20sp"
             android:scrollbars="vertical"
-            android:minLines="18"
+            android:minLines="3"
+            android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintTop_toBottomOf="@id/separator"/>
+            app:layout_constraintTop_toBottomOf="@id/separator1"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
