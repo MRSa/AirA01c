@@ -1,15 +1,14 @@
 package jp.osdn.gokigen.aira01c.ui.home
 
 import android.annotation.SuppressLint
-import android.content.Context.CONNECTIVITY_SERVICE
-import android.content.Context.WIFI_SERVICE
+import android.content.Context.VIBRATOR_MANAGER_SERVICE
+import android.content.Context.VIBRATOR_SERVICE
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.LinkProperties
-import android.net.Network
-import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.provider.Settings
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
@@ -21,7 +20,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -31,11 +29,11 @@ import jp.osdn.gokigen.aira01c.AppSingleton.Companion.cameraControl
 import jp.osdn.gokigen.aira01c.R
 import jp.osdn.gokigen.aira01c.camera.interfaces.ICameraConnectionStatus
 import jp.osdn.gokigen.aira01c.camera.interfaces.IMessageDrawer
+import jp.osdn.gokigen.aira01c.camera.interfaces.IVibrator
 import jp.osdn.gokigen.aira01c.camera.utils.ConfirmationDialog
 import jp.osdn.gokigen.aira01c.camera.utils.ConfirmationDialog.ConfirmationCallback
 import jp.osdn.gokigen.aira01c.camera.utils.CreditDialog
 import jp.osdn.gokigen.aira01c.databinding.FragmentHomeBinding
-import java.net.Inet4Address
 
 class HomeFragment : Fragment(), IMessageDrawer
 {
@@ -47,8 +45,7 @@ class HomeFragment : Fragment(), IMessageDrawer
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        val homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -101,31 +98,37 @@ class HomeFragment : Fragment(), IMessageDrawer
         {
             // ----- カメラに接続する
             view.findViewById<Button>(R.id.btnConnect)?.setOnClickListener {
+                vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
                 pushedConnect()
             }
 
             // ----- カメラから切断する
             view.findViewById<Button>(R.id.btnDisconnect)?.setOnClickListener {
+                vibrate(IVibrator.VibratePattern.SIMPLE_SHORT_SHORT)
                 pushedDisconnect()
             }
 
             // ----- Wifi設定画面を開く
             view.findViewById<Button>(R.id.btnWifiSet)?.setOnClickListener {
+                vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
                  pushedWifiSet()
             }
 
             // ----- モードリセット
             view.findViewById<Button>(R.id.btnModeReset)?.setOnClickListener {
+                vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
                 pushedModeReset()
             }
 
             // ----- 時刻設定
             view.findViewById<Button>(R.id.btnTimeSync)?.setOnClickListener {
+                vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
                 pushedTimeSync()
             }
 
             // ----- 情報の更新
             view.findViewById<Button>(R.id.btnRefresh)?.setOnClickListener {
+                vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
                 pushedRefresh()
             }
 
@@ -251,6 +254,7 @@ class HomeFragment : Fragment(), IMessageDrawer
         }
     }
 
+/*
     @Suppress("DEPRECATION")
     private fun getIpAddressBefore21()
     {
@@ -290,7 +294,6 @@ class HomeFragment : Fragment(), IMessageDrawer
         return
     }
 
-/*
     private fun getIpAddress(isConnected: Boolean)
     {
         if (isConnected)
@@ -309,7 +312,6 @@ class HomeFragment : Fragment(), IMessageDrawer
             updateIpAddress("")
         }
     }
- */
 
     private fun updateIpAddress(address: String)
     {
@@ -331,6 +333,7 @@ class HomeFragment : Fragment(), IMessageDrawer
             e.printStackTrace()
         }
     }
+*/
 
     private fun changeButtonStatus(isConnected: Boolean)
     {
@@ -456,6 +459,58 @@ class HomeFragment : Fragment(), IMessageDrawer
         try
         {
             isCameraConnected()
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+    }
+
+    private fun vibrate(vibratePattern: IVibrator.VibratePattern)
+    {
+        try
+        {
+            // バイブレータをつかまえる
+            val vibrator  = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+            {
+                val vibratorManager =  requireActivity().getSystemService(VIBRATOR_MANAGER_SERVICE) as VibratorManager
+                vibratorManager.defaultVibrator
+            }
+            else
+            {
+                @Suppress("DEPRECATION")
+                requireActivity().getSystemService(VIBRATOR_SERVICE) as Vibrator
+            }
+            if (!vibrator.hasVibrator())
+            {
+                Log.v(TAG, " not have Vibrator...")
+                return
+            }
+            @Suppress("DEPRECATION") val thread = Thread {
+                try
+                {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                    {
+                        vibrator.vibrate(VibrationEffect.createOneShot(30, VibrationEffect.DEFAULT_AMPLITUDE))
+                    }
+                    else
+                    {
+                        when (vibratePattern)
+                        {
+                            IVibrator.VibratePattern.SIMPLE_SHORT_SHORT -> vibrator.vibrate(30)
+                            IVibrator.VibratePattern.SIMPLE_SHORT ->  vibrator.vibrate(50)
+                            IVibrator.VibratePattern.SIMPLE_MIDDLE -> vibrator.vibrate(100)
+                            IVibrator.VibratePattern.SIMPLE_LONG ->  vibrator.vibrate(150)
+                            else -> { }
+                        }
+                    }
+                }
+                catch (e : Exception)
+                {
+                    e.printStackTrace()
+                }
+            }
+            thread.start()
         }
         catch (e: Exception)
         {

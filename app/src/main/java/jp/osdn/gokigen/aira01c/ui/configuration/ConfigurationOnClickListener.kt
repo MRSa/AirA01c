@@ -16,7 +16,6 @@ import jp.osdn.gokigen.aira01c.camera.interfaces.ICameraMaintenanceCommandSequen
 import jp.osdn.gokigen.aira01c.camera.interfaces.IVibrator
 import jp.osdn.gokigen.aira01c.camera.utils.ConfirmationDialog
 import jp.osdn.gokigen.aira01c.camera.utils.ConfirmationDialog.ConfirmationCallback
-import jp.osdn.gokigen.aira01c.camera.utils.CreditDialog
 import jp.osdn.gokigen.aira01c.camera.utils.SendCommandDialog
 
 class ConfigurationOnClickListener(private val activity: FragmentActivity) : View.OnClickListener, IVibrator
@@ -27,13 +26,11 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
         try
         {
             vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
-/**/
-            if (!checkCameraConnection(p0?.id?: 0))
+            if (!checkCameraConnection())
             {
                 // --- カメラと接続中ではないときは処理を行わない
                 return
             }
-/**/
             when (p0?.id) {
                 R.id.btnFormatSd -> { executeFormatSd() }
                 R.id.btnDeleteAllContent -> { executeDeleteAllContent() }
@@ -42,7 +39,7 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
                 R.id.btnPixelMapping -> { executePixelMapping() }
                 R.id.btnResetHardware -> { executeFactoryReset() }
                 R.id.btnSendCommand -> { executeSendCommand() }
-                R.id.btnNetworkSettings -> { }
+                R.id.btnStandaloneShooting -> { executeStandaloneShooting()}
                 R.id.btnOthers -> { showOthers() }
                 R.id.btnStandalone01 -> { }
                 R.id.btnStandalone02 -> { }
@@ -65,14 +62,13 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
 
     private fun showOthers()
     {
-        showCredit()
-    }
-
-    private fun showCredit()
-    {
         try
         {
-            CreditDialog.newInstance(activity).show()
+            SystemSettingsDialog.newInstance(
+                activity,
+                CameraMaintenanceDummy(activity),
+                this)
+                .show(activity.supportFragmentManager, SystemSettingsDialog.TAG)
         }
         catch (e: Exception)
         {
@@ -80,7 +76,23 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
         }
     }
 
-    private fun checkCameraConnection(id: Int) : Boolean
+    private fun executeStandaloneShooting()
+    {
+        try
+        {
+            StandaloneShootingSetDialog.newInstance(
+                activity,
+                CameraMaintenanceDummy(activity),
+                this)
+                .show(activity.supportFragmentManager, StandaloneShootingSetDialog.TAG)
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+    }
+
+    private fun checkCameraConnection() : Boolean
     {
         try
         {
@@ -88,22 +100,14 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
             val connectionStatus = (status  == ICameraConnectionStatus.CameraConnectionStatus.CONNECTED)
             if (!connectionStatus)
             {
-                if (id != R.id.btnOthers)
-                {
-                    activity.runOnUiThread {
-                        // 「カメラに接続していません」ダイアログを表示する。
-                        val confirmationDialog = ConfirmationDialog.newInstance(activity)
-                        confirmationDialog.show(
-                            android.R.drawable.ic_dialog_alert,
-                            activity.getString(R.string.camera_not_connected),
-                            activity.getString(R.string.initial_message)
-                        )
-                    }
-                }
-                else
-                {
-                    // ----- 未接続の時には、クレジットダイアログを表示する
-                    showCredit()
+                activity.runOnUiThread {
+                    // 「カメラに接続していません」ダイアログを表示する。
+                    val confirmationDialog = ConfirmationDialog.newInstance(activity)
+                    confirmationDialog.show(
+                        android.R.drawable.ic_dialog_alert,
+                        activity.getString(R.string.camera_not_connected),
+                        activity.getString(R.string.initial_message)
+                    )
                 }
             }
             return (connectionStatus)

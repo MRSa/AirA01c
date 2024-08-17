@@ -1,7 +1,7 @@
 package jp.osdn.gokigen.aira01c.ui.configuration
 
-import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -58,8 +58,6 @@ class ConfigurationFragment : Fragment()
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-
-    @SuppressLint("SetTextI18n")
     private fun setupOnClickListener(view: View)
     {
         try
@@ -76,7 +74,7 @@ class ConfigurationFragment : Fragment()
             view.findViewById<Button>(R.id.btnResetHardware)?.setOnClickListener(onClickListener)
             view.findViewById<Button>(R.id.btnHardwareReserve)?.setOnClickListener(onClickListener)
             view.findViewById<Button>(R.id.btnSendCommand)?.setOnClickListener(onClickListener)
-            view.findViewById<Button>(R.id.btnNetworkSettings)?.setOnClickListener(onClickListener)
+            view.findViewById<Button>(R.id.btnStandaloneShooting)?.setOnClickListener(onClickListener)
             view.findViewById<Button>(R.id.btnOthers)?.setOnClickListener(onClickListener)
             view.findViewById<Button>(R.id.btnStandalone01)?.setOnClickListener(onClickListener)
             view.findViewById<Button>(R.id.btnStandalone02)?.setOnClickListener(onClickListener)
@@ -85,14 +83,15 @@ class ConfigurationFragment : Fragment()
             view.findViewById<Button>(R.id.btnStandalone12)?.setOnClickListener(onClickListener)
             view.findViewById<Button>(R.id.btnStandalone13)?.setOnClickListener(onClickListener)
 
-            view.findViewById<TextView>(R.id.command_response_area)?.text = ""
+            view.findViewById<TextView>(R.id.command_response_area)?.text = requireActivity().getString(R.string.blank)
+
+            Log.v(TAG, "setupOnClickListener() done.")
         }
         catch (e: Exception)
         {
             e.printStackTrace()
         }
     }
-
 
     companion object
     {

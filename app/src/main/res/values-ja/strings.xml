@@ -5,6 +5,7 @@
     <string name="title_tips">こんな時は？</string>
     <string name="dummy">(Dummy)</string>
     <string name="blank"> </string>
+    <string name="refresh">更新</string>
     <string name="about_gokigen">情報</string>
 
     <string name="app_credit">OLYMPUS AIR A01 Maintenance App.\n   https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01c/Readme.md</string>
@@ -176,7 +177,7 @@
     <string name="lbl_send_command">コマンド</string>
     <string name="lbl_other_settings">その他</string>
 
-    <string name="lbl_standalone">スタンドアロン撮影設定</string>
+    <string name="lbl_standalone">スタンドアロン</string>
     <string name="lbl_firmware">ファームウェア</string>
 
     <string name="dialog_button_standalone">単独</string>
@@ -240,4 +241,35 @@
     <string name="get_camerastatus_title">カメラステータス</string>
     <string name="camera_firmware_version">ボディ ファームウェアバージョン : </string>
     <string name="lens_firmware_version">レンズ ファームウェアバージョン : </string>
+
+    <string name="message_get_current_settings">現在の設定を取得中</string>
+    <string name="message_apply_settings">設定を登録しています</string>
+    <string name="message_apply_settings_done">設定を登録しました</string>
+    <string name="message_parameter_selection_ready">設定が完了したら「登録」ボタンを押してください。</string>
+    <string name="message_parameter_get_failure">注意：データの読み込みに失敗しました</string>
+    <string name="parameter_wifi_ch">Wi-Fiチャンネル : </string>
+    <string name="parameter_record_raw">RAW撮影 : </string>
+    <string name="parameter_compression_ratio">圧縮率 : </string>
+    <string name="parameter_image_quality">撮影画質 : </string>
+    <string name="parameter_lens_reset">レンズリセット : </string>
+    <string name="parameter_sound_volume">操作音 : </string>
+    <string name="parameter_sleep">スリープ時間 : </string>
+
+    <string name="button_apply_change">登録</string>
+
+    <string name="title_apply_standalone">設定</string>
+    <string name="title_shutter">シャッター速度(S, M)</string>
+    <string name="title_aperture">F値(A, M)</string>
+    <string name="title_quality_movie">動画画質\n(movie)</string>
+    <string name="title_aspect_ratio">アスペクト比</string>
+    <string name="title_iso">ISO感度</string>
+    <string name="title_wb">ホワイトバランス</string>
+    <string name="title_colortone">ピクチャーモード</string>
+    <string name="title_takemode">撮影モード</string>
+
+    <string name="message_standalone_get_current_settings">現在の設定を取得中</string>
+    <string name="message_standalone_apply_settings">設定を登録しています</string>
+    <string name="message_standalone_apply_settings_done">設定を登録しました</string>
+    <string name="message_standalone_parameter_selection_ready">設定が完了したら「登録」ボタンを押してください。</string>
+    <string name="message_standalone_parameter_get_failure">注意：データの読み込みに失敗しました</string>
 </resources>
