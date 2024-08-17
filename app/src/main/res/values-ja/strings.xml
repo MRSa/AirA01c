@@ -177,7 +177,7 @@
     <string name="lbl_send_command">コマンド</string>
     <string name="lbl_other_settings">その他</string>
 
-    <string name="lbl_standalone">スタンドアロン撮影</string>
+    <string name="lbl_standalone">スタンドアロン</string>
     <string name="lbl_firmware">ファームウェア</string>
 
     <string name="dialog_button_standalone">単独</string>
@@ -260,7 +260,7 @@
     <string name="title_apply_standalone">設定</string>
     <string name="title_shutter">シャッター速度(S, M)</string>
     <string name="title_aperture">F値(A, M)</string>
-    <string name="title_quality_movie">動画画質モード(movie)</string>
+    <string name="title_quality_movie">動画画質\n(movie)</string>
     <string name="title_aspect_ratio">アスペクト比</string>
     <string name="title_iso">ISO感度</string>
     <string name="title_wb">ホワイトバランス</string>
