@@ -177,7 +177,7 @@
     <string name="lbl_send_command">コマンド</string>
     <string name="lbl_other_settings">その他</string>
 
-    <string name="lbl_standalone">スタンドアロン撮影設定</string>
+    <string name="lbl_standalone">スタンドアロン撮影</string>
     <string name="lbl_firmware">ファームウェア</string>
 
     <string name="dialog_button_standalone">単独</string>
@@ -256,4 +256,20 @@
     <string name="parameter_sleep">スリープ時間 : </string>
 
     <string name="button_apply_change">登録</string>
+
+    <string name="title_apply_standalone">設定</string>
+    <string name="title_shutter">シャッター速度(S, M)</string>
+    <string name="title_aperture">F値(A, M)</string>
+    <string name="title_quality_movie">動画画質モード(movie)</string>
+    <string name="title_aspect_ratio">アスペクト比</string>
+    <string name="title_iso">ISO感度</string>
+    <string name="title_wb">ホワイトバランス</string>
+    <string name="title_colortone">ピクチャーモード</string>
+    <string name="title_takemode">撮影モード</string>
+
+    <string name="message_standalone_get_current_settings">現在の設定を取得中</string>
+    <string name="message_standalone_apply_settings">設定を登録しています</string>
+    <string name="message_standalone_apply_settings_done">設定を登録しました</string>
+    <string name="message_standalone_parameter_selection_ready">設定が完了したら「登録」ボタンを押してください。</string>
+    <string name="message_standalone_parameter_get_failure">注意：データの読み込みに失敗しました</string>
 </resources>

@@ -16,7 +16,6 @@ import jp.osdn.gokigen.aira01c.camera.interfaces.ICameraMaintenanceCommandSequen
 import jp.osdn.gokigen.aira01c.camera.interfaces.IVibrator
 import jp.osdn.gokigen.aira01c.camera.utils.ConfirmationDialog
 import jp.osdn.gokigen.aira01c.camera.utils.ConfirmationDialog.ConfirmationCallback
-import jp.osdn.gokigen.aira01c.camera.utils.CreditDialog
 import jp.osdn.gokigen.aira01c.camera.utils.SendCommandDialog
 
 class ConfigurationOnClickListener(private val activity: FragmentActivity) : View.OnClickListener, IVibrator
@@ -27,7 +26,7 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
         try
         {
             vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
-            if (!checkCameraConnection(p0?.id?: 0))
+            if (!checkCameraConnection())
             {
                 // --- カメラと接続中ではないときは処理を行わない
                 return
@@ -40,7 +39,7 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
                 R.id.btnPixelMapping -> { executePixelMapping() }
                 R.id.btnResetHardware -> { executeFactoryReset() }
                 R.id.btnSendCommand -> { executeSendCommand() }
-                R.id.btnNetworkSettings -> { }
+                R.id.btnStandaloneShooting -> { executeStandaloneShooting()}
                 R.id.btnOthers -> { showOthers() }
                 R.id.btnStandalone01 -> { }
                 R.id.btnStandalone02 -> { }
@@ -77,11 +76,15 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
         }
     }
 
-    private fun showCredit()
+    private fun executeStandaloneShooting()
     {
         try
         {
-            CreditDialog.newInstance(activity).show()
+            StandaloneShootingSetDialog.newInstance(
+                activity,
+                CameraMaintenanceDummy(activity),
+                this)
+                .show(activity.supportFragmentManager, StandaloneShootingSetDialog.TAG)
         }
         catch (e: Exception)
         {
@@ -89,7 +92,7 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
         }
     }
 
-    private fun checkCameraConnection(id: Int) : Boolean
+    private fun checkCameraConnection() : Boolean
     {
         try
         {

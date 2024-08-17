@@ -173,8 +173,8 @@
     <string name="lbl_network_settings">Network</string>
     <string name="lbl_send_command">Command</string>
     <string name="lbl_other_settings">Others</string>
+    <string name="lbl_standalone">Standalone</string>
 
-    <string name="lbl_standalone">Standalone Shooting</string>
     <string name="lbl_firmware">Firmware</string>
 
     <string name="dialog_button_standalone">Standalone</string>
@@ -253,4 +253,20 @@
     <string name="parameter_sound_volume">Beep Sound : </string>
     <string name="parameter_sleep">Sleep time : </string>
     <string name="button_apply_change">Apply</string>
+    <string name="title_apply_standalone">Apply</string>
+
+    <string name="title_shutter">Shutter Speed (S, M)</string>
+    <string name="title_aperture">Aperture (A, M)</string>
+    <string name="title_quality_movie">Record Mode (movie)</string>
+    <string name="title_aspect_ratio">Aspect Ratio</string>
+    <string name="title_iso">ISO Sensitivity</string>
+    <string name="title_wb">White Balance</string>
+    <string name="title_colortone">Picture Mode</string>
+    <string name="title_takemode">Shutter release</string>
+
+    <string name="message_standalone_get_current_settings">Getting current settings</string>
+    <string name="message_standalone_apply_settings">Applying your settings</string>
+    <string name="message_standalone_apply_settings_done">Settings are updated.</string>
+    <string name="message_standalone_parameter_selection_ready">Press "APPLY" button, after setting is done.</string>
+    <string name="message_standalone_parameter_get_failure">Caution: Cannot get camera settings.</string>
 </resources>

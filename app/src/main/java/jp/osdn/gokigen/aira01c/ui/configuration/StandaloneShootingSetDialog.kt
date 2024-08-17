@@ -20,7 +20,7 @@ import jp.osdn.gokigen.aira01c.camera.interfaces.IOmdsOperationCallback
 import jp.osdn.gokigen.aira01c.camera.interfaces.IVibrator
 import java.util.HashMap
 
-class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgressDrawer
+class StandaloneShootingSetDialog: DialogFragment(), View.OnClickListener, IBusyProgressDrawer
 {
     private val headerMap: MutableMap<String, String> = HashMap()
 
@@ -31,7 +31,7 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
 
     private var vibrator: IVibrator? = null
     private var container: ViewGroup? = null
-    
+
     private fun prepare(context: FragmentActivity, command: ICameraMaintenanceCommandSequence, vibrator: IVibrator?, userAgent: String = "OlympusCameraKit")
     {
         this.myContext = context
@@ -69,18 +69,18 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
         if (!::myView.isInitialized)
         {
             val inflater = myContext.layoutInflater
-            myView = inflater.inflate(R.layout.dialog_system_settings, container, false)
+            myView = inflater.inflate(R.layout.dialog_standalone_shooting, container, false)
         }
-        setupSystemSettingDialog()
-        queryCurrentSystemSettings()
+        setupStandaloneShootingSettingDialog()
+        queryStandaloneShootingSettings()
 
         alertDialog.setView(myView)
         alertDialog.setCancelable(true)
 
-        return (alertDialog.create())        
+        return (alertDialog.create())
     }
 
-    private fun queryCurrentSystemSettings()
+    private fun queryStandaloneShootingSettings()
     {
         try
         {
@@ -91,7 +91,7 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
                     Thread.sleep(100) // 送信前にちょっと止めてみる
                     val command = "get_camprop.cgi"
                     val parameter = "com=desc&propname=desclist"
-                    val body = "<?xml version=\"1.0\"?><desclist><prop name=\"WIFI_CH\"/><prop name=\"SLEEP\"/><prop name=\"SOUND_VOLUME_LEVEL\"/><prop name=\"LENS_RESET\"/><prop name=\"IMAGESIZE\"/><prop name=\"COMPRESSIBILITY_RATIO\"/><prop name=\"RAW\"/></desclist>"
+                    val body = "<?xml version=\"1.0\"?><desclist><prop name=\"TAKEMODE\"/><prop name=\"COLORTONE\"/><prop name=\"WB\"/><prop name=\"ISO\"/><prop name=\"ASPECT_RATIO\"/><prop name=\"QUALITY_MOVIE\"/><prop name=\"APERTURE\"/><prop name=\"SHUTTER\"/></desclist>"
 
                     AppSingleton.cameraControl.sendPostCommand(command, parameter, body, object: IOmdsOperationCallback
                     {
@@ -101,7 +101,7 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
                             {
                                 activity?.runOnUiThread {
                                     // 取得したシステム設定を画面に反映させる
-                                    extractSystemSettings(responseText)
+                                    extractStandaloneShootingSettings(responseText)
                                 }
                             }
                             catch (e: Exception)
@@ -116,7 +116,7 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
                     e.printStackTrace()
                 }
             }
-            controlButtons(false, requireActivity().getString(R.string.message_get_current_settings))
+            controlButtons(false, requireActivity().getString(R.string.message_standalone_get_current_settings))
             thread.start()
         }
         catch (e: Exception)
@@ -125,7 +125,7 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
         }
     }
 
-    private fun extractSystemSettings(responseText: String)
+    private fun extractStandaloneShootingSettings(responseText: String)
     {
         try
         {
@@ -151,7 +151,7 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
                     }
                 }
             }
-            val messageId = if (parseCount > 0) { R.string.message_parameter_selection_ready } else { R.string.message_parameter_get_failure }
+            val messageId = if (parseCount > 0) { R.string.message_standalone_parameter_selection_ready } else { R.string.message_standalone_parameter_get_failure }
             controlButtons(true, requireActivity().getString(messageId))
         }
         catch (e: Exception)
@@ -169,13 +169,14 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
             val value = pickupValue("value", description)
             val enumList = pickupValue("enum", description).split(" ")
             when (propname) {
-                "WIFI_CH" -> { setupSpinner(R.id.select_wifi_ch, enumList, value)}
-                "SLEEP" -> { setupSpinner(R.id.select_sleep, enumList, value) }
-                "SOUND_VOLUME_LEVEL" -> { setupSpinner(R.id.select_sound_volume, enumList, value)}
-                "LENS_RESET" -> { setupSpinner(R.id.select_lens_reset, enumList, value) }
-                "IMAGESIZE" -> { setupSpinner(R.id.select_image_quality, enumList, value) }
-                "COMPRESSIBILITY_RATIO" -> { setupSpinner(R.id.select_compression_ratio, enumList, value) }
-                "RAW" -> { setupSpinner(R.id.select_record_raw, enumList, value) }
+                "TAKEMODE" -> { setupSpinner(R.id.select_takemode, enumList, value)}
+                "COLORTONE" -> { setupSpinner(R.id.select_colortone, enumList, value) }
+                "WB" -> { setupSpinner(R.id.select_wb, enumList, value)}
+                "ISO" -> { setupSpinner(R.id.select_iso, enumList, value) }
+                "ASPECT_RATIO" -> { setupSpinner(R.id.select_aspect_ratio, enumList, value) }
+                "QUALITY_MOVIE" -> { setupSpinner(R.id.select_quality_movie, enumList, value) }
+                "APERTURE" -> { setupSpinner(R.id.select_aperture, enumList, value) }
+                "SHUTTER" -> { setupSpinner(R.id.select_shutter, enumList, value) }
             }
         }
         catch (e: Exception)
@@ -237,9 +238,9 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
         {
             if (::myView.isInitialized)
             {
-                myView.findViewById<TextView>(R.id.text_information).text = message
-                myView.findViewById<ImageButton>(R.id.button_data_reload).isEnabled = isEnabled
-                myView.findViewById<Button>(R.id.btn_apply_change).isEnabled = isEnabled
+                myView.findViewById<TextView>(R.id.text_standalone_information).text = message
+                myView.findViewById<ImageButton>(R.id.button_standalone_reload).isEnabled = isEnabled
+                myView.findViewById<Button>(R.id.btn_apply_standalone).isEnabled = isEnabled
             }
         }
         catch (e: Exception)
@@ -248,15 +249,15 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
         }
     }
 
-    private fun setupSystemSettingDialog()
+    private fun setupStandaloneShootingSettingDialog()
     {
         // -------- ダイアログの処理メイン
         try
         {
             if (::myView.isInitialized)
             {
-                myView.findViewById<ImageButton>(R.id.button_data_reload).setOnClickListener(this)
-                myView.findViewById<Button>(R.id.btn_apply_change).setOnClickListener(this)
+                myView.findViewById<ImageButton>(R.id.button_standalone_reload).setOnClickListener(this)
+                myView.findViewById<Button>(R.id.btn_apply_standalone).setOnClickListener(this)
             }
         }
         catch (e: Exception)
@@ -271,8 +272,8 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
         {
             vibrator?.vibrate(IVibrator.VibratePattern.SIMPLE_SHORT_SHORT)
             when (p0?.id) {
-                R.id.button_data_reload -> { queryCurrentSystemSettings() }
-                R.id.btn_apply_change -> { applySystemSettings() }
+                R.id.button_standalone_reload -> { queryStandaloneShootingSettings() }
+                R.id.btn_apply_standalone -> { applyStandaloneShootingSettings() }
                 else -> { }
             }
         }
@@ -282,7 +283,7 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
         }
     }
 
-    private fun sendSystemSetting(body: String)
+    private fun sendCameraPropertis(body: String)
     {
         try
         {
@@ -306,7 +307,7 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
                                             {
                                                 try
                                                 {
-                                                    sendSystemSettingImpl(body)
+                                                    sendCameraPropertiesImpl(body)
                                                 }
                                                 catch (e: Exception)
                                                 {
@@ -329,7 +330,7 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
                     e.printStackTrace()
                 }
             }
-            controlButtons(false, requireActivity().getString(R.string.message_apply_settings))
+            controlButtons(false, requireActivity().getString(R.string.message_standalone_apply_settings))
             thread.start()
         }
         catch (e: Exception)
@@ -338,7 +339,7 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
         }
     }
 
-    private fun sendSystemSettingImpl(body: String)
+    private fun sendCameraPropertiesImpl(body: String)
     {
         try
         {
@@ -394,7 +395,7 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
                                             activity?.runOnUiThread {
                                                 controlButtons(
                                                     true,
-                                                    requireActivity().getString(R.string.message_apply_settings_done)
+                                                    requireActivity().getString(R.string.message_standalone_apply_settings_done)
                                                 )
                                             }
                                         }
@@ -421,32 +422,35 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
         }
     }
 
-    private fun applySystemSettings()
+    private fun applyStandaloneShootingSettings()
     {
         try
         {
             if (::myView.isInitialized)
             {
                 // 現在の画面設定を取得し、システムに反映させる
-                //val wifiCh = myView.findViewById<AppCompatSpinner>(R.id.select_wifi_ch).selectedItem.toString()
-                val sleep = myView.findViewById<AppCompatSpinner>(R.id.select_sleep).selectedItem.toString()
-                val soundLevel = myView.findViewById<AppCompatSpinner>(R.id.select_sound_volume).selectedItem.toString()
-                val lensReset = myView.findViewById<AppCompatSpinner>(R.id.select_lens_reset).selectedItem.toString()
-                val imageSize = myView.findViewById<AppCompatSpinner>(R.id.select_image_quality).selectedItem.toString()
-                val compressionRatio = myView.findViewById<AppCompatSpinner>(R.id.select_compression_ratio).selectedItem.toString()
-                val raw = myView.findViewById<AppCompatSpinner>(R.id.select_record_raw).selectedItem.toString()
+                val takeMode = myView.findViewById<AppCompatSpinner>(R.id.select_takemode).selectedItem.toString()
+                val colorTone = myView.findViewById<AppCompatSpinner>(R.id.select_colortone).selectedItem.toString()
+                val whiteBalance = myView.findViewById<AppCompatSpinner>(R.id.select_wb).selectedItem.toString()
+                val iso = myView.findViewById<AppCompatSpinner>(R.id.select_iso).selectedItem.toString()
+                val aspectRatio = myView.findViewById<AppCompatSpinner>(R.id.select_aspect_ratio).selectedItem.toString()
+                val movieQuality = myView.findViewById<AppCompatSpinner>(R.id.select_quality_movie).selectedItem.toString()
+                val aperture = myView.findViewById<AppCompatSpinner>(R.id.select_aperture).selectedItem.toString()
+                val shutterSpeed = myView.findViewById<AppCompatSpinner>(R.id.select_shutter).selectedItem.toString()
 
                 // ---- 送信用のコマンドを作成する
                 var body = "<?xml version=\"1.0\"?><set>"
-                body += "<prop name=\"RAW\"><value>$raw</value></prop>"
-                body += "<prop name=\"SLEEP\"><value>$sleep</value></prop>"
-                body += "<prop name=\"SOUND_VOLUME_LEVEL\"><value>$soundLevel</value></prop>"
-                body += "<prop name=\"LENS_RESET\"><value>$lensReset</value></prop>"
-                body += "<prop name=\"IMAGESIZE\"><value>$imageSize</value></prop>"
-                body += "<prop name=\"COMPRESSIBILITY_RATIO\"><value>$compressionRatio</value></prop>"
+                body += "<prop name=\"COLORTONE\"><value>$colorTone</value></prop>"
+                body += "<prop name=\"TAKEMODE\"><value>$takeMode</value></prop>"
+                body += "<prop name=\"WB\"><value>$whiteBalance</value></prop>"
+                body += "<prop name=\"ISO\"><value>$iso</value></prop>"
+                body += "<prop name=\"ASPECT_RATIO\"><value>$aspectRatio</value></prop>"
+                body += "<prop name=\"QUALITY_MOVIE\"><value>$movieQuality</value></prop>"
+                body += "<prop name=\"APERTURE\"><value>$aperture</value></prop>"
+                body += "<prop name=\"SHUTTER\"><value>$shutterSpeed</value></prop>"
                 body += "</set>"
 
-                sendSystemSetting(body)
+                sendCameraPropertis(body)
             }
         }
         catch (e: Exception)
@@ -490,14 +494,14 @@ class SystemSettingsDialog: DialogFragment(), View.OnClickListener, IBusyProgres
         // IBusyProgressDrawer
         Log.v(TAG, "setResponseText($isAppend) $message")
     }
-    
+
     companion object
     {
-        val TAG: String = SystemSettingsDialog::class.java.simpleName
+        val TAG: String = StandaloneShootingSetDialog::class.java.simpleName
 
-        fun newInstance(context: FragmentActivity, command: ICameraMaintenanceCommandSequence, vibrator: IVibrator?): SystemSettingsDialog
+        fun newInstance(context: FragmentActivity, command: ICameraMaintenanceCommandSequence, vibrator: IVibrator?): StandaloneShootingSetDialog
         {
-            val instance = SystemSettingsDialog()
+            val instance = StandaloneShootingSetDialog()
             instance.prepare(context, command, vibrator)
             return (instance)
         }

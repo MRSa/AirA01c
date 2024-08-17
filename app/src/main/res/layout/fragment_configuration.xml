@@ -419,7 +419,7 @@
                 android:text="@string/lbl_send_command" />
 
             <Button
-                android:id="@+id/btnNetworkSettings"
+                android:id="@+id/btnStandaloneShooting"
                 style="?android:attr/buttonStyleInset"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -429,10 +429,10 @@
                 android:layout_marginEnd="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_gravity="center_horizontal"
-                android:enabled="false"
-                android:visibility="invisible"
+                android:enabled="true"
+                android:visibility="visible"
                 android:maxWidth="300dp"
-                android:text="@string/lbl_network_settings" />
+                android:text="@string/lbl_standalone" />
 
             <Button
                 android:id="@+id/btnOthers"
@@ -484,7 +484,7 @@
                 android:layout_marginTop="0dp"
                 android:textSize="16sp"
                 android:visibility="gone"
-                android:text="@string/lbl_standalone" />
+                android:text="@string/lbl_network_settings" />
 
             <View
                 android:id="@+id/separator39"
