@@ -270,6 +270,6 @@
     <string name="message_standalone_get_current_settings">現在の設定を取得中</string>
     <string name="message_standalone_apply_settings">設定を登録しています</string>
     <string name="message_standalone_apply_settings_done">設定を登録しました</string>
-    <string name="message_standalone_parameter_selection_ready">設定が完了したら「登録」ボタンを押してください。</string>
+    <string name="message_standalone_parameter_selection_ready">設定が完了したら「設定」ボタンを押してください。</string>
     <string name="message_standalone_parameter_get_failure">注意：データの読み込みに失敗しました</string>
 </resources>
