@@ -257,6 +257,7 @@
 
     <string name="title_shutter">Shutter Speed (S, M)</string>
     <string name="title_aperture">Aperture (A, M)</string>
+    <string name="title_movie_takemode">Movie Takemode\n(movie)</string>
     <string name="title_quality_movie">Record Mode\n(movie)</string>
     <string name="title_aspect_ratio">Aspect Ratio</string>
     <string name="title_iso">ISO Sensitivity</string>
