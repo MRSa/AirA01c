@@ -91,7 +91,7 @@ class StandaloneShootingSetDialog: DialogFragment(), View.OnClickListener, IBusy
                     Thread.sleep(100) // 送信前にちょっと止めてみる
                     val command = "get_camprop.cgi"
                     val parameter = "com=desc&propname=desclist"
-                    val body = "<?xml version=\"1.0\"?><desclist><prop name=\"TAKEMODE\"/><prop name=\"COLORTONE\"/><prop name=\"WB\"/><prop name=\"ISO\"/><prop name=\"ASPECT_RATIO\"/><prop name=\"QUALITY_MOVIE\"/><prop name=\"APERTURE\"/><prop name=\"SHUTTER\"/></desclist>"
+                    val body = "<?xml version=\"1.0\"?><desclist><prop name=\"TAKEMODE\"/><prop name=\"COLORTONE\"/><prop name=\"WB\"/><prop name=\"ISO\"/><prop name=\"ASPECT_RATIO\"/><prop name=\"QUALITY_MOVIE\"/><prop name=\"APERTURE\"/><prop name=\"SHUTTER\"/><prop name=\"EXPOSE_MOVIE_SELECT\"/></desclist>"
 
                     AppSingleton.cameraControl.sendPostCommand(command, parameter, body, object: IOmdsOperationCallback
                     {
@@ -177,6 +177,7 @@ class StandaloneShootingSetDialog: DialogFragment(), View.OnClickListener, IBusy
                 "QUALITY_MOVIE" -> { setupSpinner(R.id.select_quality_movie, enumList, value) }
                 "APERTURE" -> { setupSpinner(R.id.select_aperture, enumList, value) }
                 "SHUTTER" -> { setupSpinner(R.id.select_shutter, enumList, value) }
+                "EXPOSE_MOVIE_SELECT" -> { setupSpinner(R.id.select_movie_takemode, enumList, value) }
             }
         }
         catch (e: Exception)
@@ -437,9 +438,11 @@ class StandaloneShootingSetDialog: DialogFragment(), View.OnClickListener, IBusy
                 val movieQuality = myView.findViewById<AppCompatSpinner>(R.id.select_quality_movie).selectedItem.toString()
                 val aperture = myView.findViewById<AppCompatSpinner>(R.id.select_aperture).selectedItem.toString()
                 val shutterSpeed = myView.findViewById<AppCompatSpinner>(R.id.select_shutter).selectedItem.toString()
+                val exposeMovieSelect =  myView.findViewById<AppCompatSpinner>(R.id.select_movie_takemode).selectedItem.toString()
 
                 // ---- 送信用のコマンドを作成する
                 var body = "<?xml version=\"1.0\"?><set>"
+                body += "<prop name=\"EXPOSE_MOVIE_SELECT\"><value>$exposeMovieSelect</value></prop>"
                 body += "<prop name=\"COLORTONE\"><value>$colorTone</value></prop>"
                 body += "<prop name=\"TAKEMODE\"><value>$takeMode</value></prop>"
                 body += "<prop name=\"WB\"><value>$whiteBalance</value></prop>"

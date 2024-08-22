@@ -260,6 +260,7 @@
     <string name="title_apply_standalone">設定</string>
     <string name="title_shutter">シャッター速度(S, M)</string>
     <string name="title_aperture">F値(A, M)</string>
+    <string name="title_movie_takemode">動画撮影モード (movie)</string>
     <string name="title_quality_movie">動画画質\n(movie)</string>
     <string name="title_aspect_ratio">アスペクト比</string>
     <string name="title_iso">ISO感度</string>
@@ -270,6 +271,6 @@
     <string name="message_standalone_get_current_settings">現在の設定を取得中</string>
     <string name="message_standalone_apply_settings">設定を登録しています</string>
     <string name="message_standalone_apply_settings_done">設定を登録しました</string>
-    <string name="message_standalone_parameter_selection_ready">設定が完了したら「設定」ボタンを押してください。</string>
+    <string name="message_standalone_parameter_selection_ready">「設定」ボタンで値を反映します</string>
     <string name="message_standalone_parameter_get_failure">注意：データの読み込みに失敗しました</string>
 </resources>
