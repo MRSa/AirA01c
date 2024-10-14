@@ -132,6 +132,12 @@ class HomeFragment : Fragment(), IMessageDrawer
                 pushedRefresh()
             }
 
+            // ----- Bluetooth LE の制御
+            view.findViewById<Button>(R.id.btnBlePowerControl)?.setOnClickListener {
+                vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
+                pushedBlePowerControl()
+            }
+
             // ----- ステータス領域をスクロールできるようにする
             view.findViewById<TextView>(R.id.myTextStatus)?.movementMethod = ScrollingMovementMethod()
 
@@ -334,6 +340,20 @@ class HomeFragment : Fragment(), IMessageDrawer
         }
     }
 */
+
+    private fun pushedBlePowerControl()
+    {
+        Log.v(TAG, "pushedBlePowerControl()")
+        try
+        {
+            // -------- Bluetooth LE の制御
+
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+    }
 
     private fun changeButtonStatus(isConnected: Boolean)
     {

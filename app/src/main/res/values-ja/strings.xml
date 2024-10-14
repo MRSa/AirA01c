@@ -7,6 +7,7 @@
     <string name="blank"> </string>
     <string name="refresh">更新</string>
     <string name="about_gokigen">情報</string>
+    <string name="lbl_bluetooth_le">Bluetooth LE</string>
 
     <string name="app_credit">OLYMPUS AIR A01 Maintenance App.\n   https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01c/Readme.md</string>
 
