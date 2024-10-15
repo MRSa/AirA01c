@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/busy_area"
+        style="?android:attr/buttonBarStyle"
+        android:autofillHints=""
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/busy_message_title"
+            android:importantForAutofill="no"
+            android:tag="title"
+            android:textSize="20sp"
+            android:text="@string/lbl_bluetooth_le"
+            android:layout_gravity="start"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/busy_message_message"
+            android:importantForAutofill="no"
+            android:tag="message"
+            android:textSize="16sp"
+            android:text="@string/lbl_paired_devices"
+            android:layout_gravity="start" />
+
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/paired_devices_selection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:minHeight="48dp"
+            android:textSize="24sp"
+            />
+
+        <LinearLayout
+            android:id="@+id/area_button_ble_control_window"
+            style="?android:attr/buttonBarButtonStyle"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/lbl_pass_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="4dp"
+                android:textSize="16sp"
+                android:text="@string/lbl_pass_code"
+                android:visibility="visible" />
+
+            <EditText
+                android:id="@+id/ble_passcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:textSize="20sp"
+                android:ems="6"
+                android:inputType="text"
+                android:clickable="true"
+                android:focusable="true"
+                android:enabled="true"
+                android:text=""
+                android:hint="@string/hint_pass_code"
+                android:visibility="visible" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginRight="2dp"
+                android:tag="button"
+                android:gravity="center"
+                android:id="@+id/dialog_ble_button_power_on"
+                android:text="@string/dialog_button_power_on"
+                android:visibility="visible"
+                android:textSize="14sp"
+                android:maxWidth="310dp"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <!-- コマンドメッセージ表示エリア -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ble_message_response"
+            android:importantForAutofill="no"
+            android:tag="response"
+            android:textSize="16sp"
+            android:minLines="6"
+            android:layout_gravity="start" />
+
+        <!-- Close の上にある線 -->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"/>
+
+    <LinearLayout
+        android:id="@+id/area_button_ble_window"
+        style="?android:attr/buttonBarButtonStyle"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:tag="button"
+            android:gravity="center"
+            android:id="@+id/dialog_ble_button_previous"
+            android:text="@string/dialog_button_previous"
+            android:visibility="invisible"
+            android:textSize="14sp"
+            android:maxWidth="310dp"
+            />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:tag="button"
+            android:gravity="center"
+            android:id="@+id/ble_button_close"
+            android:text="@string/dialog_button_close"
+            android:visibility="visible"
+            android:enabled="true"
+            android:textSize="14sp"
+            android:maxWidth="310dp"
+            />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:tag="button"
+            android:gravity="center"
+            android:id="@+id/dialog_ble_button_proceed"
+            android:text="@string/dialog_button_proceed"
+            android:visibility="invisible"
+            android:textSize="14sp"
+            android:maxWidth="310dp"
+            />
+    </LinearLayout>
+
+        <!-- 末尾のライン -->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"/>
+    </LinearLayout>
+</ScrollView>

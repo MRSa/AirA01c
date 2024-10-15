@@ -39,7 +39,6 @@ class ConfigurationFragment : Fragment()
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.app_bar_menu, menu)
             }
-
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.action_about_gokigen -> {

@@ -346,8 +346,16 @@ class HomeFragment : Fragment(), IMessageDrawer
         Log.v(TAG, "pushedBlePowerControl()")
         try
         {
-            // -------- Bluetooth LE の制御
-
+            // -------- Bluetooth LE の制御 （ダイアログを開く）
+            try
+            {
+                BleControlDialog.newInstance(requireActivity())
+                    .show(requireActivity().supportFragmentManager, TAG)
+            }
+            catch (e: Exception)
+            {
+                e.printStackTrace()
+            }
         }
         catch (e: Exception)
         {
