@@ -11,24 +11,30 @@ import android.os.VibratorManager
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatSpinner
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import jp.osdn.gokigen.aira01c.R
+import jp.osdn.gokigen.aira01c.ble.MyBleAdapter
 import jp.osdn.gokigen.aira01c.camera.interfaces.IVibrator
 
 class BleControlDialog : DialogFragment(), View.OnClickListener
 {
     private lateinit var myContext: FragmentActivity
+    private lateinit var bleDeviceList: MyBleAdapter
     private lateinit var myView: View
     private lateinit var alertDialog: AlertDialog.Builder
 
     private var container: ViewGroup? = null
 
-    private fun prepare(context: FragmentActivity)
+    private fun prepare(context: FragmentActivity, bleDeviceList: MyBleAdapter)
     {
         this.myContext = context
+        this.bleDeviceList = bleDeviceList
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog
@@ -36,7 +42,9 @@ class BleControlDialog : DialogFragment(), View.OnClickListener
         try
         {
             return (showDialog())
-        } catch (e: Exception) {
+        }
+        catch (e: Exception)
+        {
             e.printStackTrace()
         }
         return super.onCreateDialog(savedInstanceState)
@@ -56,20 +64,65 @@ class BleControlDialog : DialogFragment(), View.OnClickListener
         alertDialog.setView(myView)
         alertDialog.setCancelable(true)
 
+        prepareSpinner()
+
         return (alertDialog.create())
     }
 
-    private fun setupDialog() {
+    private fun setupDialog()
+    {
         // -------- ダイアログの処理メイン
-        try {
-            if (::myView.isInitialized) {
+        try
+        {
+            if (::myView.isInitialized)
+            {
                 myView.findViewById<Button>(R.id.dialog_ble_button_power_on).setOnClickListener(this)
                 myView.findViewById<Button>(R.id.ble_button_close).setOnClickListener(this)
             }
-        } catch (e: Exception) {
+        }
+        catch (e: Exception)
+        {
             e.printStackTrace()
         }
     }
+
+    private fun prepareSpinner()
+    {
+        try
+        {
+            // -----
+            if(::bleDeviceList.isInitialized)
+            {
+                this.bleDeviceList.prepare()
+                val deviceList = bleDeviceList.getBondedDeviceList()
+                val adapter = ArrayAdapter<String>(this.requireContext(), android.R.layout.simple_spinner_item)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+                for (device in deviceList)
+                {
+                    adapter.add("${device.name}(${device.id})")
+                }
+                val spinner: AppCompatSpinner = myView.findViewById(R.id.paired_devices_selection)
+                spinner.adapter = adapter
+                spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long)
+                    {
+                        Log.v(TAG, "onItemSelected(parent: $parent, view: $view, pos: $pos, id: $id)")
+                    }
+
+                    override fun onNothingSelected(p0: AdapterView<*>?)
+                    {
+                        Log.v(TAG, "onNothingSelected()")
+                    }
+                }
+            }
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+    }
+
 
     override fun onClick(view: View) {
         when (view.id) {
@@ -139,12 +192,13 @@ class BleControlDialog : DialogFragment(), View.OnClickListener
         }
     }
 
-    companion object {
+    companion object
+    {
         val TAG: String = BleControlDialog::class.java.simpleName
 
-        fun newInstance(context: FragmentActivity): BleControlDialog {
+        fun newInstance(context: FragmentActivity, bleDeviceList: MyBleAdapter): BleControlDialog {
             val instance = BleControlDialog()
-            instance.prepare(context)
+            instance.prepare(context, bleDeviceList)
             return (instance)
         }
     }

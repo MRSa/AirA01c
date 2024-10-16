@@ -9,17 +9,19 @@ import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import jp.osdn.gokigen.aira01c.R
 
-class MyBleAdapter(val context: AppCompatActivity)
+data class MyBleDevice(val name: String, val id: String)
+
+class MyBleAdapter(val context: FragmentActivity)
 {
-    private val deviceList : MutableList<String> = ArrayList()
+    private val deviceList : MutableList<MyBleDevice> = ArrayList()
     private var isReadyDeviceList = false
 
-    init
+    fun prepare()
     {
         context.runOnUiThread {
             try
@@ -62,7 +64,7 @@ class MyBleAdapter(val context: AppCompatActivity)
         }
     }
 
-    fun getBondedDeviceList(): List<String>
+    fun getBondedDeviceList(): List<MyBleDevice>
     {
         return (deviceList)
     }
@@ -90,7 +92,7 @@ class MyBleAdapter(val context: AppCompatActivity)
                     }
                     for (bt in bondedDevices)
                     {
-                        deviceList.add(bt.name)
+                        deviceList.add(MyBleDevice(bt.name, bt.address))
                     }
                 }
                 catch (e: Exception)
@@ -107,7 +109,7 @@ class MyBleAdapter(val context: AppCompatActivity)
                     val bondedDevices = btAdapter.bondedDevices
                     for (bt in bondedDevices)
                     {
-                        deviceList.add(bt.name)
+                        deviceList.add(MyBleDevice(bt.name, bt.address))
                     }
                 }
                 catch (e: Exception)
