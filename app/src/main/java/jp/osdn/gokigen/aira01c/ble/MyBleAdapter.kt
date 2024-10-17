@@ -14,8 +14,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import jp.osdn.gokigen.aira01c.R
 
-data class MyBleDevice(val name: String, val id: String)
-
 class MyBleAdapter(val context: FragmentActivity)
 {
     private val deviceList : MutableList<MyBleDevice> = ArrayList()

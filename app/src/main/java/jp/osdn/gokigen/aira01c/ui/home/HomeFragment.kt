@@ -28,6 +28,7 @@ import androidx.lifecycle.ViewModelProvider
 import jp.osdn.gokigen.aira01c.AppSingleton.Companion.cameraControl
 import jp.osdn.gokigen.aira01c.R
 import jp.osdn.gokigen.aira01c.ble.MyBleAdapter
+import jp.osdn.gokigen.aira01c.ble.PowerOnCamera
 import jp.osdn.gokigen.aira01c.camera.interfaces.ICameraConnectionStatus
 import jp.osdn.gokigen.aira01c.camera.interfaces.IMessageDrawer
 import jp.osdn.gokigen.aira01c.camera.interfaces.IVibrator
@@ -41,6 +42,7 @@ class HomeFragment : Fragment(), IMessageDrawer
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var bleDeviceList : MyBleAdapter
+    private lateinit var cameraPowerOn : PowerOnCamera
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -351,14 +353,19 @@ class HomeFragment : Fragment(), IMessageDrawer
             // -------- Bluetooth LE の制御 （ダイアログを開く）
             try
             {
+                // ----- Bluetooth経由でカメラの電源をONにするクラスの生成
+                if (!::cameraPowerOn.isInitialized)
+                {
+                    cameraPowerOn = PowerOnCamera(requireActivity())
+                }
+
                 // ----- BLEのデバイス一覧保持クラスを初期化する
                 if (!::bleDeviceList.isInitialized)
                 {
                     bleDeviceList = MyBleAdapter(requireActivity())
                 }
                 bleDeviceList.prepare()
-
-                BleControlDialog.newInstance(requireActivity(), bleDeviceList)
+                BleControlDialog.newInstance(requireActivity(), bleDeviceList, cameraPowerOn)
                     .show(requireActivity().supportFragmentManager, TAG)
             }
             catch (e: Exception)

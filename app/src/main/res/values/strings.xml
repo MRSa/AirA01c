@@ -29,6 +29,9 @@
     <string name="hint_pass_code">(Pass code)</string>
     <string name="dialog_button_power_on">WAKE UP</string>
     <string name="lbl_paired_devices">Paired Devices:</string>
+    <string name="ble_wake_start">Start </string>
+    <string name="ble_wake_success">Done.</string>
+    <string name="ble_wake_failure">Failure.</string>
 
     <string name="pref_cat_gokigen">GOKIGEN</string>
     <string name="pref_instruction_manual">Instructions</string>
