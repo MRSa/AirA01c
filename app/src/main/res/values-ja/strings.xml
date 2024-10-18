@@ -32,6 +32,7 @@
     <string name="ble_wake_start">起動開始 </string>
     <string name="ble_wake_success">成功</string>
     <string name="ble_wake_failure">失敗</string>
+    <string name="ble_setting_is_off">BluetoothはOFFになっています。</string>
 
     <string name="pref_cat_gokigen">GOKIGEN Project</string>
     <string name="pref_instruction_manual">操作説明</string>

@@ -15,6 +15,7 @@ class PowerOnCamera(private val context: FragmentActivity) : ICameraPowerOn
     //private var myCameraList: MutableList<CameraBleSetArrayItem>? = null
     private var myBluetoothDevice: BluetoothDevice? = null
     private var myBtDevicePassCode = ""
+    private val bleAdapterGetter = BleAdapterGetter(context)
 
     init
     {
@@ -26,6 +27,14 @@ class PowerOnCamera(private val context: FragmentActivity) : ICameraPowerOn
     {
         Log.v(TAG, "PowerOnCamera::wakeup() : ${target.name} (${target.id}) [$code]")
         callback?.onStart("${context.getString(R.string.ble_wake_start)}: ${target.name}")
+
+
+
+
+
+
+
+
 /*
         try
         {

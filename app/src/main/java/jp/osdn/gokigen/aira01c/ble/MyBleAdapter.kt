@@ -2,8 +2,6 @@ package jp.osdn.gokigen.aira01c.ble
 
 import android.Manifest.permission
 import android.annotation.SuppressLint
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothManager
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
@@ -18,6 +16,7 @@ class MyBleAdapter(val context: FragmentActivity)
 {
     private val deviceList : MutableList<MyBleDevice> = ArrayList()
     private var isReadyDeviceList = false
+    private val bleAdapterGetter = BleAdapterGetter(context)
 
     fun prepare()
     {
@@ -39,7 +38,6 @@ class MyBleAdapter(val context: FragmentActivity)
                         else
                         {
                             // ----- デバイスリストを取得
-                            deviceList.clear()
                             getDeviceList()
                             isReadyDeviceList = true
                         }
@@ -49,7 +47,6 @@ class MyBleAdapter(val context: FragmentActivity)
                 else
                 {
                     // ----- デバイスリストを取得
-                    deviceList.clear()
                     getDeviceList()
                     isReadyDeviceList = true
                 }
@@ -71,48 +68,42 @@ class MyBleAdapter(val context: FragmentActivity)
     {
         try
         {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            deviceList.clear()
+            val bluetoothAdapter = bleAdapterGetter.getBleAdapter()
+            if (bluetoothAdapter != null)
             {
-                try
-                {
-                    // ----- https://developer.android.com/develop/connectivity/bluetooth/setup
-                    val bluetoothManager: BluetoothManager = context.getSystemService(BluetoothManager::class.java)
-                    val bluetoothAdapter: BluetoothAdapter = bluetoothManager.adapter ?: return
-                    val bondedDevices = if (ActivityCompat.checkSelfPermission(context, permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED)
+                val bondedDevices =  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ActivityCompat.checkSelfPermission(context, permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED)
                     {
                         bluetoothAdapter.bondedDevices
                     }
                     else
                     {
                         // ----- 基本、ここは通らないはず (ここを通る前にPermissionを取得しているはずなので)
-                        Log.v(TAG, "getDeviceList() : Permission not grant...")
-                        return
-                    }
-                    for (bt in bondedDevices)
-                    {
-                        deviceList.add(MyBleDevice(bt.name, bt.address))
+                        Log.v(TAG, "getDeviceList() : Permission not grant... but, try to get bonded devices")
+                        bluetoothAdapter.bondedDevices
                     }
                 }
-                catch (e: Exception)
+                else
                 {
-                    e.printStackTrace()
+                    bluetoothAdapter.bondedDevices
                 }
-            }
-            else
-            {
-                try
+                for (bt in bondedDevices)
                 {
-                    @Suppress("DEPRECATION")
-                    val btAdapter = BluetoothAdapter.getDefaultAdapter()
-                    val bondedDevices = btAdapter.bondedDevices
-                    for (bt in bondedDevices)
-                    {
-                        deviceList.add(MyBleDevice(bt.name, bt.address))
+                    deviceList.add(MyBleDevice(bt.name, bt.address))
+                }
+
+                if (!bluetoothAdapter.isEnabled)
+                {
+                    // Bluetoothの設定がOFFだった
+                    Log.v(TAG, "Bluetooth is currently off.")
+                    context.runOnUiThread {
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.ble_setting_is_off),
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
-                }
-                catch (e: Exception)
-                {
-                    e.printStackTrace()
                 }
             }
         }
