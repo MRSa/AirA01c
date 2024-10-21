@@ -30,9 +30,13 @@
     <string name="dialog_button_power_on">起動</string>
     <string name="lbl_paired_devices">デバイス:</string>
     <string name="ble_wake_start">起動開始 </string>
-    <string name="ble_wake_success">成功</string>
-    <string name="ble_wake_failure">失敗</string>
+    <string name="ble_wake_success">起動成功</string>
+    <string name="ble_wake_failure">起動失敗</string>
     <string name="ble_setting_is_off">BluetoothはOFFになっています。</string>
+    <string name="ble_adapter_is_nothing">Bluetoothスキャナが使えないようです。</string>
+    <string name="ble_target_is_empty">Bluetoothの接続先名称がありません。</string>
+    <string name="ble_device_found">発見 : </string>
+    <string name="ble_control_is_limited_version">Bluetooth制御ができるのは Android 5.0 (Lollipop) 以降です。</string>
 
     <string name="pref_cat_gokigen">GOKIGEN Project</string>
     <string name="pref_instruction_manual">操作説明</string>

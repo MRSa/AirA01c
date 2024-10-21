@@ -353,18 +353,19 @@ class HomeFragment : Fragment(), IMessageDrawer
             // -------- Bluetooth LE の制御 （ダイアログを開く）
             try
             {
-                // ----- Bluetooth経由でカメラの電源をONにするクラスの生成
-                if (!::cameraPowerOn.isInitialized)
-                {
-                    cameraPowerOn = PowerOnCamera(requireActivity())
-                }
-
                 // ----- BLEのデバイス一覧保持クラスを初期化する
                 if (!::bleDeviceList.isInitialized)
                 {
                     bleDeviceList = MyBleAdapter(requireActivity())
                 }
                 bleDeviceList.prepare()
+
+                // ----- Bluetooth経由でカメラの電源をONにするクラスの生成
+                if (!::cameraPowerOn.isInitialized)
+                {
+                    cameraPowerOn = PowerOnCamera(requireActivity(), bleDeviceList)
+                }
+
                 BleControlDialog.newInstance(requireActivity(), bleDeviceList, cameraPowerOn)
                     .show(requireActivity().supportFragmentManager, TAG)
             }

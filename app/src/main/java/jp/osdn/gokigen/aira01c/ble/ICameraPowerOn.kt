@@ -3,7 +3,8 @@ package jp.osdn.gokigen.aira01c.ble
 interface ICameraPowerOn
 {
     // カメラ起動指示
-    fun wakeup(target: MyBleDevice, code: String, callback: IPowerOnCameraCallback?)
+    fun wakeup(target: MyBleDevice, code: String, callback: IPowerOnCameraCallback)
+    fun cancelWakeup()
 
     // 実行終了時のコールバックのインタフェース
     interface IPowerOnCameraCallback

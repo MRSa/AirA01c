@@ -2,6 +2,7 @@ package jp.osdn.gokigen.aira01c.ble
 
 import android.Manifest.permission
 import android.annotation.SuppressLint
+import android.bluetooth.BluetoothAdapter
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
@@ -62,6 +63,11 @@ class MyBleAdapter(val context: FragmentActivity)
     fun getBondedDeviceList(): List<MyBleDevice>
     {
         return (deviceList)
+    }
+
+    fun getBleAdapter(): BluetoothAdapter?
+    {
+        return (bleAdapterGetter.getBleAdapter())
     }
 
     private fun getDeviceList()

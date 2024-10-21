@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context.VIBRATOR_MANAGER_SERVICE
 import android.content.Context.VIBRATOR_SERVICE
+import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
@@ -62,6 +63,22 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
             e.printStackTrace()
         }
         return super.onCreateDialog(savedInstanceState)
+    }
+
+    override fun onDismiss(dialog: DialogInterface)
+    {
+        super.onDismiss(dialog)
+        try
+        {
+            if (::cameraPowerOn.isInitialized)
+            {
+                cameraPowerOn.cancelWakeup()
+            }
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
     }
 
     private fun showDialog(): Dialog {
@@ -157,6 +174,8 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
                     Log.v(TAG, "Pushed Wake up : ${selectedBleDevice?.name} (${selectedBleDevice?.id})")
                     if (selectedBleDevice != null)
                     {
+                        val button = myView.findViewById<Button>(R.id.dialog_ble_button_power_on)
+                        button.isEnabled = false
                         cameraPowerOn.wakeup(selectedBleDevice!!, passCode, this)
                     }
                 }
@@ -283,8 +302,10 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
         {
             val message = if (isExecute) { requireContext().getString(R.string.ble_wake_success) } else { requireContext().getString(R.string.ble_wake_failure) }
             val field = myView.findViewById<TextView>(R.id.ble_message_response)
+            val button = myView.findViewById<Button>(R.id.dialog_ble_button_power_on)
             myContext.runOnUiThread {
                 field.text = "${field.text}\r\n$message\r\n"
+                button.isEnabled = true
             }
         }
         catch (e: Exception)

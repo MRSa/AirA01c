@@ -4,9 +4,14 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.os.Build
+import android.util.Log
 
 class BleAdapterGetter(val context: Context)
 {
+    init
+    {
+        Log.v(TAG, "BleAdapterGetter()")
+    }
     fun getBleAdapter(): BluetoothAdapter?
     {
         try
@@ -24,23 +29,20 @@ class BleAdapterGetter(val context: Context)
                     e.printStackTrace()
                 }
             }
-            else
+            try
             {
                 // ----- OLD Version
-                try
-                {
-                    @Suppress("DEPRECATION")
-                    return (BluetoothAdapter.getDefaultAdapter())
-                }
-                catch (e: Exception)
-                {
-                    e.printStackTrace()
-                }
+                @Suppress("DEPRECATION")
+                return (BluetoothAdapter.getDefaultAdapter())
+            }
+            catch (e: Exception)
+            {
+                e.printStackTrace()
             }
         }
-        catch (e: Exception)
+        catch (ee: Exception)
         {
-            e.printStackTrace()
+            ee.printStackTrace()
         }
         return (null)
     }
