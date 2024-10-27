@@ -11,6 +11,7 @@ import jp.osdn.gokigen.aira01c.camera.omds.connection.OmdsCameraConnection
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsCamIndStatus
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsCameraGetProperty
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsCameraStatus
+import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsCommPathControl
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsCommPathStatus
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsGetCommand
 import jp.osdn.gokigen.aira01c.camera.omds.operation.OmdsPostCommand
@@ -28,6 +29,7 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
     private lateinit var cameraConnection: OmdsCameraConnection
     private lateinit var messageDrawer : IMessageDrawer
     private lateinit var runModeControl : OmdsRunModeControl
+    private lateinit var commPathControl : OmdsCommPathControl
     private lateinit var timeSync: OmdsTimeSync
     private lateinit var cameraStatus: OmdsCameraStatus
     private lateinit var getCameraProperty: OmdsCameraGetProperty
@@ -46,6 +48,7 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
             this.messageDrawer = messageDrawer
             this.cameraConnection = OmdsCameraConnection(activity, statusChecker, this, this)
             this.runModeControl = OmdsRunModeControl(activity, messageDrawer)
+            this.commPathControl = OmdsCommPathControl(activity, messageDrawer)
             this.timeSync = OmdsTimeSync(activity, messageDrawer)
             this.cameraStatus = OmdsCameraStatus(activity, messageDrawer)
             this.getCameraProperty = OmdsCameraGetProperty(activity, messageDrawer)
@@ -126,7 +129,35 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
 
     fun sendGetCommand(command: String, parameter: String, callback: IOmdsOperationCallback? = null) { getCommand.sendCommand(command, parameter, callback) }
     fun sendPostCommand(command: String, parameter: String, body: String, callback: IOmdsOperationCallback? = null) { postCommand.sendCommand(command, parameter, body, callback) }
-    fun changeRunMode(runMode: String, callback: IOmdsOperationCallback? = null) { runModeControl.changeRunMode(runMode, callback) }
+    fun changeCommPath(commPath: String, callback: IOmdsOperationCallback? = null)
+    {
+        try
+        {
+            if (::commPathControl.isInitialized)
+            {
+                commPathControl.changeCommPath(commPath, callback)
+            }
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+    }
+    fun changeRunMode(runMode: String, callback: IOmdsOperationCallback? = null)
+    {
+        try
+        {
+            if (::runModeControl.isInitialized)
+            {
+                runModeControl.changeRunMode(runMode, callback)
+            }
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+    }
+
     fun synchronizeTime() { timeSync.setTimeSync(null) }
     fun getCameraStatus()
     {

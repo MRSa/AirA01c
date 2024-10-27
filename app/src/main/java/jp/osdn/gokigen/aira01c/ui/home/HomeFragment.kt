@@ -229,6 +229,15 @@ class HomeFragment : Fragment(), IMessageDrawer
         Log.v(TAG, "pushedModeReset()")
         try
         {
+            cameraControl.changeCommPath("wifi")
+            try
+            {
+                Thread.sleep(75)
+            }
+            catch (ee: Exception)
+            {
+                ee.printStackTrace()
+            }
             cameraControl.changeRunMode("standalone")
         }
         catch (e: Exception)
