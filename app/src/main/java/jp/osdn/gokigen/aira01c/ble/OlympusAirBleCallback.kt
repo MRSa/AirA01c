@@ -26,6 +26,7 @@ class OlympusAirBleCallback(private val callback: IPowerOnCameraCallback): Bluet
         Log.v(TAG, "onDescriptorWrite() : $status ${descriptor?.uuid}")
     }
 
+    @OptIn(ExperimentalUnsignedTypes::class)
     @SuppressLint("MissingPermission")
     override fun onServicesDiscovered(gatt: BluetoothGatt?, status: Int)
     {
@@ -37,27 +38,36 @@ class OlympusAirBleCallback(private val callback: IPowerOnCameraCallback): Bluet
                 // ----- 接続成功
                 Log.v(TAG, "***---*** GATT CONNECT SUCCESS. ***---***")
 
-                // ----- 使用可能なサービスの一覧をダンプする
-                val services = gatt?.services
-                if (services != null)
+                if (DUMP_BLE_SERVICES)
                 {
-                    for (service in services)
+                    // ----- 使用可能なサービスの一覧をダンプする
+                    val services = gatt?.services
+                    if (services != null)
                     {
-                        Log.v(TAG, " SERVICE [" + service.uuid + "] " + service.type)
-                        val characteristics = service.characteristics
-                        for (characteristic in characteristics)
+                        for (service in services)
                         {
-                            Log.v(TAG, "    BluetoothGattCharacteristic() [" + characteristic.uuid + "] " + characteristic.permissions + " " + characteristic.properties)
-                            val descriptors = characteristic.descriptors
-                            for (descriptor in descriptors)
+                            Log.v(TAG, " SERVICE [" + service.uuid + "] " + service.type)
+                            val characteristics = service.characteristics
+                            for (characteristic in characteristics)
                             {
-                                Log.v(TAG, "        BluetoothGattDescriptor() [" + descriptor.uuid + "] " + descriptor.permissions + " ")
+                                Log.v(
+                                    TAG,
+                                    "    BluetoothGattCharacteristic() [" + characteristic.uuid + "] " + characteristic.permissions + " " + characteristic.properties
+                                )
+                                val descriptors = characteristic.descriptors
+                                for (descriptor in descriptors)
+                                {
+                                    Log.v(
+                                        TAG,
+                                        "        BluetoothGattDescriptor() [" + descriptor.uuid + "] " + descriptor.permissions + " "
+                                    )
+                                }
                             }
                         }
-                    }
+                    }   //  if (DUMP_BLE_SERVICES)
                 }
 
-                // ---- Wake up camera -----
+                // ---- Wake up the Olympus Air -----
                 val service = gatt?.getService(UUID.fromString("0391D26E-625B-4736-B4DA-3BB0910ECEC5")) ?: return
                 val characteristics = service.getCharacteristic(UUID.fromString("d15464da-de00-41d4-bec8-7c2b2cc8b2ee"))
                 val wakeData: ByteArray = byteArrayOf(
@@ -77,7 +87,9 @@ class OlympusAirBleCallback(private val callback: IPowerOnCameraCallback): Bluet
                     }
                     else
                     {
+                        @Suppress("DEPRECATION")
                         characteristics.setValue(wakeData)
+                        @Suppress("DEPRECATION")
                         gatt.writeCharacteristic(characteristics)
                     }
                     Log.v(TAG, "GATT WRITE[wakeData]: $writeOne [${wakeData.toUByteArray()}]")
@@ -125,7 +137,7 @@ class OlympusAirBleCallback(private val callback: IPowerOnCameraCallback): Bluet
         status: Int
     ) {
         super.onCharacteristicWrite(gatt, characteristic, status)
-        Log.v(TAG, "onCharacteristicWrite() : $status ${characteristic?.uuid}")
+        Log.v(TAG, "  onCharacteristicWrite() : $status ${characteristic?.uuid}")
     }
 
     override fun onCharacteristicChanged(
@@ -134,7 +146,7 @@ class OlympusAirBleCallback(private val callback: IPowerOnCameraCallback): Bluet
         value: ByteArray
     ) {
         super.onCharacteristicChanged(gatt, characteristic, value)
-        Log.v(TAG, " >> >> >> >> >> onCharacteristicChanged() $value ${characteristic.uuid}")
+        Log.v(TAG, "  onCharacteristicChanged() $value ${characteristic.uuid}")
     }
 
     @SuppressLint("MissingPermission")
@@ -176,5 +188,6 @@ class OlympusAirBleCallback(private val callback: IPowerOnCameraCallback): Bluet
     companion object
     {
         private val TAG = OlympusAirBleCallback::class.java.simpleName
+        private const val DUMP_BLE_SERVICES = false
     }
 }

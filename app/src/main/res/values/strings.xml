@@ -255,6 +255,8 @@
     <string name="camera_firmware_version">Body Firmware Version : </string>
     <string name="lens_firmware_version">Lens Firmware Version : </string>
 
+    <string name="camera_communication_path">Communication Path : </string>
+
     <string name="message_get_current_settings">Getting current settings</string>
     <string name="message_apply_settings">Applying your settings</string>
     <string name="message_apply_settings_done">Settings are updated.</string>

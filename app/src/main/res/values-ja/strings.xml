@@ -257,6 +257,8 @@
     <string name="camera_firmware_version">ボディ ファームウェアバージョン : </string>
     <string name="lens_firmware_version">レンズ ファームウェアバージョン : </string>
 
+    <string name="camera_communication_path">カメラコマンド受付元 : </string>
+
     <string name="message_get_current_settings">現在の設定を取得中</string>
     <string name="message_apply_settings">設定を登録しています</string>
     <string name="message_apply_settings_done">設定を登録しました</string>
