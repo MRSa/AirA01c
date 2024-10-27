@@ -8,6 +8,7 @@
     <string name="refresh">Refresh</string>
     <string name="about_gokigen">About</string>
     <string name="lbl_bluetooth_le">Bluetooth LE</string>
+    <string name="lbl_bluetooth">Bluetooth</string>
 
     <string name="app_credit">OLYMPUS AIR A01 Maintenance App.\n   https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01c/Readme.md</string>
 
@@ -83,7 +84,6 @@
     <string name="dialog_title_confirmation">Confirmation</string>
     <string name="dialog_message_power_off">Power Off</string>
     <string name="dialog_message_exit">Exit Application</string>
-
 
     <string name="command_line_disconnected">Camera control line is disconnected.</string>
 
@@ -220,6 +220,12 @@
 
     <string name="command_accepted">Command accepted </string>
     <string name="command_rejected">Command rejected</string>
+
+    <string name="lbl_launch_app">Launch App.</string>
+    <string name="btn_launch_app">Launch</string>
+    <string name="lbl_launch_target">Application to launch : </string>
+    <string name="launch_no_package_selection">The launch target application is none.</string>
+    <string name="launch_failure">The application launch failure.</string>
 
     <string name="dialog_title_format_sd">Format SD</string>
     <string name="dialog_message_format_sd">Caution: Entire data in the card will be deleted (card will return to its original state).</string>

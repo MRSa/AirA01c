@@ -10,6 +10,7 @@ AirA01C は、デジタルカメラ OLYMPUS AIR A01 にWi-Fi経由で接続し�
 
 以下の機能を持っています。
 
+- Bluetooth LE経由での電源ON
 - カメラのモード変更
 - カメラにスマートフォンの時刻を同期
 - カメラの状態取得
@@ -23,6 +24,7 @@ AirA01C は、デジタルカメラ OLYMPUS AIR A01 にWi-Fi経由で接続し�
 - スリープ時間や操作音レベルなど、AIR A01のカメラの動作設定
 - 個別コマンドの発行
 - AIR A01の操作説明
+- AIR A01用のアプリケーション起動
 
 詳細は、[操作説明のページ](https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01c/Readme.md)を参照してください。
 - [https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01c/Readme.md](https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01c/Readme.md)

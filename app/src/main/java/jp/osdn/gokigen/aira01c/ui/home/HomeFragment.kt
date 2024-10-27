@@ -1,14 +1,8 @@
 package jp.osdn.gokigen.aira01c.ui.home
 
 import android.annotation.SuppressLint
-import android.content.Context.VIBRATOR_MANAGER_SERVICE
-import android.content.Context.VIBRATOR_SERVICE
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.os.VibratorManager
 import android.provider.Settings
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
@@ -25,6 +19,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import jp.osdn.gokigen.aira01c.AppSingleton
 import jp.osdn.gokigen.aira01c.AppSingleton.Companion.cameraControl
 import jp.osdn.gokigen.aira01c.R
 import jp.osdn.gokigen.aira01c.ble.MyBleAdapter
@@ -102,44 +97,50 @@ class HomeFragment : Fragment(), IMessageDrawer
         {
             // ----- カメラに接続する
             view.findViewById<Button>(R.id.btnConnect)?.setOnClickListener {
-                vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
+                AppSingleton.vibrator.vibrate(requireContext(), IVibrator.VibratePattern.SIMPLE_SHORT)
                 pushedConnect()
             }
 
             // ----- カメラから切断する
             view.findViewById<Button>(R.id.btnDisconnect)?.setOnClickListener {
-                vibrate(IVibrator.VibratePattern.SIMPLE_SHORT_SHORT)
+                AppSingleton.vibrator.vibrate(requireContext(), IVibrator.VibratePattern.SIMPLE_SHORT_SHORT)
                 pushedDisconnect()
             }
 
             // ----- Wifi設定画面を開く
             view.findViewById<Button>(R.id.btnWifiSet)?.setOnClickListener {
-                vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
+                AppSingleton.vibrator.vibrate(requireContext(), IVibrator.VibratePattern.SIMPLE_SHORT)
                  pushedWifiSet()
             }
 
             // ----- モードリセット
             view.findViewById<Button>(R.id.btnModeReset)?.setOnClickListener {
-                vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
+                AppSingleton.vibrator.vibrate(requireContext(), IVibrator.VibratePattern.SIMPLE_SHORT)
                 pushedModeReset()
             }
 
             // ----- 時刻設定
             view.findViewById<Button>(R.id.btnTimeSync)?.setOnClickListener {
-                vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
+                AppSingleton.vibrator.vibrate(requireContext(), IVibrator.VibratePattern.SIMPLE_SHORT)
                 pushedTimeSync()
             }
 
             // ----- 情報の更新
             view.findViewById<Button>(R.id.btnRefresh)?.setOnClickListener {
-                vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
+                AppSingleton.vibrator.vibrate(requireContext(), IVibrator.VibratePattern.SIMPLE_SHORT)
                 pushedRefresh()
             }
 
             // ----- Bluetooth LE の制御
             view.findViewById<Button>(R.id.btnBlePowerControl)?.setOnClickListener {
-                vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
+                AppSingleton.vibrator.vibrate(requireContext(), IVibrator.VibratePattern.SIMPLE_SHORT)
                 pushedBlePowerControl()
+            }
+
+            // ----- アプリケーションの起動
+            view.findViewById<Button>(R.id.btnLaunchApp)?.setOnClickListener {
+                AppSingleton.vibrator.vibrate(requireContext(), IVibrator.VibratePattern.SIMPLE_SHORT)
+                pushedLaunchApplication()
             }
 
             // ----- ステータス領域をスクロールできるようにする
@@ -389,6 +390,21 @@ class HomeFragment : Fragment(), IMessageDrawer
         }
     }
 
+    private fun pushedLaunchApplication()
+    {
+        // -------- 選択したアプリケーションの起動 （ダイアログを開く）
+        Log.v(TAG, "pushedLaunchApplication()")
+        try
+        {
+            OpcAppLaunchDialog.newInstance(requireActivity())
+                .show(requireActivity().supportFragmentManager, TAG)
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+    }
+
     private fun changeButtonStatus(isConnected: Boolean)
     {
         try
@@ -513,58 +529,6 @@ class HomeFragment : Fragment(), IMessageDrawer
         try
         {
             isCameraConnected()
-        }
-        catch (e: Exception)
-        {
-            e.printStackTrace()
-        }
-    }
-
-    private fun vibrate(vibratePattern: IVibrator.VibratePattern)
-    {
-        try
-        {
-            // バイブレータをつかまえる
-            val vibrator  = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-            {
-                val vibratorManager =  requireActivity().getSystemService(VIBRATOR_MANAGER_SERVICE) as VibratorManager
-                vibratorManager.defaultVibrator
-            }
-            else
-            {
-                @Suppress("DEPRECATION")
-                requireActivity().getSystemService(VIBRATOR_SERVICE) as Vibrator
-            }
-            if (!vibrator.hasVibrator())
-            {
-                Log.v(TAG, " not have Vibrator...")
-                return
-            }
-            @Suppress("DEPRECATION") val thread = Thread {
-                try
-                {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                    {
-                        vibrator.vibrate(VibrationEffect.createOneShot(30, VibrationEffect.DEFAULT_AMPLITUDE))
-                    }
-                    else
-                    {
-                        when (vibratePattern)
-                        {
-                            IVibrator.VibratePattern.SIMPLE_SHORT_SHORT -> vibrator.vibrate(30)
-                            IVibrator.VibratePattern.SIMPLE_SHORT ->  vibrator.vibrate(50)
-                            IVibrator.VibratePattern.SIMPLE_MIDDLE -> vibrator.vibrate(100)
-                            IVibrator.VibratePattern.SIMPLE_LONG ->  vibrator.vibrate(150)
-                            else -> { }
-                        }
-                    }
-                }
-                catch (e : Exception)
-                {
-                    e.printStackTrace()
-                }
-            }
-            thread.start()
         }
         catch (e: Exception)
         {

@@ -2,15 +2,9 @@ package jp.osdn.gokigen.aira01c.ui.home
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.Context.VIBRATOR_MANAGER_SERVICE
-import android.content.Context.VIBRATOR_SERVICE
 import android.content.DialogInterface
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.os.VibratorManager
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +18,7 @@ import androidx.appcompat.widget.AppCompatSpinner
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
+import jp.osdn.gokigen.aira01c.AppSingleton
 import jp.osdn.gokigen.aira01c.R
 import jp.osdn.gokigen.aira01c.ble.ICameraPowerOn
 import jp.osdn.gokigen.aira01c.ble.ICameraPowerOn.IPowerOnCameraCallback
@@ -166,7 +161,7 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
         when (view.id) {
             R.id.dialog_ble_button_power_on -> {
                 // ---- Bluetooth LE 経由で電源を投入する
-                vibrate(IVibrator.VibratePattern.SIMPLE_MIDDLE)
+                AppSingleton.vibrator.vibrate(requireContext(), IVibrator.VibratePattern.SIMPLE_MIDDLE)
                 try
                 {
                     val passCode = myView.findViewById<EditText>(R.id.ble_passcode).text.toString()
@@ -186,7 +181,7 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
             }
             R.id.ble_button_close -> {
                 // ----- ダイアログを閉じる
-                vibrate(IVibrator.VibratePattern.SIMPLE_SHORT)
+                AppSingleton.vibrator.vibrate(requireContext(), IVibrator.VibratePattern.SIMPLE_SHORT)
                 dismiss()
             }
             else -> {
@@ -195,57 +190,7 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
         }
     }
 
-    private fun vibrate(vibratePattern: IVibrator.VibratePattern)
-    {
-        try
-        {
-            // バイブレータをつかまえる
-            val vibrator  = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-            {
-                val vibratorManager =  myContext.getSystemService(VIBRATOR_MANAGER_SERVICE) as VibratorManager
-                vibratorManager.defaultVibrator
-            }
-            else
-            {
-                @Suppress("DEPRECATION")
-                myContext.getSystemService(VIBRATOR_SERVICE) as Vibrator
-            }
-            if (!vibrator.hasVibrator())
-            {
-                Log.v(TAG, " not have Vibrator...")
-                return
-            }
-            @Suppress("DEPRECATION") val thread = Thread {
-                try
-                {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                    {
-                        vibrator.vibrate(VibrationEffect.createOneShot(30, VibrationEffect.DEFAULT_AMPLITUDE))
-                    }
-                    else
-                    {
-                        when (vibratePattern)
-                        {
-                            IVibrator.VibratePattern.SIMPLE_SHORT_SHORT -> vibrator.vibrate(30)
-                            IVibrator.VibratePattern.SIMPLE_SHORT ->  vibrator.vibrate(50)
-                            IVibrator.VibratePattern.SIMPLE_MIDDLE -> vibrator.vibrate(100)
-                            IVibrator.VibratePattern.SIMPLE_LONG ->  vibrator.vibrate(150)
-                            else -> { }
-                        }
-                    }
-                }
-                catch (e : Exception)
-                {
-                    e.printStackTrace()
-                }
-            }
-            thread.start()
-        }
-        catch (e: java.lang.Exception)
-        {
-            e.printStackTrace()
-        }
-    }
+
 
     private fun storePassCode(code: String)
     {

@@ -8,6 +8,7 @@
     <string name="refresh">更新</string>
     <string name="about_gokigen">情報</string>
     <string name="lbl_bluetooth_le">Bluetooth LE</string>
+    <string name="lbl_bluetooth">Bluetooth</string>
 
     <string name="app_credit">OLYMPUS AIR A01 Maintenance App.\n   https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01c/Readme.md</string>
 
@@ -223,6 +224,12 @@
 
     <string name="command_accepted">コマンド受付</string>
     <string name="command_rejected">コマンド拒否</string>
+
+    <string name="lbl_launch_app">アプリ起動</string>
+    <string name="btn_launch_app">起動</string>
+    <string name="lbl_launch_target">起動するアプリケーション : </string>
+    <string name="launch_no_package_selection">起動するアプリケーションがありません。</string>
+    <string name="launch_failure">アプリケーションの起動に失敗しました。</string>
 
     <string name="dialog_title_format_sd">フォーマット</string>
     <string name="dialog_message_format_sd">カード内のすべてのデータが消去されます。</string>
