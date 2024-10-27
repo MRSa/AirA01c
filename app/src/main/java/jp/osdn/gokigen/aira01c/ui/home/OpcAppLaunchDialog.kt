@@ -113,124 +113,65 @@ class OpcAppLaunchDialog: DialogFragment(), View.OnClickListener
                     }
                 }
             }
+            // ---------------------------------------------------
 
             // ---------------------------------------------------
             if (checkIsApplicationInstalled("jp.osdn.gokigen.aira01b")) {
                 adapter.add("AirA01b")
-                installedApplicationList.add(
-                    TargetApplicationInfo(
-                        "AirA01a",
-                        "jp.osdn.gokigen.aira01b",
-                        "jp.osdn.gokigen.aira01b.MainActivity"
-                    )
-                )
+                installedApplicationList.add(TargetApplicationInfo("AirA01a", "jp.osdn.gokigen.aira01b", "jp.osdn.gokigen.aira01b.MainActivity"))
             }
 
             if (checkIsApplicationInstalled("jp.osdn.gokigen.aira01a")) {
                 adapter.add("AirA01a")
-                installedApplicationList.add(
-                    TargetApplicationInfo(
-                        "AirA01a",
-                        "jp.osdn.gokigen.aira01a",
-                        "jp.osdn.gokigen.aira01a.MainActivity"
-                    )
-                )
+                installedApplicationList.add(TargetApplicationInfo("AirA01a", "jp.osdn.gokigen.aira01a", "jp.osdn.gokigen.aira01a.MainActivity"))
             }
 
             if (checkIsApplicationInstalled("net.osdn.gokigen.gr2control"))
             {
                 adapter.add("A01GR2")
-                installedApplicationList.add(
-                    TargetApplicationInfo(
-                        "A01GR2",
-                        "net.osdn.gokigen.gr2control",
-                        "net.osdn.gokigen.gr2control.Gr2ControlMain"
-                    )
-                )
+                installedApplicationList.add(TargetApplicationInfo("A01GR2", "net.osdn.gokigen.gr2control", "net.osdn.gokigen.gr2control.Gr2ControlMain"))
             }
 
             if (checkIsApplicationInstalled("jp.osdn.gokigen.mangle"))
             {
                 adapter.add("A01e")
-                installedApplicationList.add(
-                    TargetApplicationInfo(
-                        "A01e",
-                        "jp.osdn.gokigen.mangle",
-                        "jp.osdn.gokigen.mangle.MainActivity"
-                    )
-                )
+                installedApplicationList.add(TargetApplicationInfo("A01e", "jp.osdn.gokigen.mangle", "jp.osdn.gokigen.mangle.MainActivity"))
             }
 
             if (checkIsApplicationInstalled("net.osdn.gokigen.pkremote"))
             {
                 adapter.add("A01DL")
-                installedApplicationList.add(
-                    TargetApplicationInfo(
-                        "A01DL",
-                        "net.osdn.gokigen.pkremote",
-                        "net.osdn.gokigen.pkremote.MainActivity"
-                    )
-                )
+                installedApplicationList.add(TargetApplicationInfo("A01DL", "net.osdn.gokigen.pkremote", "net.osdn.gokigen.pkremote.MainActivity"))
             }
 
             if (checkIsApplicationInstalled("net.osdn.gokigen.a01d"))
             {
                 adapter.add("A01d")
-                installedApplicationList.add(
-                    TargetApplicationInfo(
-                        "A01d",
-                        "net.osdn.gokigen.a01d",
-                        "net.osdn.gokigen.a01d.A01dMain"
-                    )
-                )
+                installedApplicationList.add(TargetApplicationInfo("A01d", "net.osdn.gokigen.a01d", "net.osdn.gokigen.a01d.A01dMain"))
             }
 
             if (checkIsApplicationInstalled("jp.olympusimaging.oamodedial"))
             {
                 adapter.add("OA.ModeDial")
-                installedApplicationList.add(
-                    TargetApplicationInfo(
-                        "OA.ModeDial",
-                        "jp.olympusimaging.oamodedial",
-                        "jp.olympusimaging.oamodedial.SplashActivity"
-                    )
-                )
+                installedApplicationList.add(TargetApplicationInfo("OA.ModeDial", "jp.olympusimaging.oamodedial", "jp.olympusimaging.oamodedial.SplashActivity"))
             }
 
             if (checkIsApplicationInstalled("jp.olympusimaging.oaviewer"))
             {
                 adapter.add("OA.Viewer")
-                installedApplicationList.add(
-                    TargetApplicationInfo(
-                        "OA.Viewer",
-                        "jp.olympusimaging.oaviewer",
-                        "jp.olympusimaging.oaviewer.SplashActivity"
-                    )
-                )
+                installedApplicationList.add(TargetApplicationInfo("OA.Viewer", "jp.olympusimaging.oaviewer", "jp.olympusimaging.oaviewer.SplashActivity"))
             }
 
             if (checkIsApplicationInstalled("jp.olympusimaging.oaartfilter"))
             {
                 adapter.add("OA.ArtFilter")
-                installedApplicationList.add(
-                    TargetApplicationInfo(
-                        "OA.ArtFilter",
-                        "jp.olympusimaging.oaartfilter",
-                        "jp.olympusimaging.oaartfilter.SplashActivity"
-                    )
-                )
+                installedApplicationList.add(TargetApplicationInfo("OA.ArtFilter", "jp.olympusimaging.oaartfilter", "jp.olympusimaging.oaartfilter.SplashActivity"))
             }
 
             if (checkIsApplicationInstalled("jp.olympusimaging.oacolorcreator"))
             {
                 adapter.add("OA.ColorCreator")
-                installedApplicationList.add(
-                    TargetApplicationInfo(
-                        "OA.ColorCreator",
-                        "jp.olympusimaging.oacolorcreator",
-                        "jp.olympusimaging.oacolorcreator.SplashActivity"
-                    )
-                )
+                installedApplicationList.add(TargetApplicationInfo("OA.ColorCreator", "jp.olympusimaging.oacolorcreator", "jp.olympusimaging.oacolorcreator.SplashActivity"))
             }
             // ---------------------------------------------------
 
@@ -344,7 +285,7 @@ class OpcAppLaunchDialog: DialogFragment(), View.OnClickListener
     companion object
     {
         val TAG: String = OpcAppLaunchDialog::class.java.simpleName
-        private const val DUMP_INSTALLED_APPLICATIONS = true
+        private const val DUMP_INSTALLED_APPLICATIONS = false
         fun newInstance(context: FragmentActivity): OpcAppLaunchDialog
         {
             val instance = OpcAppLaunchDialog()
