@@ -217,6 +217,10 @@
     <string name="change_mode_done">動作モードを変更しました :</string>
     <string name="change_mode_error">動作モードの変更に失敗しました。</string>
 
+    <string name="change_path_to">通信経路変更 :</string>
+    <string name="change_path_done">通信経路を変更しました :</string>
+    <string name="change_path_error">通信経路の変更に失敗しました。</string>
+
     <string name="command_accepted">コマンド受付</string>
     <string name="command_rejected">コマンド拒否</string>
 

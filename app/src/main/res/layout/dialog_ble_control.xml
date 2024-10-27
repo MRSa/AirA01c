@@ -70,7 +70,7 @@
                 android:layout_marginRight="4dp"
                 android:textSize="16sp"
                 android:text="@string/lbl_pass_code"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <EditText
                 android:id="@+id/ble_passcode"
@@ -92,7 +92,7 @@
                 android:enabled="true"
                 android:text=""
                 android:hint="@string/hint_pass_code"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <Button
                 android:layout_width="0dp"

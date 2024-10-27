@@ -214,6 +214,10 @@
     <string name="change_mode_done">change success :</string>
     <string name="change_mode_error">Run mode change failure.</string>
 
+    <string name="change_path_to">CHANGE COMM. PATH :</string>
+    <string name="change_path_done">change success :</string>
+    <string name="change_path_error">Change Comm. path failure.</string>
+
     <string name="command_accepted">Command accepted </string>
     <string name="command_rejected">Command rejected</string>
 
