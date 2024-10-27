@@ -31,6 +31,7 @@
     <string name="lbl_paired_devices">Paired Devices:</string>
     <string name="ble_wake_start">Start </string>
     <string name="ble_wake_success">Done.</string>
+    <string name="ble_no_connect_permission">The Bluetooth connect permission is not granted.</string>
     <string name="ble_wake_failure">Wake up failure.</string>
     <string name="ble_setting_is_off">Bluetooth is currently off.</string>
     <string name="ble_adapter_is_nothing">The Bluetooth scanner not available.</string>

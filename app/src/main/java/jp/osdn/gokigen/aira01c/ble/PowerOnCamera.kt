@@ -19,7 +19,7 @@ import jp.osdn.gokigen.aira01c.ble.ICameraPowerOn.IPowerOnCameraCallback
  * BLE経由でカメラの電源を入れてしまうクラス
  *
  */
-class PowerOnCamera(private val context: FragmentActivity, private val bleAdapterGetter: MyBleAdapter) : ICameraPowerOn
+class PowerOnCamera(private val context: FragmentActivity, private val bleAdapterGetter: MyBleAdapter) : ICameraPowerOn, IPowerOnCameraCallback
 {
     private var targetBleDeviceName = ""
     private var targetBleDeviceAddress = ""
@@ -44,7 +44,7 @@ class PowerOnCamera(private val context: FragmentActivity, private val bleAdapte
                             callback.onProgress("${context.getString(R.string.ble_device_found)} ${device.name} (${device.address})")
                         }
                         stopBleScanApi21()
-                        wakeupImpl(device)  // カメラの起動 実処理
+                        wakeUpImpl(device)
                     }
                 }
             }
@@ -205,6 +205,7 @@ class PowerOnCamera(private val context: FragmentActivity, private val bleAdapte
     }
 
     private fun stopBleScan() { }
+
     private fun scanBleDevice()
     {
         try
@@ -231,24 +232,59 @@ class PowerOnCamera(private val context: FragmentActivity, private val bleAdapte
         }
     }
 
-    private fun wakeupImpl(device: BluetoothDevice)
+    private fun wakeUpImpl(device: BluetoothDevice)
     {
-        var isWake = false
         try
         {
-            // カメラの起動 実処理
-
+            // ここでカメラの起動 実処理 (別カメラの起動にも流用できるよう、クラスを分割
+            WakeupOlympusAirViaBle(context, device, this).wake()
         }
         catch (e: Exception)
         {
             e.printStackTrace()
         }
+    }
+
+    override fun onStart(message: String)
+    {
+        if (::callback.isInitialized)
+        {
+            try
+            {
+                // --- カメラの起動開始を通知する
+                callback.onStart(message)
+            }
+            catch (e: Exception)
+            {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    override fun onProgress(message: String)
+    {
+        if (::callback.isInitialized)
+        {
+            try
+            {
+                // --- カメラの起動状況を通知する
+                callback.onProgress(message)
+            }
+            catch (e: Exception)
+            {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    override fun wakeupExecuted(isExecute: Boolean)
+    {
         if (::callback.isInitialized)
         {
             try
             {
                 // --- カメラの起動結果を通知する
-                callback.wakeupExecuted(isWake)
+                callback.wakeupExecuted(isExecute)
             }
             catch (e: Exception)
             {
