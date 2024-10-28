@@ -2,6 +2,7 @@ package jp.osdn.gokigen.aira01c.ui.home
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.bluetooth.BluetoothDevice
 import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatSpinner
@@ -20,6 +22,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.preference.PreferenceManager
 import jp.osdn.gokigen.aira01c.AppSingleton
 import jp.osdn.gokigen.aira01c.R
+import jp.osdn.gokigen.aira01c.ble.BleDeviceScanner
 import jp.osdn.gokigen.aira01c.ble.ICameraPowerOn
 import jp.osdn.gokigen.aira01c.ble.ICameraPowerOn.IPowerOnCameraCallback
 import jp.osdn.gokigen.aira01c.ble.MyBleAdapter
@@ -34,10 +37,12 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
     private lateinit var myView: View
     private lateinit var alertDialog: AlertDialog.Builder
     private lateinit var preferences: SharedPreferences
+    private lateinit var deviceScanner: BleDeviceScanner
 
 
     private var selectedBleDevice : MyBleDevice? = null
     private var container: ViewGroup? = null
+    private val myDeviceList = ArrayList<MyBleDevice>()
 
     private fun prepare(context: FragmentActivity, bleDeviceList: MyBleAdapter, cameraPowerOn: ICameraPowerOn)
     {
@@ -45,6 +50,7 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
         this.bleDeviceList = bleDeviceList
         this.cameraPowerOn = cameraPowerOn
         this.preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        this.deviceScanner = BleDeviceScanner(context, bleDeviceList, this)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog
@@ -104,6 +110,7 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
             {
                 myView.findViewById<Button>(R.id.dialog_ble_button_power_on).setOnClickListener(this)
                 myView.findViewById<Button>(R.id.ble_button_close).setOnClickListener(this)
+                myView.findViewById<ImageButton>(R.id.btn_scan_device).setOnClickListener(this)
                 myView.findViewById<EditText>(R.id.ble_passcode).setText(preferences.getString(PREFERENCE_BLE_PASSCODE, ""))
             }
         }
@@ -117,7 +124,8 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
     {
         try
         {
-            // -----
+            scanNeighbourDevices()
+/*
             if(::bleDeviceList.isInitialized)
             {
                 this.bleDeviceList.prepare()
@@ -148,6 +156,7 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
                     }
                 }
             }
+ */
         }
         catch (e: Exception)
         {
@@ -184,12 +193,28 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
                 AppSingleton.vibrator.vibrate(requireContext(), IVibrator.VibratePattern.SIMPLE_SHORT)
                 dismiss()
             }
+            R.id.btn_scan_device -> {
+                // ----- Bluetooth のスキャン
+                AppSingleton.vibrator.vibrate(requireContext(), IVibrator.VibratePattern.SIMPLE_MIDDLE)
+                scanNeighbourDevices()
+            }
             else -> {
                 Log.v(TAG, " onClick() : ${view.id}")
             }
         }
     }
 
+    private fun scanNeighbourDevices()
+    {
+        try
+        {
+            deviceScanner.scanDevices()
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+    }
 
 
     private fun storePassCode(code: String)
@@ -225,13 +250,20 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onProgress(message: String)
+    override fun onProgress(message: String, isLineFeed: Boolean)
     {
         try
         {
             val field = myView.findViewById<TextView>(R.id.ble_message_response)
             myContext.runOnUiThread {
-                field.text = "${field.text}\r\n$message"
+                if (isLineFeed)
+                {
+                    field.text = "${field.text}\r\n$message"
+                }
+                else
+                {
+                    field.text = "${field.text}$message"
+                }
             }
         }
         catch (e: Exception)
@@ -251,6 +283,64 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
             myContext.runOnUiThread {
                 field.text = "${field.text}\r\n$message\r\n"
                 button.isEnabled = true
+            }
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    override fun finishedScan(deviceList: Map<String, BluetoothDevice>)
+    {
+        try
+        {
+            requireActivity().runOnUiThread {
+                try
+                {
+                    myDeviceList.clear()
+                    val adapter = ArrayAdapter<String>(this.requireContext(), android.R.layout.simple_spinner_item)
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    var isFirst = true
+                    for (device in deviceList)
+                    {
+                        if (device.value.name != null)
+                        {
+                            val myDevice = MyBleDevice(device.value.name, device.value.address)
+                            myDeviceList.add(myDevice)
+                            if (isFirst)
+                            {
+                                selectedBleDevice = myDevice
+                                isFirst = false
+                            }
+                            adapter.add("${device.value.name}(${device.value.address})")
+                        }
+                    }
+                    if (myDeviceList.isEmpty())
+                    {
+                        adapter.add("- - - - -")
+                    }
+                    val spinner: AppCompatSpinner = myView.findViewById(R.id.paired_devices_selection)
+                    spinner.adapter = adapter
+                    spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long)
+                        {
+                            Log.v(TAG, "onItemSelected(parent: $parent, view: $view, pos: $pos, id: $id)")
+                            selectedBleDevice = myDeviceList[pos]
+                        }
+
+                        override fun onNothingSelected(p0: AdapterView<*>?)
+                        {
+                            Log.v(TAG, "onNothingSelected()")
+                        }
+                    }
+
+                }
+                catch (ee: Exception)
+                {
+                    ee.printStackTrace()
+                }
             }
         }
         catch (e: Exception)

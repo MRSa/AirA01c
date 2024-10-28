@@ -1,5 +1,7 @@
 package jp.osdn.gokigen.aira01c.ble
 
+import android.bluetooth.BluetoothDevice
+
 interface ICameraPowerOn
 {
     // カメラ起動指示
@@ -10,7 +12,8 @@ interface ICameraPowerOn
     interface IPowerOnCameraCallback
     {
         fun onStart(message: String)
-        fun onProgress(message: String)
+        fun onProgress(message: String, isLineFeed: Boolean = true)
         fun wakeupExecuted(isExecute: Boolean)
+        fun finishedScan(deviceList: Map<String, BluetoothDevice>)
     }
 }

@@ -30,6 +30,9 @@
     <string name="hint_pass_code">(接続コード)</string>
     <string name="dialog_button_power_on">起動</string>
     <string name="lbl_paired_devices">デバイス:</string>
+    <string name="lbl_ble_devices"> デバイス:</string>
+    <string name="ble_scan_start">検索中 </string>
+    <string name="ble_scan_done"> 完了</string>
     <string name="ble_wake_start">起動開始 </string>
     <string name="ble_wake_success">起動成功</string>
     <string name="ble_wake_failure">起動失敗</string>

@@ -261,14 +261,14 @@ class PowerOnCamera(private val context: FragmentActivity, private val bleAdapte
         }
     }
 
-    override fun onProgress(message: String)
+    override fun onProgress(message: String, isLineFeed: Boolean)
     {
         if (::callback.isInitialized)
         {
             try
             {
                 // --- カメラの起動状況を通知する
-                callback.onProgress(message)
+                callback.onProgress(message, isLineFeed)
             }
             catch (e: Exception)
             {
@@ -292,6 +292,21 @@ class PowerOnCamera(private val context: FragmentActivity, private val bleAdapte
             }
         }
     }
+
+    override fun finishedScan(deviceList: Map<String, BluetoothDevice>)
+    {
+        if (::callback.isInitialized)
+        {
+            try
+            {
+                // --- BLEデバイスリストを応答する
+                callback.finishedScan(deviceList)
+            }
+            catch (e: Exception)
+            {
+                e.printStackTrace()
+            }
+        }    }
 
     companion object
     {

@@ -33,20 +33,44 @@
             android:importantForAutofill="no"
             android:tag="message"
             android:textSize="16sp"
-            android:text="@string/lbl_paired_devices"
+            android:text="@string/lbl_ble_devices"
             android:layout_gravity="start" />
 
+    <LinearLayout
+        android:id="@+id/area_selection_ble_devices"
+        style="?android:attr/buttonBarButtonStyle"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp">
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/paired_devices_selection"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
+            android:layout_weight="6"
             android:minHeight="48dp"
             android:textSize="24sp"
             />
+
+        <ImageButton
+            android:id="@+id/btn_scan_device"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:minHeight="48dp"
+            android:contentDescription="@string/refresh"
+            android:textSize="16sp"
+            android:text="@string/refresh"
+            android:layout_weight="1"
+            android:src="@xml/refresh_button_style"
+            android:visibility="visible"
+            android:enabled="true"
+            />
+    </LinearLayout>
 
         <LinearLayout
             android:id="@+id/area_button_ble_control_window"

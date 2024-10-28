@@ -30,6 +30,9 @@
     <string name="hint_pass_code">(Pass code)</string>
     <string name="dialog_button_power_on">WAKE UP</string>
     <string name="lbl_paired_devices">Paired Devices:</string>
+    <string name="lbl_ble_devices"> Devices:</string>
+    <string name="ble_scan_start">Scanning </string>
+    <string name="ble_scan_done"> Done.</string>
     <string name="ble_wake_start">Start </string>
     <string name="ble_wake_success">Done.</string>
     <string name="ble_no_connect_permission">The Bluetooth connect permission is not granted.</string>
