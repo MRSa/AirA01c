@@ -173,6 +173,13 @@ class OpcAppLaunchDialog: DialogFragment(), View.OnClickListener
                 adapter.add("OA.ColorCreator")
                 installedApplicationList.add(TargetApplicationInfo("OA.ColorCreator", "jp.olympusimaging.oacolorcreator", "jp.olympusimaging.oacolorcreator.SplashActivity"))
             }
+
+            if (checkIsApplicationInstalled("jp.olympusimaging.oacentral"))
+            {
+                adapter.add("OA.Central")
+                installedApplicationList.add(TargetApplicationInfo("OA.Central", "jp.olympusimaging.oacentral", "jp.olympusimaging.oacentral.SplashActivity"))
+            }
+
             // ---------------------------------------------------
 
 

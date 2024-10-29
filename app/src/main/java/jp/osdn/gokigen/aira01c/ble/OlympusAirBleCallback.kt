@@ -9,13 +9,14 @@ import android.bluetooth.BluetoothProfile
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.FragmentActivity
+import jp.osdn.gokigen.aira01c.R
 import jp.osdn.gokigen.aira01c.ble.ICameraPowerOn.IPowerOnCameraCallback
 import java.util.UUID
 
 @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-class OlympusAirBleCallback(private val callback: IPowerOnCameraCallback): BluetoothGattCallback()
+class OlympusAirBleCallback(private val context: FragmentActivity, private val callback: IPowerOnCameraCallback): BluetoothGattCallback()
 {
-
     override fun onDescriptorWrite(
         gatt: BluetoothGatt?,
         descriptor: BluetoothGattDescriptor?,
@@ -161,10 +162,13 @@ class OlympusAirBleCallback(private val callback: IPowerOnCameraCallback): Bluet
             BluetoothProfile.STATE_CONNECTED -> {
                 // ----- 接続した
                 Log.v(TAG, "onConnectionStateChange(): STATE_CONNECTED")
+                callback.onProgress(context.getString(R.string.ble_connect_connected), false)
                 gatt?.discoverServices()
             }
             BluetoothProfile.STATE_DISCONNECTED -> {
                 Log.v(TAG, "onConnectionStateChange(): STATE_DISCONNECTED")
+                // ---- 切断した
+                callback.onProgress(context.getString(R.string.ble_connect_disconnected), false)
             }
             else -> {
                 Log.v(TAG, "onConnectionStateChange(): $status -> $newState")

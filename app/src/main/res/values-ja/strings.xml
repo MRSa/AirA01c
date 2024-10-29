@@ -36,6 +36,8 @@
     <string name="ble_wake_start">起動開始 </string>
     <string name="ble_wake_success">起動成功</string>
     <string name="ble_wake_failure">起動失敗</string>
+    <string name="ble_connect_connected"> 接続</string>
+    <string name="ble_connect_disconnected"> 切断</string>
     <string name="ble_no_connect_permission">Bluetooth端末へ接続する権限がありません。</string>
     <string name="ble_setting_is_off">BluetoothはOFFになっています。</string>
     <string name="ble_adapter_is_nothing">Bluetoothスキャナが使えないようです。</string>
