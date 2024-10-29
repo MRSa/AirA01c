@@ -237,6 +237,7 @@ class PowerOnCamera(private val context: FragmentActivity, private val bleAdapte
         try
         {
             // ここでカメラの起動 実処理 (別カメラの起動にも流用できるよう、クラスを分割
+            Log.v(TAG, "wakeUpImpl()")
             WakeupOlympusAirViaBle(context, device, this).wake()
         }
         catch (e: Exception)
