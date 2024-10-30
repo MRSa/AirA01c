@@ -25,6 +25,7 @@ class PowerOnCamera(private val context: FragmentActivity, private val bleAdapte
     private var targetBleDeviceAddress = ""
     private var foundBleDevice = false
     private lateinit var callback: IPowerOnCameraCallback
+    private var passCode = ""
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private val scanCallbackApi21 = object: ScanCallback()
@@ -58,6 +59,7 @@ class PowerOnCamera(private val context: FragmentActivity, private val bleAdapte
     override fun wakeup(target: MyBleDevice, code: String, callback: IPowerOnCameraCallback)
     {
         this.callback = callback
+        this.passCode = code
         targetBleDeviceName = target.name
         targetBleDeviceAddress = target.id
         Log.v(TAG, "PowerOnCamera::wakeup() : $targetBleDeviceName ($targetBleDeviceAddress) [$code]")
@@ -237,8 +239,8 @@ class PowerOnCamera(private val context: FragmentActivity, private val bleAdapte
         try
         {
             // ここでカメラの起動 実処理 (別カメラの起動にも流用できるよう、クラスを分割
-            Log.v(TAG, "wakeUpImpl()")
-            WakeupOlympusAirViaBle(context, device, this).wake()
+            Log.v(TAG, "wakeUpImpl() [$passCode]")
+            WakeupOlympusAirViaBle(context, device, passCode, this).wake()
         }
         catch (e: Exception)
         {

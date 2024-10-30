@@ -327,7 +327,14 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
                         override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long)
                         {
                             Log.v(TAG, "onItemSelected(parent: $parent, view: $view, pos: $pos, id: $id)")
-                            selectedBleDevice = myDeviceList[pos]
+                            try
+                            {
+                                selectedBleDevice = myDeviceList[pos]
+                            }
+                            catch (e: Exception)
+                            {
+                                e.printStackTrace()
+                            }
                         }
 
                         override fun onNothingSelected(p0: AdapterView<*>?)

@@ -164,6 +164,6 @@ class BleDeviceScanner(private val context: FragmentActivity, private val bleAda
     companion object
     {
         private val TAG = BleDeviceScanner::class.java.simpleName
-        private const val MAX_FOUND_BLE_DEVICES = 35
+        private const val MAX_FOUND_BLE_DEVICES = 50
     }
 }

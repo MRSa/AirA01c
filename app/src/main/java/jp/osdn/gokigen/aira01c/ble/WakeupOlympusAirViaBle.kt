@@ -7,7 +7,7 @@ import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import jp.osdn.gokigen.aira01c.ble.ICameraPowerOn.IPowerOnCameraCallback
 
-class WakeupOlympusAirViaBle(private val context: FragmentActivity, private val device: BluetoothDevice, private val callback: IPowerOnCameraCallback)
+class WakeupOlympusAirViaBle(private val context: FragmentActivity, private val device: BluetoothDevice, private val code: String, private val callback: IPowerOnCameraCallback)
 {
     @SuppressLint("MissingPermission")
     fun wake() : Boolean
@@ -18,7 +18,7 @@ class WakeupOlympusAirViaBle(private val context: FragmentActivity, private val 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             {
                 // https://stackoverflow.com/questions/39272712/ の情報に基づき実装
-                val bleCallback = OlympusAirBleCallback(context, callback)
+                val bleCallback = OlympusAirBleCallback(context, code, callback)
                 device.connectGatt(context, false, bleCallback)
             }
             else
