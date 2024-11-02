@@ -17,7 +17,6 @@ class WakeupOlympusAirViaBle(private val context: FragmentActivity, private val 
             Log.v(TAG, "wake()")
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             {
-                // https://stackoverflow.com/questions/39272712/ の情報に基づき実装
                 val bleCallback = OlympusAirBleCallback(context, code, callback)
                 device.connectGatt(context, false, bleCallback)
             }
