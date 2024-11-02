@@ -45,6 +45,8 @@
     <string name="ble_device_found">発見 : </string>
     <string name="ble_control_is_limited_version">Bluetooth制御ができるのは Android 5.0 (Lollipop) 以降です。</string>
     <string name="ble_send_passcode"> コード送信 </string>
+    <string name="ble_recv_error"> 失敗 </string>
+    <string name="ble_recv_accept"> 受付 </string>
 
     <string name="pref_cat_gokigen">GOKIGEN Project</string>
     <string name="pref_instruction_manual">操作説明</string>

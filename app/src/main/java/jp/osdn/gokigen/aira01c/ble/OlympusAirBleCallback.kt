@@ -14,6 +14,7 @@ import jp.osdn.gokigen.aira01c.R
 import jp.osdn.gokigen.aira01c.ble.ICameraPowerOn.IPowerOnCameraCallback
 import java.util.UUID
 
+@Suppress("DEPRECATION")
 @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 class OlympusAirBleCallback(private val context: FragmentActivity, private val code: String, private val callback: IPowerOnCameraCallback): BluetoothGattCallback()
 {
@@ -194,7 +195,7 @@ class OlympusAirBleCallback(private val context: FragmentActivity, private val c
     ) {
         super.onCharacteristicChanged(gatt, characteristic, value)
         Log.v(TAG, "  onCharacteristicChanged() ${value.toUByteArray()} ${characteristic.uuid} +++$bleStatus+++")
-        writeResultReceived = true
+        writeResultReceived = checkChangedValue(characteristic.uuid, value)
         bleConnectionProceed(gatt)
     }
 
@@ -206,8 +207,44 @@ class OlympusAirBleCallback(private val context: FragmentActivity, private val c
         super.onCharacteristicChanged(gatt, characteristic)
         @Suppress("DEPRECATION")
         Log.v(TAG, "  onCharacteristicChanged() ${characteristic?.value?.toUByteArray()} ${characteristic?.uuid} ***$bleStatus***")
-        writeResultReceived = true
+        writeResultReceived = checkChangedValue(characteristic?.uuid, characteristic?.value)
         bleConnectionProceed(gatt)
+    }
+
+    @OptIn(ExperimentalUnsignedTypes::class)
+    private fun checkChangedValue(uuid: UUID?, value: ByteArray?) : Boolean
+    {
+        try
+        {
+            if ((value == null)||(uuid == null))
+            {
+                Log.v(TAG, "checkChangedValue(): [$uuid] $value")
+                return (false)
+            }
+            if (uuid != UUID.fromString("d15464da-de00-41d4-bec8-7c2b2cc8b2ee"))
+            {
+                return (true)
+            }
+            if (value[0] == 0x05.toByte())
+            {
+                // ----
+                Log.v(TAG, " - - - checkChangedValue: $uuid, (RESPONSE OK). ${value.toUByteArray()}")
+                if (bleStatus == BleConnectionStatus.WAKEUP_WAIT)
+                {
+                    callback.onProgress("\n${context.getString(R.string.ble_recv_accept)}", true)
+                    bleStatus = BleConnectionStatus.FINISH
+                    wakeupStatus = true
+                }
+                return (true)
+            }
+            Log.v(TAG, " - - - checkChangedValue: $uuid, (RESPONSE NG). ${value.toUByteArray()}")
+            callback.onProgress("\n ${context.getString(R.string.ble_recv_error)}", false)
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+        return (false)
     }
 
     @SuppressLint("MissingPermission")
@@ -238,8 +275,9 @@ class OlympusAirBleCallback(private val context: FragmentActivity, private val c
     {
         try
         {
-            // ---- 別スレッドで送信する...
-            Thread { bleConnectionProceedImpl(gatt) }.start()
+            //// ---- 別スレッドで送信する...
+            ////Thread { bleConnectionProceedImpl(gatt) }.start()
+            bleConnectionProceedImpl(gatt)
         }
         catch (e: Exception)
         {
@@ -254,7 +292,7 @@ class OlympusAirBleCallback(private val context: FragmentActivity, private val c
         try
         {
             Log.v(TAG, "BLE CONNECT SEQUENCE : $bleStatus")
-            wait250ms()  //  送信前にちょっと止める
+            wait250ms(1)  //  送信前にちょっと止める
             when (bleStatus)
             {
                 BleConnectionStatus.PASSCODE -> {
@@ -295,6 +333,7 @@ class OlympusAirBleCallback(private val context: FragmentActivity, private val c
                 }
 
                 BleConnectionStatus.WAKEUP -> {
+                    wait250ms(8)  //  送信前にちょっと止める
                     // ---- Wake up the Olympus Air -----
                     val service = gatt?.getService(UUID.fromString("0391D26E-625B-4736-B4DA-3BB0910ECEC5")) ?: return
                     val characteristics = service.getCharacteristic(UUID.fromString("d15464da-de00-41d4-bec8-7c2b2cc8b2ee"))
@@ -318,6 +357,11 @@ class OlympusAirBleCallback(private val context: FragmentActivity, private val c
                     }
                     Log.v(TAG, "GATT WRITE[wakeData2]: ($writeValue) [${wakeData.toUByteArray()}]")
                     writeResultReceived = false
+                    bleStatus = BleConnectionStatus.WAKEUP_WAIT
+                }
+
+                BleConnectionStatus.WAKEUP_WAIT -> {
+                    // --- ---
                 }
 
                 BleConnectionStatus.FINISH -> {
@@ -344,11 +388,14 @@ class OlympusAirBleCallback(private val context: FragmentActivity, private val c
         }
     }
 
-    private fun wait250ms()
+    private fun wait250ms(count: Int)
     {
         try
         {
-            Thread.sleep(WAIT_250MS)
+            for (index in 0..count)
+            {
+                Thread.sleep(WAIT_250MS)
+            }
         }
         catch (e: Exception)
         {
@@ -356,7 +403,7 @@ class OlympusAirBleCallback(private val context: FragmentActivity, private val c
         }
     }
 
-    private enum class BleConnectionStatus { UNKNOWN, PREPARE, PASSCODE, WAKEUP, FINISH, }
+    private enum class BleConnectionStatus { UNKNOWN, PREPARE, PASSCODE, WAKEUP, WAKEUP_WAIT, FINISH, }
 
     companion object
     {
