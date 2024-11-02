@@ -44,6 +44,7 @@
     <string name="ble_target_is_empty">The bluetooth device name is empty.</string>
     <string name="ble_device_found">Found : </string>
     <string name="ble_control_is_limited_version">Bluetooth control is available from Android 5.0 (Lollipop) onwards.</string>
+    <string name="ble_send_passcode"> send passcode </string>
 
     <string name="pref_cat_gokigen">GOKIGEN</string>
     <string name="pref_instruction_manual">Instructions</string>
