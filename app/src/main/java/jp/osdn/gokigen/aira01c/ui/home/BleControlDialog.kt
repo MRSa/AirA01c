@@ -39,7 +39,6 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
     private lateinit var preferences: SharedPreferences
     private lateinit var deviceScanner: BleDeviceScanner
 
-
     private var selectedBleDevice : MyBleDevice? = null
     private var container: ViewGroup? = null
     private val myDeviceList = ArrayList<MyBleDevice>()
@@ -82,12 +81,15 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
         }
     }
 
-    private fun showDialog(): Dialog {
-        // 表示イアログの生成
-        if (!::alertDialog.isInitialized) {
+    private fun showDialog(): Dialog
+    {
+        // 表示するダイアログの生成
+        if (!::alertDialog.isInitialized)
+        {
             alertDialog = AlertDialog.Builder(myContext)
         }
-        if (!::myView.isInitialized) {
+        if (!::myView.isInitialized)
+        {
             val inflater = myContext.layoutInflater
             myView = inflater.inflate(R.layout.dialog_ble_control, container, false)
         }
@@ -96,8 +98,15 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
         alertDialog.setView(myView)
         alertDialog.setCancelable(true)
 
-        prepareSpinner()
-
+        try
+        {
+            // Bluetooth LE 端末（Olympus Air）を探す
+            scanNeighbourDevices()
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
         return (alertDialog.create())
     }
 
@@ -120,51 +129,6 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
         }
     }
 
-    private fun prepareSpinner()
-    {
-        try
-        {
-            scanNeighbourDevices()
-/*
-            if(::bleDeviceList.isInitialized)
-            {
-                this.bleDeviceList.prepare()
-                val deviceList = bleDeviceList.getBondedDeviceList()
-                val adapter = ArrayAdapter<String>(this.requireContext(), android.R.layout.simple_spinner_item)
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-                for (device in deviceList)
-                {
-                    adapter.add("${device.name}(${device.id})")
-                }
-                if (deviceList.isNotEmpty())
-                {
-                    selectedBleDevice = deviceList[0]
-                }
-                val spinner: AppCompatSpinner = myView.findViewById(R.id.paired_devices_selection)
-                spinner.adapter = adapter
-                spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long)
-                    {
-                        Log.v(TAG, "onItemSelected(parent: $parent, view: $view, pos: $pos, id: $id)")
-                        selectedBleDevice = deviceList[pos]
-                    }
-
-                    override fun onNothingSelected(p0: AdapterView<*>?)
-                    {
-                        Log.v(TAG, "onNothingSelected()")
-                    }
-                }
-            }
- */
-        }
-        catch (e: Exception)
-        {
-            e.printStackTrace()
-        }
-    }
-
-
     override fun onClick(view: View)
     {
         when (view.id) {
@@ -180,6 +144,10 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
                     {
                         val button = myView.findViewById<Button>(R.id.dialog_ble_button_power_on)
                         button.isEnabled = false
+
+                        val spinner = myView.findViewById<AppCompatSpinner>(R.id.paired_devices_selection)
+                        spinner.isEnabled = false
+
                         cameraPowerOn.wakeup(selectedBleDevice!!, passCode, this)
                     }
                 }
@@ -216,7 +184,6 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
         }
     }
 
-
     private fun storePassCode(code: String)
     {
         myContext.runOnUiThread {
@@ -224,6 +191,46 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
             {
                 val editor = preferences.edit()
                 editor.putString(PREFERENCE_BLE_PASSCODE, code)
+                editor.apply()
+            }
+            catch (e: Exception)
+            {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun getLastUsedBleDevice() : MyBleDevice?
+    {
+        var myBleDevice : MyBleDevice? = null
+        try
+        {
+            if (::preferences.isInitialized)
+            {
+                val deviceName = preferences.getString(PREFERENCE_LAST_BLE_DEVICE_NAME, "") ?: ""
+                val deviceAddress = preferences.getString(PREFERENCE_LAST_BLE_DEVICE_ADDRESS, "") ?: ""
+                if ((deviceName.isNotEmpty())&&(deviceAddress.isNotEmpty()))
+                {
+                    myBleDevice = MyBleDevice(deviceName, deviceAddress)
+                }
+                Log.v(TAG, " getLastUsedBleDevice() name: $deviceName  address: $deviceAddress")
+            }
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+        return (myBleDevice)
+    }
+
+    private fun storeLastUsedBleDevice(name: String, address: String)
+    {
+        myContext.runOnUiThread {
+            try
+            {
+                val editor = preferences.edit()
+                editor.putString(PREFERENCE_LAST_BLE_DEVICE_NAME, name)
+                editor.putString(PREFERENCE_LAST_BLE_DEVICE_ADDRESS, address)
                 editor.apply()
             }
             catch (e: Exception)
@@ -277,11 +284,27 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
     {
         try
         {
-            val message = if (isExecute) { requireContext().getString(R.string.ble_wake_success) } else { requireContext().getString(R.string.ble_wake_failure) }
+            val message = if (isExecute) {
+                // ----- 起動成功時...
+                if (selectedBleDevice != null)
+                {
+                    val name: String = selectedBleDevice?.name ?: ""
+                    val address: String = selectedBleDevice?.id ?: ""
+                    storeLastUsedBleDevice(name, address)
+                }
+                requireContext().getString(R.string.ble_wake_success)
+            }
+            else
+            {
+                // ----- 起動失敗時
+                requireContext().getString(R.string.ble_wake_failure)
+            }
             val field = myView.findViewById<TextView>(R.id.ble_message_response)
+            val spinner = myView.findViewById<AppCompatSpinner>(R.id.paired_devices_selection)
             val button = myView.findViewById<Button>(R.id.dialog_ble_button_power_on)
             myContext.runOnUiThread {
                 field.text = "${field.text}\r\n$message\r\n"
+                spinner.isEnabled = true
                 button.isEnabled = true
             }
         }
@@ -303,6 +326,14 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
                     val adapter = ArrayAdapter<String>(this.requireContext(), android.R.layout.simple_spinner_item)
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     var isFirst = true
+                    val lastUsedBleDevice = getLastUsedBleDevice()
+                    if (lastUsedBleDevice != null)
+                    {
+                        selectedBleDevice = lastUsedBleDevice
+                        isFirst = false
+                        myDeviceList.add(lastUsedBleDevice)
+                        adapter.add("${lastUsedBleDevice.name}(${lastUsedBleDevice.id}) ${requireContext().getString(R.string.ble_last_use)}")
+                    }
                     for (device in deviceList)
                     {
                         if (device.value.name != null)
@@ -342,7 +373,6 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
                             Log.v(TAG, "onNothingSelected()")
                         }
                     }
-
                 }
                 catch (ee: Exception)
                 {
@@ -361,6 +391,8 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
         val TAG: String = BleControlDialog::class.java.simpleName
 
         private const val PREFERENCE_BLE_PASSCODE = "ble_passcode"
+        private const val PREFERENCE_LAST_BLE_DEVICE_NAME = "last_ble_name"
+        private const val PREFERENCE_LAST_BLE_DEVICE_ADDRESS = "last_ble_address"
 
         fun newInstance(context: FragmentActivity, bleDeviceList: MyBleAdapter, cameraPowerOn: ICameraPowerOn): BleControlDialog {
             val instance = BleControlDialog()

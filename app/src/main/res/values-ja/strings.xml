@@ -47,6 +47,7 @@
     <string name="ble_send_passcode"> コード送信 </string>
     <string name="ble_recv_error"> 失敗 </string>
     <string name="ble_recv_accept"> 受付 </string>
+    <string name="ble_last_use">[最終使用]</string>
 
     <string name="pref_cat_gokigen">GOKIGEN Project</string>
     <string name="pref_instruction_manual">操作説明</string>
