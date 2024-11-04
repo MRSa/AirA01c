@@ -28,7 +28,7 @@
 
     <string name="lbl_pass_code">Code: </string>
     <string name="hint_pass_code">(Pass code)</string>
-    <string name="dialog_button_power_on">WAKE UP</string>
+    <string name="dialog_button_power_on">WAKE</string>
     <string name="lbl_paired_devices">Paired Devices:</string>
     <string name="lbl_ble_devices"> Devices:</string>
     <string name="ble_scan_start">Scanning </string>

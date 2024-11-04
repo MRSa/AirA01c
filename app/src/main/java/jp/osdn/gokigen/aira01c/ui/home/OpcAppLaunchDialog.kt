@@ -21,7 +21,6 @@ import jp.osdn.gokigen.aira01c.AppSingleton
 import jp.osdn.gokigen.aira01c.R
 import jp.osdn.gokigen.aira01c.camera.interfaces.IVibrator
 
-
 class OpcAppLaunchDialog: DialogFragment(), View.OnClickListener
 {
     private lateinit var myContext: FragmentActivity
@@ -113,12 +112,24 @@ class OpcAppLaunchDialog: DialogFragment(), View.OnClickListener
                     }
                 }
             }
-            // ---------------------------------------------------
+            // ---------------------------------------------------  最終使用について入れる
+            /**/
+            val lastUsedApplication = getLastLaunchedApplication()
+            if (lastUsedApplication != null)
+            {
+                if (lastUsedApplication.appName.isNotEmpty())
+                {
+                    Log.v(TAG, "Last Use: ${lastUsedApplication.appName} ${lastUsedApplication.packageName} ${lastUsedApplication.className}")
+                    adapter.add("${lastUsedApplication.appName} ${requireContext().getString(R.string.ble_last_use)}")
+                    installedApplicationList.add(lastUsedApplication)
+                }
+            }
+            /**/
 
             // ---------------------------------------------------
             if (checkIsApplicationInstalled("jp.osdn.gokigen.aira01b")) {
                 adapter.add("AirA01b")
-                installedApplicationList.add(TargetApplicationInfo("AirA01a", "jp.osdn.gokigen.aira01b", "jp.osdn.gokigen.aira01b.MainActivity"))
+                installedApplicationList.add(TargetApplicationInfo("AirA01b", "jp.osdn.gokigen.aira01b", "jp.osdn.gokigen.aira01b.MainActivity"))
             }
 
             if (checkIsApplicationInstalled("jp.osdn.gokigen.aira01a")) {
@@ -182,7 +193,6 @@ class OpcAppLaunchDialog: DialogFragment(), View.OnClickListener
 
             // ---------------------------------------------------
 
-
             if (adapter.isEmpty)
             {
                 // ----- インストールされていないときには、選択肢を１つだけ表示する （でも当然起動しない）
@@ -239,7 +249,10 @@ class OpcAppLaunchDialog: DialogFragment(), View.OnClickListener
             {
                 val intent = Intent().setClassName(targetApplication.packageName, targetApplication.className)
                 requireContext().startActivity(intent)
-                return
+
+                // ----- 起動したアプリケーションを記憶しておく
+                storeLastLaunchedApplication(targetApplication)
+               return
             }
         }
         catch (e: Exception)
@@ -256,6 +269,52 @@ class OpcAppLaunchDialog: DialogFragment(), View.OnClickListener
             e.printStackTrace()
         }
     }
+
+    private fun storeLastLaunchedApplication(targetApplication: TargetApplicationInfo)
+    {
+        myContext.runOnUiThread {
+            try
+            {
+                if (::preferences.isInitialized)
+                {
+                    val editor = preferences.edit()
+                    editor.putString(PREFERENCE_LAST_LAUNCHED_APP_NAME, targetApplication.appName)
+                    editor.putString(PREFERENCE_LAST_LAUNCHED_PACKAGE_NAME, targetApplication.packageName)
+                    editor.putString(PREFERENCE_LAST_LAUNCHED_CLASS_NAME, targetApplication.className)
+                    editor.apply()
+                }
+            }
+            catch (e: Exception)
+            {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun getLastLaunchedApplication() : TargetApplicationInfo?
+    {
+        var targetApplication : TargetApplicationInfo? = null
+        try
+        {
+            if (::preferences.isInitialized)
+            {
+                val appName = preferences.getString(PREFERENCE_LAST_LAUNCHED_APP_NAME, "") ?: ""
+                val packageName = preferences.getString(PREFERENCE_LAST_LAUNCHED_PACKAGE_NAME, "") ?: ""
+                val className = preferences.getString(PREFERENCE_LAST_LAUNCHED_CLASS_NAME, "") ?: ""
+                if ((appName.isNotEmpty())&&(packageName.isNotEmpty())&&(className.isNotEmpty()))
+                {
+                    targetApplication = TargetApplicationInfo(appName, packageName, className)
+                }
+                Log.v(TAG, " getLastLaunchedApplication() appName: $appName  packageName: $packageName  className: $className")
+            }
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
+        return (targetApplication)
+    }
+
 
     override fun onClick(view: View)
     {
@@ -292,6 +351,9 @@ class OpcAppLaunchDialog: DialogFragment(), View.OnClickListener
     companion object
     {
         val TAG: String = OpcAppLaunchDialog::class.java.simpleName
+        private const val PREFERENCE_LAST_LAUNCHED_APP_NAME = "last_launched_name"
+        private const val PREFERENCE_LAST_LAUNCHED_PACKAGE_NAME = "last_launched_package"
+        private const val PREFERENCE_LAST_LAUNCHED_CLASS_NAME = "last_launched_class"
         private const val DUMP_INSTALLED_APPLICATIONS = false
         fun newInstance(context: FragmentActivity): OpcAppLaunchDialog
         {
