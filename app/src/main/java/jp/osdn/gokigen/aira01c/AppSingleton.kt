@@ -19,5 +19,6 @@ class AppSingleton : Application()
         private val TAG = AppSingleton::class.java.simpleName
         lateinit var cameraControl: OmdsCameraControlSingleton
         lateinit var vibrator: MyVibrator
+        var startBleSequence = false
     }
 }

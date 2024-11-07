@@ -131,6 +131,7 @@ class BleControlDialog : DialogFragment(), View.OnClickListener, IPowerOnCameraC
 
     override fun onClick(view: View)
     {
+        AppSingleton.startBleSequence = false
         when (view.id) {
             R.id.dialog_ble_button_power_on -> {
                 // ---- Bluetooth LE 経由で電源を投入する
