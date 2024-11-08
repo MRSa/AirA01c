@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "AirA01c"
 include(":app")
- 

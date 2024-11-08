@@ -6,16 +6,12 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -119,6 +115,22 @@ class MainActivity : AppCompatActivity()
                 {
                     //　この場合は権限付与の判断を除外 (デバイスが (10) よりも古く、ACCESS_MEDIA_LOCATION がない場合）
                 }
+                else if ((param == permission.BLUETOOTH)&&(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S))
+                {
+                    //　この場合は権限付与の判断を除外 (デバイスが (12/SDK31) 以上で、BLUETOOTH がない場合）
+                }
+                else if ((param == permission.BLUETOOTH_ADMIN)&&(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S))
+                {
+                    //　この場合は権限付与の判断を除外 (デバイスが (12/SDK31) 以上で、BLUETOOTH_ADMIN がない場合）
+                }
+                else if ((param == permission.BLUETOOTH_SCAN)&&(Build.VERSION.SDK_INT < Build.VERSION_CODES.S))
+                {
+                    //　この場合は権限付与の判断を除外 (デバイスが (12/SDK31) よりも古く、BLUETOOTH_SCAN がない場合）
+                }
+                else if ((param == permission.BLUETOOTH_CONNECT)&&(Build.VERSION.SDK_INT < Build.VERSION_CODES.S))
+                {
+                    //　この場合は権限付与の判断を除外 (デバイスが (12/SDK31) よりも古く、BLUETOOTH_CONNECT がない場合）
+                }
                 else
                 {
                     // ----- 権限が得られなかった場合...
@@ -167,6 +179,12 @@ class MainActivity : AppCompatActivity()
             permission.ACCESS_MEDIA_LOCATION,
             permission.ACCESS_NETWORK_STATE,
             permission.ACCESS_WIFI_STATE,
+            permission.ACCESS_FINE_LOCATION,
+            permission.ACCESS_COARSE_LOCATION,
+            permission.BLUETOOTH,
+            permission.BLUETOOTH_ADMIN,
+            permission.BLUETOOTH_SCAN,
+            permission.BLUETOOTH_CONNECT,
         )
     }
 }

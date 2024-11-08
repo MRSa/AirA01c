@@ -7,6 +7,8 @@
     <string name="blank"> </string>
     <string name="refresh">更新</string>
     <string name="about_gokigen">情報</string>
+    <string name="lbl_bluetooth_le">Bluetooth LE</string>
+    <string name="lbl_bluetooth">Bluetooth</string>
 
     <string name="app_credit">OLYMPUS AIR A01 Maintenance App.\n   https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01c/Readme.md</string>
 
@@ -23,6 +25,29 @@
     <string name="capture_success">撮影しました : </string>
     <string name="dialog_confirm_title_output_log">ログの共有</string>
     <string name="dialog_confirm_message_output_log">ログを共有します。</string>
+
+    <string name="lbl_pass_code">コード: </string>
+    <string name="hint_pass_code">(接続コード)</string>
+    <string name="dialog_button_power_on">起動</string>
+    <string name="lbl_paired_devices">デバイス:</string>
+    <string name="lbl_ble_devices"> デバイス:</string>
+    <string name="ble_scan_start">検索中 </string>
+    <string name="ble_scan_done"> 完了</string>
+    <string name="ble_wake_start">起動開始 </string>
+    <string name="ble_wake_success">起動成功</string>
+    <string name="ble_wake_failure">起動失敗</string>
+    <string name="ble_connect_connected"> 接続</string>
+    <string name="ble_connect_disconnected"> 切断</string>
+    <string name="ble_no_connect_permission">Bluetooth端末へ接続する権限がありません。</string>
+    <string name="ble_setting_is_off">BluetoothはOFFになっています。</string>
+    <string name="ble_adapter_is_nothing">Bluetoothスキャナが使えないようです。</string>
+    <string name="ble_target_is_empty">Bluetoothの接続先名称がありません。</string>
+    <string name="ble_device_found">発見 : </string>
+    <string name="ble_control_is_limited_version">Bluetooth制御ができるのは Android 5.0 (Lollipop) 以降です。</string>
+    <string name="ble_send_passcode"> コード送信 </string>
+    <string name="ble_recv_error"> 失敗 </string>
+    <string name="ble_recv_accept"> 受付 </string>
+    <string name="ble_last_use">[最終使用]</string>
 
     <string name="pref_cat_gokigen">GOKIGEN Project</string>
     <string name="pref_instruction_manual">操作説明</string>
@@ -202,8 +227,18 @@
     <string name="change_mode_done">動作モードを変更しました :</string>
     <string name="change_mode_error">動作モードの変更に失敗しました。</string>
 
+    <string name="change_path_to">通信経路変更 :</string>
+    <string name="change_path_done">通信経路を変更しました :</string>
+    <string name="change_path_error">通信経路の変更に失敗しました。</string>
+
     <string name="command_accepted">コマンド受付</string>
     <string name="command_rejected">コマンド拒否</string>
+
+    <string name="lbl_launch_app">アプリ起動</string>
+    <string name="btn_launch_app">起動</string>
+    <string name="lbl_launch_target">起動するアプリケーション : </string>
+    <string name="launch_no_package_selection">起動するアプリケーションがありません。</string>
+    <string name="launch_failure">アプリケーションの起動に失敗しました。</string>
 
     <string name="dialog_title_format_sd">フォーマット</string>
     <string name="dialog_message_format_sd">カード内のすべてのデータが消去されます。</string>
@@ -241,6 +276,8 @@
     <string name="get_camerastatus_title">カメラステータス</string>
     <string name="camera_firmware_version">ボディ ファームウェアバージョン : </string>
     <string name="lens_firmware_version">レンズ ファームウェアバージョン : </string>
+
+    <string name="camera_communication_path">カメラコマンド受付元 : </string>
 
     <string name="message_get_current_settings">現在の設定を取得中</string>
     <string name="message_apply_settings">設定を登録しています</string>

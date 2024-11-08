@@ -7,6 +7,8 @@
     <string name="blank"> </string>
     <string name="refresh">Refresh</string>
     <string name="about_gokigen">About</string>
+    <string name="lbl_bluetooth_le">Bluetooth LE</string>
+    <string name="lbl_bluetooth">Bluetooth</string>
 
     <string name="app_credit">OLYMPUS AIR A01 Maintenance App.\n   https://github.com/MRSa/GokigenOSDN_documents/blob/main/Applications/AirA01c/Readme.md</string>
 
@@ -23,6 +25,29 @@
     <string name="capture_success">Photo capture succeeded: </string>
     <string name="dialog_confirm_title_output_log">Share debug log</string>
     <string name="dialog_confirm_message_output_log">Share the debug log, OK?</string>
+
+    <string name="lbl_pass_code">Code: </string>
+    <string name="hint_pass_code">(Pass code)</string>
+    <string name="dialog_button_power_on">WAKE</string>
+    <string name="lbl_paired_devices">Paired Devices:</string>
+    <string name="lbl_ble_devices"> Devices:</string>
+    <string name="ble_scan_start">Scanning </string>
+    <string name="ble_scan_done"> Done.</string>
+    <string name="ble_wake_start">Start </string>
+    <string name="ble_wake_success">Done.</string>
+    <string name="ble_connect_connected"> Connected</string>
+    <string name="ble_connect_disconnected"> Disconnected</string>
+    <string name="ble_no_connect_permission">The Bluetooth connect permission is not granted.</string>
+    <string name="ble_wake_failure">Wake up failure.</string>
+    <string name="ble_setting_is_off">Bluetooth is currently off.</string>
+    <string name="ble_adapter_is_nothing">The Bluetooth scanner not available.</string>
+    <string name="ble_target_is_empty">The bluetooth device name is empty.</string>
+    <string name="ble_device_found">Found : </string>
+    <string name="ble_control_is_limited_version">Bluetooth control is available from Android 5.0 (Lollipop) onwards.</string>
+    <string name="ble_send_passcode"> send passcode </string>
+    <string name="ble_recv_error"> Error </string>
+    <string name="ble_recv_accept"> OK </string>
+    <string name="ble_last_use">[Last Use]</string>
 
     <string name="pref_cat_gokigen">GOKIGEN</string>
     <string name="pref_instruction_manual">Instructions</string>
@@ -68,7 +93,6 @@
     <string name="dialog_title_confirmation">Confirmation</string>
     <string name="dialog_message_power_off">Power Off</string>
     <string name="dialog_message_exit">Exit Application</string>
-
 
     <string name="command_line_disconnected">Camera control line is disconnected.</string>
 
@@ -199,8 +223,18 @@
     <string name="change_mode_done">change success :</string>
     <string name="change_mode_error">Run mode change failure.</string>
 
+    <string name="change_path_to">CHANGE COMM. PATH :</string>
+    <string name="change_path_done">change success :</string>
+    <string name="change_path_error">Change Comm. path failure.</string>
+
     <string name="command_accepted">Command accepted </string>
     <string name="command_rejected">Command rejected</string>
+
+    <string name="lbl_launch_app">Launch App.</string>
+    <string name="btn_launch_app">Launch</string>
+    <string name="lbl_launch_target">Application to launch : </string>
+    <string name="launch_no_package_selection">The launch target application is none.</string>
+    <string name="launch_failure">The application launch failure.</string>
 
     <string name="dialog_title_format_sd">Format SD</string>
     <string name="dialog_message_format_sd">Caution: Entire data in the card will be deleted (card will return to its original state).</string>
@@ -239,6 +273,8 @@
 
     <string name="camera_firmware_version">Body Firmware Version : </string>
     <string name="lens_firmware_version">Lens Firmware Version : </string>
+
+    <string name="camera_communication_path">Communication Path : </string>
 
     <string name="message_get_current_settings">Getting current settings</string>
     <string name="message_apply_settings">Applying your settings</string>

@@ -24,14 +24,20 @@ class OmdsCameraConnectSequence(private val context: FragmentActivity, private v
             val getCommandListUrl = "$executeUrl/get_commandlist.cgi"
             val getConnectModeUrl = "$executeUrl/get_connectmode.cgi"
             val switchOpcCameraModeUrl = "$executeUrl/switch_cameramode.cgi"
+            val switchCommPathUrl = "$executeUrl/switch_commpath.cgi"
 
             val response: String = http.httpGetWithHeader(getConnectModeUrl, headerMap, null, TIMEOUT_MS) ?: ""
             Log.v(TAG, " $getConnectModeUrl $response")
             if (response.isNotEmpty())
             {
+                // コマンドリストを取得する
                 val response2: String = http.httpGetWithHeader(getCommandListUrl, headerMap, null, TIMEOUT_MS) ?: ""
                 Log.v(TAG, " $getCommandListUrl (${response2.length})")
                 communicationInfo.setOmdsCommandList(response2)
+
+                // --------- 通信経路をWiFiに(強制)変更する
+                val response6: String = http.httpGetWithHeader("$switchCommPathUrl?path=wifi", headerMap, null, TIMEOUT_MS) ?: ""
+                Log.v(TAG, " $switchCommPathUrl?path=wifi $response6")
 
                 // OPCのコマンドを発行する
                 val response5: String = http.httpGetWithHeader("$switchOpcCameraModeUrl?mode=standalone", headerMap, null, TIMEOUT_MS) ?: ""
