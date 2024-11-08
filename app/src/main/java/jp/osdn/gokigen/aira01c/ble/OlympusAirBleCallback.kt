@@ -252,7 +252,7 @@ class OlympusAirBleCallback(private val context: FragmentActivity, private val c
                     }
                     // ===== たぶん NGの応答
                     callback.onProgress(" ${context.getString(R.string.ble_recv_error)} ", false)
-                    return (false)
+                    return (true)
                 }
                 catch (ee: Exception)
                 {
@@ -270,7 +270,7 @@ class OlympusAirBleCallback(private val context: FragmentActivity, private val c
                     when (bleStatus) {
                         BleConnectionStatus.WAKEUP_WAIT ->
                         {
-                            callback.onProgress(" [${context.getString(R.string.ble_recv_accept)}]", true)
+                            callback.onProgress(" [${context.getString(R.string.ble_recv_accept)}] ", false)
                             bleStatus = BleConnectionStatus.FINISH
                             wakeupStatus = true
                         }
@@ -317,6 +317,9 @@ class OlympusAirBleCallback(private val context: FragmentActivity, private val c
                 // ---- 切断した
                 callback.onProgress(" ${context.getString(R.string.ble_connect_disconnected)}", true)
                 bleStatus = BleConnectionStatus.UNKNOWN
+
+                // 起動結果を通知
+                callback.wakeupExecuted((wakeupStatus))
             }
             else -> {
                 Log.v(TAG, "onConnectionStateChange(): $status -> $newState")
@@ -345,7 +348,7 @@ class OlympusAirBleCallback(private val context: FragmentActivity, private val c
         try
         {
             Log.v(TAG, "BLE CONNECT SEQUENCE : $bleStatus")
-            wait250ms(1)  //  送信前にちょっと止める
+            wait250ms(2)  //  送信前にちょっと止める
             when (bleStatus)
             {
                 BleConnectionStatus.PASSCODE -> {
@@ -418,8 +421,7 @@ class OlympusAirBleCallback(private val context: FragmentActivity, private val c
                     // 回線を切る
                     gatt?.disconnect()
 
-                    // 起動結果を通知
-                    callback.wakeupExecuted((wakeupStatus))
+
                 }
 
                 else -> {
