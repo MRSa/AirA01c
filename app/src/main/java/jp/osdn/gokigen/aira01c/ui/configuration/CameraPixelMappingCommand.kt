@@ -217,23 +217,23 @@ class CameraPixelMappingCommand(
     }
 
     override fun isVisiblePrevious(): Boolean {
-        return (false)
+        return false
     }
 
     override fun isEnabledPrevious(): Boolean {
-        return (false)
+        return false
     }
 
     override fun isVisibleNext(): Boolean {
-        return (false)
+        return false
     }
 
     override fun isEnableNext(): Boolean {
-        return (false)
+        return false
     }
 
     override fun isEnableClose(): Boolean {
-        return (false)
+        return false
     }
 
     override fun pressedPrevious() {

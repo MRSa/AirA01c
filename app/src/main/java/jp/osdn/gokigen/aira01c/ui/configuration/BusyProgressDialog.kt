@@ -96,7 +96,7 @@ class BusyProgressDialog : DialogFragment(), View.OnClickListener, IBusyProgress
                 {
                     Thread.sleep(COMMAND_ABORT_TIMEOUT)
                 }
-                catch (e: Exception)
+                catch (_: Exception)
                 {
                     Log.v(TAG, " TIMEOUT : ENABLE CLOSE BUTTON")
                 }

@@ -9,6 +9,7 @@ import jp.osdn.gokigen.aira01c.ble.ICameraPowerOn.IPowerOnCameraCallback
 
 class WakeupOlympusAirViaBle(private val context: FragmentActivity, private val device: BluetoothDevice, private val code: String, private val callback: IPowerOnCameraCallback)
 {
+    @Suppress("DEPRECATION")
     @SuppressLint("MissingPermission")
     fun wake() : Boolean
     {
@@ -24,14 +25,14 @@ class WakeupOlympusAirViaBle(private val context: FragmentActivity, private val 
             {
                 // LOLLIPOP より前のOSバージョンでは、起動しない（未サポート）
                 Log.v(TAG, "Prior to api 21 (before Lollipop device) devices do not support a wake up function via BLUETOOTH LE.")
-                return (false)
+                return false
             }
         }
         catch (e: Exception)
         {
             e.printStackTrace()
         }
-        return (true)
+        return true
     }
 
     companion object

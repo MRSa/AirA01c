@@ -202,7 +202,7 @@ class OmdsCameraControlSingleton : IOmdsProtocolNotify, ICameraStatusReceiver, I
         }
         else
         {
-            messageDrawer.appendMessageToShow("$message")
+            messageDrawer.appendMessageToShow(message)
         }
     }
 

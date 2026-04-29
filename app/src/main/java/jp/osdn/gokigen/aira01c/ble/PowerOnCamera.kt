@@ -152,14 +152,14 @@ class PowerOnCamera(private val context: FragmentActivity, private val bleAdapte
             {
                 // デバイスを見つけた
                 Log.v(TAG, " =-=-=-=-= FOUND BLE DEVICE : $targetBleDeviceName ($targetBleDeviceAddress) =-=-=-=-=")
-                return (true)
+                return true
             }
         }
         catch (e: Exception)
         {
             e.printStackTrace()
         }
-        return (false)
+        return false
     }
 
     @SuppressLint("MissingPermission")
@@ -180,7 +180,7 @@ class PowerOnCamera(private val context: FragmentActivity, private val bleAdapte
                 .build()
             val scanFilter = ArrayList<ScanFilter>()
             scanFilter.add(filter)
-            scanner.startScan(scanFilter, settings, scanCallbackApi21)
+            scanner?.startScan(scanFilter, settings, scanCallbackApi21)
         }
         catch (e: Exception)
         {
