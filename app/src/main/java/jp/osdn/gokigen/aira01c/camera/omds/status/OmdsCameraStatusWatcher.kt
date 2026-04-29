@@ -743,10 +743,10 @@ class OmdsCameraStatusWatcher(private val opcEventReceiver: IOpcEventReceive? = 
         }
         currentShutterSpeed = if (numerator > denominator) {
             // 分子が大きい
-            if (denominator == 1)  { String.format("%d\"", numerator) } else { String.format("%.1f\"", (numerator.toFloat() / denominator.toFloat())) }
+            if (denominator == 1)  { String.format(Locale.US, "%d\"", numerator) } else { String.format(Locale.US,"%.1f\"", (numerator.toFloat() / denominator.toFloat())) }
         } else {
             // 分母が大きい
-            if (numerator == 1) { String.format("%d/%d", numerator, denominator) } else {String.format("1/%.1f", (denominator.toFloat() / numerator.toFloat())) }
+            if (numerator == 1) { String.format(Locale.US,"%d/%d", numerator, denominator) } else {String.format(Locale.US,"1/%.1f", (denominator.toFloat() / numerator.toFloat())) }
         }
     }
 
@@ -759,7 +759,7 @@ class OmdsCameraStatusWatcher(private val opcEventReceiver: IOpcEventReceive? = 
         }
 
         val focalValue = ((((buffer[position + 12].toUInt()).toInt() and 0xff) * 16777216)) + (((buffer[position + 13].toUInt()).toInt() and 0xff) * 65536) + (((buffer[position + 14].toUInt()).toInt() and 0xff) * 256) + ((buffer[position + 15].toUInt()).toInt() and 0x00ff)
-        currentAperture = String.format("F%.1f", (focalValue.toFloat() / 10.0f))
+        currentAperture = String.format(Locale.US,"F%.1f", (focalValue.toFloat() / 10.0f))
     }
 
     private fun checkExposureCompensation(buffer: ByteArray?, position: Int, length: Int)
@@ -770,12 +770,8 @@ class OmdsCameraStatusWatcher(private val opcEventReceiver: IOpcEventReceive? = 
             return
         }
 
-        var expRevValue = ((((buffer[position + 12].toUInt()).toInt() and 0xff) * 16777216)) + (((buffer[position + 13].toUInt()).toInt() and 0xff) * 65536) + (((buffer[position + 14].toUInt()).toInt() and 0xff) * 256) + ((buffer[position + 15].toUInt()).toInt() and 0x00ff)
-        if (expRevValue > 2147483647) // 0x7fffffff を超えた場合は、反転
-        {
-            expRevValue = (expRevValue.toLong() - 4294967296).toInt()
-        }
-        currentExpRev = String.format("%+.1f", (expRevValue.toFloat() / 10.0f))
+        val expRevValue = ((((buffer[position + 12].toUInt()).toInt() and 0xff) * 16777216)) + (((buffer[position + 13].toUInt()).toInt() and 0xff) * 65536) + (((buffer[position + 14].toUInt()).toInt() and 0xff) * 256) + ((buffer[position + 15].toUInt()).toInt() and 0x00ff)
+        currentExpRev = String.format(Locale.US,"%+.1f", (expRevValue.toFloat() / 10.0f))
     }
 
     private fun checkIsoSensitivity(buffer: ByteArray?, position: Int, length: Int)

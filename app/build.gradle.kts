@@ -5,14 +5,14 @@ plugins {
 
 android {
     namespace = "jp.osdn.gokigen.aira01c"
-    compileSdk = 35
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "jp.osdn.gokigen.aira01c"
         minSdk = 14
-        targetSdk = 35
-        versionCode = 100202
-        versionName = "1.2.2"
+        targetSdk = 37
+        versionCode = 100203
+        versionName = "1.2.3"
         multiDexEnabled = true
     }
 

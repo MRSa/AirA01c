@@ -107,7 +107,7 @@ class BleDeviceScanner(private val context: FragmentActivity, private val bleAda
                 .build()
             val scanFilter = ArrayList<ScanFilter>()
             scanFilter.add(filter)
-            scanner.startScan(scanFilter, settings, scanCallbackApi21)
+            scanner?.startScan(scanFilter, settings, scanCallbackApi21)
         }
         catch (e: Exception)
         {

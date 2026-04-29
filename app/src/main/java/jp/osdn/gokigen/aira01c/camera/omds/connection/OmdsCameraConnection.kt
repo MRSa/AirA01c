@@ -135,7 +135,7 @@ class OmdsCameraConnection(private val context: FragmentActivity,
                 try {
                     // Wifi 設定画面を表示する
                     context.startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
-                } catch (ex: ActivityNotFoundException) {
+                } catch (_: ActivityNotFoundException) {
                     // Activity が存在しなかった...設定画面が起動できなかった
                     Log.v(TAG, "android.content.ActivityNotFoundException...")
 

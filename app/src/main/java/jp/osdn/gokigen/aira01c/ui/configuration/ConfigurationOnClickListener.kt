@@ -45,7 +45,7 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
                 R.id.btnStandalone02 -> { }
                 R.id.btnStandalone03 -> { }
                 R.id.btnStandalone11 -> { }
-                R.id.btnStandalone01 -> { }
+                R.id.btnStandalone12 -> { }
                 R.id.btnStandalone13 -> { }
                 R.id.btnSdCardReserve -> { }
                 R.id.btnLevelReserve00 -> { }
@@ -116,7 +116,7 @@ class ConfigurationOnClickListener(private val activity: FragmentActivity) : Vie
         {
             e.printStackTrace()
         }
-        return (false)
+        return false
     }
 
     private fun executeFormatSd()

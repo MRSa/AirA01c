@@ -237,7 +237,7 @@ class OlympusAirBleCallback(private val context: FragmentActivity, private val c
             if ((value == null)||(uuid == null))
             {
                 Log.v(TAG, "checkChangedValue(): [$uuid] $value")
-                return (false)
+                return false
             }
             if (uuid == UUID.fromString("59168c27-b5cd-40c7-9ee0-f5ec2e927346"))
             {
@@ -248,17 +248,17 @@ class OlympusAirBleCallback(private val context: FragmentActivity, private val c
                     {
                         // ---- たぶん OK の応答
                         callback.onProgress(" ${context.getString(R.string.ble_recv_accept)} ", false)
-                        return (true)
+                        return true
                     }
                     // ===== たぶん NGの応答
                     callback.onProgress(" ${context.getString(R.string.ble_recv_error)} ", false)
-                    return (true)
+                    return true
                 }
                 catch (ee: Exception)
                 {
                     ee.printStackTrace()
                 }
-                return (false)
+                return false
             }
             if (uuid == UUID.fromString("d15464da-de00-41d4-bec8-7c2b2cc8b2ee"))
             {
@@ -439,19 +439,15 @@ class OlympusAirBleCallback(private val context: FragmentActivity, private val c
         }
     }
 
-    private fun wait250ms(count: Int)
+    private fun wait250ms(count: Int) = try
     {
-        try
-        {
-            for (index in 0..count)
-            {
-                Thread.sleep(WAIT_250MS)
-            }
+        (0..count).forEach { _ ->
+            Thread.sleep(WAIT_250MS)
         }
-        catch (e: Exception)
-        {
-            e.printStackTrace()
-        }
+    }
+    catch (e: Exception)
+    {
+        e.printStackTrace()
     }
 
     private enum class BleConnectionStatus { UNKNOWN, PREPARE, PREPARE2, PASSCODE, WAKEUP, WAKEUP_WAIT, FINISH }
