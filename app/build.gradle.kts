@@ -5,14 +5,18 @@ plugins {
 
 android {
     namespace = "jp.osdn.gokigen.aira01c"
-    compileSdk = 37
+    compileSdk {
+        version = release(37) {
+            minorApiLevel = 0
+        }
+    }
 
     defaultConfig {
         applicationId = "jp.osdn.gokigen.aira01c"
         minSdk = 14
         targetSdk = 37
-        versionCode = 100203
-        versionName = "1.2.3"
+        versionCode = 100204
+        versionName = "1.2.4"
         multiDexEnabled = true
     }
 
@@ -26,11 +30,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     buildFeatures {
         viewBinding = true
