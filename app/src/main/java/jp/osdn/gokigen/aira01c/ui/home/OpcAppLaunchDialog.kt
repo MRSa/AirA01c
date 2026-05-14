@@ -127,6 +127,11 @@ class OpcAppLaunchDialog: DialogFragment(), View.OnClickListener
             /**/
 
             // ---------------------------------------------------
+            if (checkIsApplicationInstalled("jp.osdn.gokigen.aira01d")) {
+                adapter.add("AirA01b")
+                installedApplicationList.add(TargetApplicationInfo("AirA01d", "jp.osdn.gokigen.aira01d", "jp.osdn.gokigen.aira01d.MainActivity"))
+            }
+
             if (checkIsApplicationInstalled("jp.osdn.gokigen.aira01b")) {
                 adapter.add("AirA01b")
                 installedApplicationList.add(TargetApplicationInfo("AirA01b", "jp.osdn.gokigen.aira01b", "jp.osdn.gokigen.aira01b.MainActivity"))

@@ -15,8 +15,8 @@ android {
         applicationId = "jp.osdn.gokigen.aira01c"
         minSdk = 14
         targetSdk = 37
-        versionCode = 100204
-        versionName = "1.2.4"
+        versionCode = 100205
+        versionName = "1.2.5"
         multiDexEnabled = true
     }
 
