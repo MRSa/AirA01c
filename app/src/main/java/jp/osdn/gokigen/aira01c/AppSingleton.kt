@@ -1,10 +1,10 @@
 package jp.osdn.gokigen.aira01c
 
-import android.app.Application
 import android.util.Log
+import androidx.multidex.MultiDexApplication
 import jp.osdn.gokigen.aira01c.camera.omds.OmdsCameraControlSingleton
 
-class AppSingleton : Application()
+class AppSingleton : MultiDexApplication()
 {
     override fun onCreate()
     {
