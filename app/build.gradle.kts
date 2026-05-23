@@ -15,8 +15,8 @@ android {
         applicationId = "jp.osdn.gokigen.aira01c"
         minSdk = 14
         targetSdk = 37
-        versionCode = 100205
-        versionName = "1.2.5"
+        versionCode = 100204
+        versionName = "1.2.4"
         multiDexEnabled = true
     }
 
@@ -39,6 +39,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.startup)
+    implementation(libs.androidx.multidex)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
